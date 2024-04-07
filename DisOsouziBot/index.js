@@ -408,7 +408,7 @@ client.on('interactionCreate', async interaction => {
         }
       })
       .catch(error => {
-        console.error('エラーが発生しました：',error);
+        console.error('Failed to await modal submit',error);
       });  
 
   }
@@ -536,7 +536,6 @@ const userMessageCounts = new Map();
 const globalMessageQueue = [];
 const userLastMessageTimes = new Map();
 
-// キューからメッセージを取り出して送信する関数
 async function sendQueuedMessage() {
   const message = globalMessageQueue.shift();
   if (message) {
@@ -614,14 +613,7 @@ client.on('messageCreate', async message => {
         if (containsToken) {
           userTokenViolationCount = userTokenViolationCount ? userTokenViolationCount + 1 : 1;
           await userTokenViolations.set(message.author.id, userTokenViolationCount);
-          if (userTokenViolationCount >= 3) {
-            const embed = new EmbedBuilder()
-              .setAuthor({ name: '❌｜エラー' })
-              .setDescription(`あなたは3回以上Token類似文字列を含むメッセージを送信したため、\nグローバルチャットにメッセージは転送されません。`)
-              .setColor('#ff0000');
-            message.channel.send({ content: `<@${message.author.id}>`, embeds: [embed] });
-            return;
-          } else {
+          if (userTokenViolationCount < 3) {
             const embed = new EmbedBuilder()
               .setAuthor({ name: '❌｜警告' })
               .setDescription(`Token類似文字列を含むメッセージは送信できません。\n3回以上グローバルチャットにToken類似文字列を送信した場合、\nあなたはグローバルチャットが使用不可能になります。`)
