@@ -256,9 +256,6 @@ client.on('interactionCreate', async interaction => {
   }
 });
 
-// モーダルウィンドウのIDをキーとして、そのモーダルウィンドウが開いているかどうかを保持するオブジェクト
-const modalStatus = {};
-
 //計算認証
 client.on('interactionCreate', async interaction => {
   if (!interaction.isButton()) return;
@@ -357,7 +354,6 @@ client.on('interactionCreate', async interaction => {
 
     try {
       await interaction.showModal(modal);
-      modalStatus[modalId] = true;
     } catch (error) {
       console.error('Failed to show modal:', error);
       const embed = new EmbedBuilder()
@@ -410,11 +406,9 @@ client.on('interactionCreate', async interaction => {
             .setColor('#ff0000');
           await mInteraction.reply({ embeds: [embed], ephemeral: true });
         }
-        modalStatus[modalId] = false;
       })
       .catch(error => {
-        console.error('Failed to await modal submit');
-        modalStatus[modalId] = false;
+        console.error('エラーが発生しました：',error);
       });  
 
   }
@@ -681,19 +675,19 @@ client.on('messageCreate', async message => {
 //入退室ログ
 client.on("guildMemberAdd", member => {
   if (member.user.bot) return;
-  if (member.guild.id !== "your_guildid") return;
-  member.guild.channels.cache.get("your_channelid").send(`${member.user}さん、${member.guild.name}へようこそ！`);
+  if (member.guild.id !== "1157575317196648458") return;
+  member.guild.channels.cache.get("1160503607548977222").send(`${member.user}さん、${member.guild.name}へようこそ！`);
 });
 
 client.on("guildMemberAdd", member => {
-  if (member.guild.id !== "your_guildid") return;
-  member.guild.channels.cache.get("your_channelid").send(`${member.user}さん、${member.guild.name}へようこそ！\n(your_channelid) で認証することで、会話に参加できます`);
+  if (member.guild.id !== "1199944982090481714") return;
+  member.guild.channels.cache.get("1199944983092924441").send(`${member.user}さん、${member.guild.name}へようこそ！\nhttps://discord.com/channels/1199944982090481714/1199944983092924439 で認証することで、会話に参加できます`);
 });
 
 //曜日表示
 const days = ['日', '月', '火', '水', '木', '金', '土'];
 client.on('ready', () => {
-    let channel = client.channels.cache.get('your_channelid');
+    let channel = client.channels.cache.get('1204703379553779712');
     setInterval(() => {
         let date = new Date();
         let day = days[date.getDay()];
@@ -704,8 +698,8 @@ client.on('ready', () => {
 });
 
 // チャンネルIDとサーバーIDを指定
-const channelId = 'your_channelid';
-const guildId = 'your_guildid';
+const channelId = '1204827658441982053';
+const guildId = '1199944982090481714';
 
 // メンバーがサーバーに参加または退出したときに実行されるイベント
 client.on('guildMemberAdd', updateMemberCount);
