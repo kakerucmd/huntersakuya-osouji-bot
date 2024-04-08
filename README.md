@@ -16,8 +16,7 @@ https://discord.com/oauth2/authorize?client_id=1175248665972060160&permissions=8
 
 「/earthquake」：地震情報を表示
 
-「/avatar user:」：指定したユーザーのavatarURLを表示
-　(指定しない場合コマンド実行者のavatarURLを表示)
+「/avatar user:」：指定したユーザーのアバターを表示
 
 「/omikuji num:」：指定した回数(最大10回)おみくじをします
 
@@ -31,8 +30,7 @@ https://discord.com/oauth2/authorize?client_id=1175248665972060160&permissions=8
 
 「/quiz question: answer: minutes: seconds:」：クイズのタイトル、答え、制限時間を入力するとクイズができます。
 
-「/shorturl url:」
-：入力した【https://】から始まるURLを短縮URLにします
+「/shorturl url:」：入力した【https://】から始まるURLを短縮URLにします
 
 「/5000choyen」：5000兆円ジェネレーターを使用します
 
@@ -43,27 +41,20 @@ https://discord.com/oauth2/authorize?client_id=1175248665972060160&permissions=8
 「/level user:」：指定したユーザーの現在のレベルを表示します
 　(/settogglelevelでレベル機能を有効化できます)
 
-「/roulette words:」
-：ルーレットをします。
-　wordの選択肢にルーレットで使用するワードをカンマ(,)で
-　区切って入力して実行してください
+「/roulette words:」：ルーレットをします。
 
-「/highlow rounds:」
-：指定した回数ハイ＆ローをします。
+「/highlow rounds:」：指定した回数ハイ＆ローをします。
 　最初に1~10までのランダムな数字が生成されるので、
 　その次に生成される数字が最初に生成された数字より
 　高い(high)か、低い(low)か、同じ(draw)を当ててください。
 
-「/timeout user: duration:」
-：指定したユーザーをタイムアウトします
+「/timeout user: duration:」：指定したユーザーをタイムアウトします
 　(ユーザーをタイムアウトする権限(MuteMembers)がないと表示されない)
 
-「/kick user: reason:」
-：指定したユーザーをKickします
+「/kick user: reason:」：指定したユーザーをKickします
 　(ユーザーをKickする権限(KickMembers)がないと表示されない)
 
-「/ban user: reason:」
-：指定したユーザーをBanします
+「/ban user: reason:」：指定したユーザーをBanします
 　(ユーザーをBanする権限(BanMembers)がないと表示されない)
 
 「/createverifypanel verifyformat: role: title: button-name:」：指定した形式の認証パネルを作成します
