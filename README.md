@@ -39,7 +39,7 @@ https://discord.com/oauth2/authorize?client_id=1175248665972060160&permissions=8
 「/raitai_enemy_l1」：擂台のエネミー(L1)を表示します(現在無効化されています)
 
 「/level user:」：指定したユーザーの現在のレベルを表示します
-　(/settogglelevelでレベル機能を有効化できます)
+(/settogglelevelでレベル機能を有効化できます)
 
 「/roulette words:」：ルーレットをします。
 
@@ -52,39 +52,39 @@ https://discord.com/oauth2/authorize?client_id=1175248665972060160&permissions=8
 　(ユーザーをタイムアウトする権限(MuteMembers)がないと表示されない)
 
 「/kick user: reason:」：指定したユーザーをKickします
-　(ユーザーをKickする権限(KickMembers)がないと表示されない)
+(ユーザーをKickする権限(KickMembers)がないと表示されない)
 
 「/ban user: reason:」：指定したユーザーをBanします
-　(ユーザーをBanする権限(BanMembers)がないと表示されない)
+(ユーザーをBanする権限(BanMembers)がないと表示されない)
 
 「/createverifypanel verifyformat: role: title: button-name:」：指定した形式の認証パネルを作成します
-　(管理者権限(Administrator)がないと表示されない)
+(管理者権限(Administrator)がないと表示されない)
 
 「/createrolepanel role1: role2: role3:..(省略) title: button-name:」：ロールパネルを作成します
-　(管理者権限(Administrator)がないと表示されない)
+(管理者権限(Administrator)がないと表示されない)
 
 「/setlevel user: level」：指定したユーザーのレベルを指定します
-　(管理者権限(Administrator)がないと表示されない)
+(管理者権限(Administrator)がないと表示されない)
 
 「/getallsettings」：お掃除上方修正しろbotのこのサーバーでのすべての設定を取得します
-　(管理者権限(Administrator)がないと表示されない)
+(管理者権限(Administrator)がないと表示されない)
 
 「/settogglelevel enable: channel: message:」：レベル機能の設定をします。
 　通知するメッセージ(message)内に{user.name}{user}{level}を含めると、
 　それぞれユーザー名、ユーザーメンション、現在のレベルになります。
-　(管理者権限(Administrator)がないと表示されない)
+ (管理者権限(Administrator)がないと表示されない)
 
 「/settoggleleave enable: channel:」：即抜けの通知を有効化するか設定します
-　(管理者権限(Administrator)がないと表示されない)
+(管理者権限(Administrator)がないと表示されない)
 
 「/setinappdel enable:True words: channel:」：不適切な発言の自動削除の設定をします
 (管理者権限(Administrator)がないと表示されない)
 
 「/setosoujireply enable:」：「お掃除」などの単語に対して反応する機能を有効にするか設定します
-　(管理者権限(Administrator)がないと表示されない)
+(管理者権限(Administrator)がないと表示されない)
 
 「/setglobalchat channel:」：指定したチャンネルのグローバルチャット機能を設定します
-　(管理者権限(Administrator)がないと表示されない)
+(管理者権限(Administrator)がないと表示されない)
 
 何か追加してほしい機能がありましたらサポートサーバーまでお願いします
 
