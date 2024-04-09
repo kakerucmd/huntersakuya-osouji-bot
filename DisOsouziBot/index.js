@@ -667,19 +667,19 @@ client.on('messageCreate', async message => {
 //入退室ログ
 client.on("guildMemberAdd", member => {
   if (member.user.bot) return;
-  if (member.guild.id !== "1157575317196648458") return;
-  member.guild.channels.cache.get("1160503607548977222").send(`${member.user}さん、${member.guild.name}へようこそ！`);
+  if (member.guild.id !== "your_guildid") return;
+  member.guild.channels.cache.get("your_channelid").send(`${member.user}さん、${member.guild.name}へようこそ！`);
 });
 
 client.on("guildMemberAdd", member => {
-  if (member.guild.id !== "1199944982090481714") return;
-  member.guild.channels.cache.get("1199944983092924441").send(`${member.user}さん、${member.guild.name}へようこそ！\nhttps://discord.com/channels/1199944982090481714/1199944983092924439 で認証することで、会話に参加できます`);
+  if (member.guild.id !== "your_guildid") return;
+  member.guild.channels.cache.get("your_channelid").send(`${member.user}さん、${member.guild.name}へようこそ！\n(channelurl) で認証することで、会話に参加できます`);
 });
 
 //曜日表示
 const days = ['日', '月', '火', '水', '木', '金', '土'];
 client.on('ready', () => {
-    let channel = client.channels.cache.get('1204703379553779712');
+    let channel = client.channels.cache.get('your_channelid');
     setInterval(() => {
         let date = new Date();
         let day = days[date.getDay()];
@@ -688,25 +688,6 @@ client.on('ready', () => {
             .catch(console.error);
     }, 600000); // 5分ごとに更新
 });
-
-// チャンネルIDとサーバーIDを指定
-const channelId = '1204827658441982053';
-const guildId = '1199944982090481714';
-
-// メンバーがサーバーに参加または退出したときに実行されるイベント
-client.on('guildMemberAdd', updateMemberCount);
-client.on('guildMemberRemove', updateMemberCount);
-
-// メンバー数を更新する関数
-function updateMemberCount() {
-  // サーバーとチャンネルを取得
-  const guild = client.guilds.cache.get(guildId);
-  const channel = guild.channels.cache.get(channelId);
-
-  // メンバー数を取得してチャンネル名を更新
-  const memberCount = guild.memberCount;
-  channel.setName(`メンバー数: ${memberCount}`);
-}
 
 //helpコマンドのボタン処理
 client.on('interactionCreate', async interaction => {
