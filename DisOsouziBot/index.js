@@ -572,12 +572,14 @@ async function sendQueuedMessage() {
               files: files,
               username: `${message.author.username} (${message.guild.name}から送信)`,
               avatarURL: message.author.displayAvatarURL()
+            }).then(() => {
+              message.react('✅');
             }).catch(async error => {
               console.error(`Webhookへのメッセージ送信中にエラーが発生しました: ${error}\nWebhookURL：${webhookURL}`);
               const channels = await globalchannels.get('globalchannels');
               delete channels[id];
               await globalchannels.set('globalchannels', channels);
-            });                      
+            });         
             
           } catch (error) {
             console.error(`エラーが発生しました: ${error}`);
