@@ -531,10 +531,12 @@ client.on('guildMemberRemove', async member => {
 
 const globalchannels = new Keyv('sqlite://db.sqlite', { table: 'globalchannels' });
 const userTokenViolations = new Keyv('sqlite://db.sqlite', { table: 'TokenViolations' });
+const userSpamCounts = new Keyv('sqlite://db.sqlite', { table: 'SpamCounts' });
 const userMessageTimestamps = new Map();
 const userMessageCounts = new Map();
 const globalMessageQueue = [];
 const userLastMessageTimes = new Map();
+const userPenaltyTimestamps = new Map();
 
 async function sendQueuedMessage() {
   const message = globalMessageQueue.shift();
@@ -579,7 +581,9 @@ async function sendQueuedMessage() {
               const channels = await globalchannels.get('globalchannels');
               delete channels[id];
               await globalchannels.set('globalchannels', channels);
-            });         
+              message.react('❌');
+            });
+                                
             
           } catch (error) {
             console.error(`エラーが発生しました: ${error}`);
@@ -600,14 +604,28 @@ client.on('messageCreate', async message => {
       if (channels && channels[message.channel.id]) {
 
         let userTokenViolationCount = await userTokenViolations.get(message.author.id);
-        if (userTokenViolationCount && userTokenViolationCount >= 3) {
+        let userSpamCount = await userSpamCounts.get(message.author.id);
+
+        if (userTokenViolationCount >= 3) {
           const embed = new EmbedBuilder()
             .setAuthor({ name: '❌｜エラー' })
             .setDescription(`あなたは3回以上Token類似文字列を含むメッセージを送信したため、\nグローバルチャットにメッセージは転送されません。`)
             .setColor('#ff0000');
             message.channel.send({ content: `<@${message.author.id}>`, embeds: [embed] });
+          message.react('❌');
           return;
         }
+
+        if (userSpamCount >= 3) {
+          const embed = new EmbedBuilder()
+            .setAuthor({ name: '❌｜エラー' })
+            .setDescription(`あなたは3回以上スパムを行ったため、\nグローバルチャットにメッセージは転送されません。`)
+            .setColor('#ff0000');
+            message.channel.send({ content: `<@${message.author.id}>`, embeds: [embed] });
+          message.react('❌');
+          return;
+        }
+
         const now = Date.now();
         userLastMessageTimes.set('global', now);
 
@@ -621,6 +639,7 @@ client.on('messageCreate', async message => {
               .setDescription(`Token類似文字列を含むメッセージは送信できません。\n3回以上グローバルチャットにToken類似文字列を送信した場合、\nあなたはグローバルチャットが使用不可能になります。`)
               .setColor('#ff0000');
             message.channel.send({ content: `<@${message.author.id}>`, embeds: [embed] });
+            message.react('❌');
             return;
           }
         }
@@ -631,29 +650,32 @@ client.on('messageCreate', async message => {
           const userCountKey = `${message.author.id}`;
           const messageCount = userMessageCounts.get(userCountKey) || 0;
           userMessageCounts.set(userCountKey, messageCount + 1);
-          if (lastMessageTimestamp && (now - lastMessageTimestamp) < 5000) {
+          if (messageCount >= 4 && (now - lastMessageTimestamp) < 10000) {
+            userSpamCount = userSpamCount ? userSpamCount + 1 : 1;
+            await userSpamCounts.set(message.author.id, userSpamCount);
             const embed = new EmbedBuilder()
               .setAuthor({ name: '⚠️｜スパム対策' })
-              .setDescription(`スパムすることはできません。\nスパムされたメッセージは転送されませんでした。`)
-              .setColor('#ffcc00');
-              message.channel.send({ content: `<@${message.author.id}>`, embeds: [embed] });
-            return;
-          }
-          if (messageCount >= 4 && (now - lastMessageTimestamp) < 10000) {
-            const embed = new EmbedBuilder()
-              .setAuthor({ name: '❌｜スパム対策' })
               .setDescription(`スパムが検出されました。\n1分間メッセージの転送が停止されます。`)
               .setColor('#ff0000');
-              
             message.channel.send({ content: `<@${message.author.id}>`, embeds: [embed] });
+            message.react('❌');
+            userPenaltyTimestamps.set(message.author.id, now);
             setTimeout(() => {
               userMessageCounts.delete(userCountKey);
             }, 60000);
             return;
           }
+          
           setTimeout(() => {
             userMessageTimestamps.delete(userKey);
           }, 5000);
+
+          const penaltyTimestamp = userPenaltyTimestamps.get(message.author.id);
+          if (penaltyTimestamp && now - penaltyTimestamp < 60000) {
+            message.react('❌');
+            return;
+          }
+          
           globalMessageQueue.push(message);
           if (globalMessageQueue.length === 1) {
             sendQueuedMessage();
