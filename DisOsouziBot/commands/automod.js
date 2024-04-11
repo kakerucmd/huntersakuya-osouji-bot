@@ -17,7 +17,7 @@ module.exports = {
         switch (sub) {
             case 'flagged-words':
             
-            await interaction.reply({ content: `Loading your autmod rule...` })
+            await interaction.reply({ content: `Loading your automod rule...` })
 
             const rule = await guild.autoModerationRules.create({
                 name: `Block profanity, sexual content, and siurs by お掃除上方修正しろbot`,
@@ -61,7 +61,7 @@ module.exports = {
 
             case 'keyword':
 
-            await interaction.reply({ content: `Loading your autmod rule...` })
+            await interaction.reply({ content: `Loading your automod rule...` })
             const word = options.getString('word');
 
             const rule2 = await guild.autoModerationRules.create({
@@ -106,7 +106,7 @@ module.exports = {
 
             case 'spam-messages':
 
-            await interaction.reply({ content: `Loading your autmod rule...` })
+            await interaction.reply({ content: `Loading your automod rule...` })
 
             const rule3 = await guild.autoModerationRules.create({
                 name: `Prevent spam messages by お掃除上方修正しろbot`,
@@ -150,7 +150,7 @@ module.exports = {
 
             case 'mention-spam':
 
-            await interaction.reply({ content: `Loading your autmod rule...` })
+            await interaction.reply({ content: `Loading your automod rule...` })
             const number = options.getInteger('number');
 
             const rule4 = await guild.autoModerationRules.create({
