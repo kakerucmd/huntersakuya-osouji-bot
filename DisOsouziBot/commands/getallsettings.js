@@ -2,7 +2,6 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const { EmbedBuilder, PermissionsBitField } = require('discord.js');
 const Keyv = require('keyv');
 
-const setinappdel = new Keyv('sqlite://db.sqlite', { table: 'setinappdel' });
 const toggleleave = new Keyv('sqlite://db.sqlite', { table: 'toggleleave' });
 const leaveChannel = new Keyv('sqlite://db.sqlite', { table: 'leaveChannel' });
 const osouzireply = new Keyv('sqlite://db.sqlite', { table: 'osouzireply' });
@@ -19,7 +18,6 @@ module.exports = {
 
         const guildId = interaction.guild.id;
 
-        const setinappdelValue = await setinappdel.get(guildId);
         const toggleleaveValue = await toggleleave.get(guildId);
         const leaveChannelValue = await leaveChannel.get(guildId);
         const osouzireplyValue = await osouzireply.get(guildId);
@@ -31,7 +29,6 @@ module.exports = {
             .setColor('#0099ff')
             .addFields(
                 { name: 'お掃除などの単語に対する自動返信', value: osouzireplyValue ? '有効' : '無効' },
-                { name: '不適切な発言のお掃除', value: setinappdelValue ? '有効' : '無効' },
                 { name: 'レベル機能', value: levelsettingsValue ? `有効、<#${channelsValue}>に通知を送信` : '無効' },
                 { name: '即抜けの通知', value: toggleleaveValue ? `有効、<#${leaveChannelValue}>に通知を送信` : '無効' }
             );
