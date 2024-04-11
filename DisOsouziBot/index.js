@@ -411,57 +411,7 @@ client.on('interactionCreate', async interaction => {
   }
 });
 
-// 不適切な発言の自動削除
-client.on('messageCreate', async message => {
-  try {
-    if (message.author.bot) return;
-
-    const isEnabled = await setinappdel.get(message.guild.id);
-    if (!isEnabled) return;
-
-    const badWords = await badwords.get(message.guild.id);
-    if (!badWords) return;
-
-    if (badWords.some(word => message.content.includes(word))) {
-      var improper = String(message.content);
-
-      const embed = new EmbedBuilder()
-        .setTitle('不適切な発言が含まれていたので、お掃除しました。')
-        .setAuthor({
-          name: `${message.author.username}`,
-          iconURL: `${message.author.displayAvatarURL()}`
-        })
-        .setThumbnail('https://cdn.discordapp.com/avatars/1175248665972060160/ef2f2557ae2989b7635cd7ead0702240.webp?size=1024&format=webp')
-        .setFields(
-          {
-            name: 'お掃除...？お掃除上方修正しろ！！',
-            value:`削除されたメッセージ:||${improper}||`
-          },
-          {
-            name: '不適切なメッセージを送信した人',
-            value:`<@${message.author.id}>`
-          }
-        )
-        .setColor('#FF0000')
-        .setTimestamp()
-
-    const channelId = await notifychannel.get(message.guild.id);
-    if (channelId) {
-      const channel = client.channels.cache.get(channelId);
-      if (channel) {
-        channel.send({ embeds: [embed] });
-      }
-    }
-
-    message.delete({ timeout: 1000 });
-  }
-  } catch (error) {
-    console.error(`エラーが発生しました: ${error}`);
-  }
-});
-
 //レベルの保存&通知
-
 //レベルの上限を設定
 const MAX_LEVEL = 111;
 const EXP_PER_LEVEL = 10; // レベルごとに必要な経験値
