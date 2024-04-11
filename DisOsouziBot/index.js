@@ -30,9 +30,6 @@ const client = new Client({
 const prefix = "os#";
 
 const verify = new Keyv('sqlite://db.sqlite');
-const setinappdel = new Keyv('sqlite://db.sqlite', { table: 'setinappdel' });
-const badwords = new Keyv('sqlite://db.sqlite', { table: 'badwords' });
-const notifychannel = new Keyv('sqlite://db.sqlite', { table: 'notifychannel' });
 const levelsettings = new Keyv('sqlite://db.sqlite', { table: 'levelsettings' });
 const levels = new Keyv('sqlite://db.sqlite', { table: 'levels' });
 const messages = new Keyv('sqlite://db.sqlite', { table: 'levelmessages' });
