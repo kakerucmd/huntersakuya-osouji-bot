@@ -748,9 +748,9 @@ client.on('interactionCreate', async interaction => {
                         '\n\n' +
                         '**/settoggleleave**：即抜けの通知を有効化するか設定します(管理者権限が必要)' +
                         '\n\n' +
-                        '**/setinappdel**：不適切な発言の自動削除を設定します(管理者権限が必要)' +
+                        '**/automod**：automodを設定します(管理者権限が必要)' +
                         '\n\n' +
-                        '**/setosoujireply**：「お掃除」などの単語に対して反応する機能を有効にするか設定します(管理者権限が必要)');
+                        '「flagged-words」「keyword」「mention-spam」「spam-messages」' );
     await interaction.update({ embeds: [embed] });
     } catch (err) {
       return interaction.reply({ content: 'エラーが発生しました。', ephemeral: true });
