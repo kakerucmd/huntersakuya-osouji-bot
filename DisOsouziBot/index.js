@@ -749,7 +749,7 @@ client.on('interactionCreate', async interaction => {
                         '**/settoggleleave**：即抜けの通知を有効化するか設定します(管理者権限が必要)' +
                         '\n\n' +
                         '**/automod**：automodを設定します(管理者権限が必要)' +
-                        '\n\n' +
+                        '\n' +
                         '「flagged-words」「keyword」「mention-spam」「spam-messages」' );
     await interaction.update({ embeds: [embed] });
     } catch (err) {
