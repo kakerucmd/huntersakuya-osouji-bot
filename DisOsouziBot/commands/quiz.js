@@ -59,8 +59,16 @@ module.exports = {
         });
         collector.on('end', async (_, reason) => {
             if (reason === 'time') {
-                await questionMessage.reply('時間切れです。正解は ' + answer + ' でした。').catch(console.error);
+                try {
+                    await questionMessage.reply('時間切れです。正解は ' + answer + ' でした。');
+                } catch (error) {
+                    try {
+                        await interaction.channel.send('時間切れです。正解は ' + answer + ' でした。');
+                    } catch (error) {
+                        console.error(error);
+                    }
+                }
             }
-        });
+        });        
     },
 };
