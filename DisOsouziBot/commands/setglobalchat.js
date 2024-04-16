@@ -25,12 +25,10 @@ module.exports = {
         const channel = interaction.options.getChannel('channel');
         const enable = interaction.options.getBoolean('enable');
 
-        // チャンネルIDとWebhook URLをKeyvに保存します
         const channels = await globalchannels.get('globalchannels') || {};
 
         if (enable) {
             try {
-                // Webhookを作成
                 const webhook = await channel.createWebhook({name: "Global chat Webhook"});
                 channels[channel.id] = webhook.url;
                 const embed = new EmbedBuilder()
@@ -39,7 +37,6 @@ module.exports = {
                      .setColor('#00ff00');
                 await interaction.editReply({ embeds: [embed], ephemeral: true });
 
-                // 低速モードを設定
                 await channel.setRateLimitPerUser(5)
             } catch (error) {
                 const embed = new EmbedBuilder()
@@ -49,13 +46,20 @@ module.exports = {
                 return interaction.editReply({ embeds: [embed], ephemeral: true });
             }
         } else {
+            if (!channels[channel.id]) {
+                const embed = new EmbedBuilder()
+                    .setAuthor({ name: '❌｜エラー' })
+                    .setDescription(`グローバルチャットが${channel}で有効化されていません。`)
+                    .setColor('#ff0000');
+                await interaction.editReply({ embeds: [embed], ephemeral: true });
+                return;
+            }
             delete channels[channel.id];
             const embed = new EmbedBuilder()
                 .setAuthor({ name: '✅｜操作に成功' })
                 .setDescription(`グローバルチャットが${channel}で無効化されました。\n${channel}のグローバルチャット用Webhookは削除して大丈夫です。`)
                 .setColor('#00ff00');
             await interaction.editReply({ embeds: [embed], ephemeral: true });
-            // 低速モードを解除
             await channel.setRateLimitPerUser(0);
         }
 
