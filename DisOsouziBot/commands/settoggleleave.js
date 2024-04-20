@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { PermissionsBitField, ChannelType } = require('discord.js');
+const { EmbedBuilder, PermissionsBitField, ChannelType } = require('discord.js');
 const Keyv = require('keyv');
 
 const toggleleave = new Keyv('sqlite://db.sqlite', { table: 'toggleleave' });
@@ -21,16 +21,28 @@ module.exports = {
                 .addChannelTypes(ChannelType.GuildText)
                 .setRequired(false)),
     async execute(interaction) {
+      try {
 
         const enable = interaction.options.getBoolean('enable');
         const channel = interaction.options.getChannel('channel');
         if (enable && !channel) {
-            return interaction.reply({ content: '通知を送信するチャンネルを指定してください。', ephemeral: true });
+            const embed = new EmbedBuilder()
+                .setAuthor({ name: '❌｜エラー' })
+                .setDescription('通知を送信するチャンネルを指定してください。')
+                .setColor('#ff0000');
+            return interaction.reply({ embeds: [embed], ephemeral: true });
         }
         await toggleleave.set(interaction.guild.id, enable);
         if (channel) {
             await leaveChannel.set(interaction.guild.id, channel.id);
         }
-        return interaction.reply({ content: `即抜け通知機能が${enable ? '有効化' : '無効化'}されました。${channel ? `通知は <#${channel.id}> に送られます。` : ''}`, ephemeral: true });
+        const embed = new EmbedBuilder()
+            .setAuthor({ name: '✅｜成功' })
+            .setDescription(`即抜け通知機能が${enable ? '有効化' : '無効化'}されました。\n${channel ? `通知は <#${channel.id}> に送られます。` : ''}`)
+            .setColor('#00ff00');
+        return interaction.reply({ embeds: [embed], ephemeral: true });
+      } catch (error) {
+        console.error(`エラーが発生しました: ${error}`);
+      }
     },
 };
