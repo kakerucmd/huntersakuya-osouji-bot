@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { PermissionsBitField } = require('discord.js');
+const { PermissionsBitField, ChannelType } = require('discord.js');
 const Keyv = require('keyv');
 
 const toggleleave = new Keyv('sqlite://db.sqlite', { table: 'toggleleave' });
@@ -18,6 +18,7 @@ module.exports = {
         .addChannelOption(option =>
             option.setName('channel')
                 .setDescription('通知を送るチャンネルを選択します')
+                .addChannelTypes(ChannelType.GuildText)
                 .setRequired(false)),
     async execute(interaction) {
 
