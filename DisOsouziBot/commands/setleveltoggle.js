@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { PermissionsBitField, ChannelType } = require('discord.js');
+const { EmbedBuilder, PermissionsBitField, ChannelType } = require('discord.js');
 const Keyv = require('keyv');
 
 const levelsettings = new Keyv('sqlite://db.sqlite', { table: 'levelsettings' });
@@ -27,7 +27,6 @@ module.exports = {
           .setRequired(false)),
     async execute(interaction) {
       try {
-
         const enable = interaction.options.getBoolean('enable');
         const channel = interaction.options.getChannel('channel');
         const message = interaction.options.getString('message');
@@ -38,7 +37,13 @@ module.exports = {
         if (message) {
           await messages.set(interaction.guild.id, message);
         }
-        return interaction.reply({ content: `レベル機能が${enable ? '有効化' : '無効化'}されました。${channel ? `通知は <#${channel.id}> に送られます。` : ''}${message ? `メッセージは "${message}" に設定されました。` : ''}`, ephemeral: true });
+
+        const embed = new EmbedBuilder()
+        .setAuthor({ name: '✅｜成功' })
+        .setDescription(`レベル機能が${enable ? '有効化' : '無効化'}されました。\n${channel ? `通知は <#${channel.id}> に送られます。` : ''}\n${message ? `通知するメッセージは "${message}" に設定されました。` : ''}`)
+        .setColor('#00ff00');
+
+        return interaction.reply({ embeds: [embed], ephemeral: true });
       } catch (error) {
         console.error(`エラーが発生しました: ${error}`);
       }
