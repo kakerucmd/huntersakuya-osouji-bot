@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { EmbedBuilder, PermissionsBitField } = require('discord.js');
+const { EmbedBuilder, PermissionsBitField, ChannelType } = require('discord.js');
 const Keyv = require('keyv');
 
 const globalchannels = new Keyv('sqlite://db.sqlite', { table: 'globalchannels' });
@@ -17,6 +17,7 @@ module.exports = {
         .addChannelOption(option =>
             option.setName('channel')
                 .setDescription('有効化/無効化するチャンネル')
+                .addChannelTypes(ChannelType.GuildText)
                 .setRequired(true)),
     async execute(interaction) {
 
