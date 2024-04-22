@@ -1,0 +1,69 @@
+const { SlashCommandBuilder } = require('@discordjs/builders');
+const { EmbedBuilder } = require('discord.js');
+const Keyv = require('keyv');
+const levels = new Keyv('sqlite://db.sqlite', { table: 'levels' });
+const levelsettings = new Keyv('sqlite://db.sqlite', { table: 'levelsettings' });
+const EXP_PER_LEVEL = 10; // レベルごとに必要な経験値
+const MAX_LEVEL = 111; // レベルの上限を設定
+
+module.exports = {
+    data: new SlashCommandBuilder()
+      .setName('level_ranking')
+      .setDescription('実行したサーバーのレベルランキングを表示します')
+      .setDMPermission(false),
+    async execute(interaction) {
+        await interaction.deferReply();
+        const isEnabled = await levelsettings.get(interaction.guild.id);
+        if (!isEnabled) { 
+          return interaction.editReply({ content: 'このサーバーではレベル機能が有効になっていません。', ephemeral: true });
+        } 
+        const members = await interaction.guild.members.fetch();
+        const levelData = await Promise.all(members.map(async member => {
+            if (member.user.bot) return null;
+            const key = `${member.id}-${interaction.guild.id}`; 
+            const level = (await levels.get(key)) || { count: 0, level: 1 };
+            const totalExp = ((level.level - 1) * (level.level) / 2) * EXP_PER_LEVEL + level.count; // 総経験値を計算
+            return { user: member.user, level, totalExp };
+        }));
+        const filteredLevelData = levelData.filter(data => data !== null);
+        filteredLevelData.sort((a, b) => b.level.level - a.level.level || b.level.count - a.level.count);
+
+        let rank = 1;
+        let prevLevel = null;
+        const ranking = filteredLevelData.map((data, index) => {
+            if (prevLevel && (prevLevel.level !== data.level.level || prevLevel.count !== data.level.count)) {
+                rank = index + 1;
+            }
+            prevLevel = data.level;
+            const xpDisplay = data.level.level === MAX_LEVEL ? 'MAX' : data.totalExp; // 総経験値を表示
+            if (data.user.id === interaction.user.id) {
+                return `****#${rank} I <@${data.user.id}>: レベル:${data.level.level} XP:${xpDisplay}****`; 
+            } else {
+                return `#${rank} I <@${data.user.id}>: レベル:${data.level.level} XP:${xpDisplay}`; 
+            }
+        });
+
+        const commandUserData = levelData.find(data => data && data.user.id === interaction.user.id);
+        const commandUserLevel = commandUserData ? commandUserData.level : { count: 0, level: 1 };
+        const commandUserTotalExp = commandUserData ? commandUserData.totalExp : 0;
+
+        const commandUserRank = ranking.findIndex(data => data.includes(interaction.user.id)) + 1;
+        if (commandUserRank > 10 || commandUserRank === -1) {
+            ranking.splice(9, 0, `****#${filteredLevelData.length + 1} I <@${interaction.user.id}>: レベル:${commandUserLevel.level} XP:${commandUserTotalExp}****`);
+        }
+
+        const embed = new EmbedBuilder()
+          .setColor('#0099ff')
+          .setAuthor({
+            name: `ギルド内XPランキング`,
+            iconURL: `${interaction.guild.iconURL()}`
+          })  
+          .setDescription(ranking.slice(0, 10).join('\n')) // コマンド実行者の総経験値を表示
+          .setTimestamp()
+          .setFooter({
+            iconURL: interaction.user.displayAvatarURL({ dynamic: true, size: 1024 }),
+            text: `${interaction.user.username}さんがコマンドを実行しました`
+        });
+        await interaction.editReply({ embeds: [embed] });
+    },
+};
