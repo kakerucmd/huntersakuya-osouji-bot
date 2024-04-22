@@ -51,22 +51,21 @@ setInterval(() => {
   client.user.setActivity(`お掃除上方修正しろ！！| ${client.guilds.cache.size} servers ${client.ws.ping}ms`);
 }, 60000);
 
-//入退室ログ
+//個人鯖用
 client.on("guildMemberAdd", member => {
 	if (member.user.bot) return;
-	if (member.guild.id !== "1157575317196648458") return;
-	member.guild.channels.cache.get("1160503607548977222").send(`${member.user}さん、${member.guild.name}へようこそ！`);
+	if (member.guild.id !== "your_guildid") return;
+	member.guild.channels.cache.get("your_channelid").send(`${member.user}さん、${member.guild.name}へようこそ！`);
   });
   
 client.on("guildMemberAdd", member => {
-	if (member.guild.id !== "1199944982090481714") return;
-	member.guild.channels.cache.get("1199944983092924441").send(`${member.user}さん、${member.guild.name}へようこそ！\nhttps://discord.com/channels/1199944982090481714/1199944983092924439 で認証することで、会話に参加できます`);
+	if (member.guild.id !== "your_guildid") return;
+	member.guild.channels.cache.get("your_channelid").send(`${member.user}さん、${member.guild.name}へようこそ！\n your_channellinkで認証することで、会話に参加できます`);
   });
-  
-  //曜日表示
+
 const days = ['日', '月', '火', '水', '木', '金', '土'];
 client.on('ready', () => {
-	  let channel = client.channels.cache.get('1204703379553779712');
+	  let channel = client.channels.cache.get('your_channellink');
 	  setInterval(() => {
 		  let date = new Date();
 		  let day = days[date.getDay()];
