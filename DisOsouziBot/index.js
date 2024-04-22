@@ -1,6 +1,5 @@
 const fs = require('node:fs');
 const path = require('node:path');
-const Discord = require('discord.js');
 const Keyv = require('keyv');
 const { token } = require('./config.json');
 
@@ -14,7 +13,8 @@ const {
     ActionRowBuilder, 
     TextInputBuilder, 
     TextInputStyle,
-    ButtonBuilder
+    ButtonBuilder,
+    WebhookClient
 } = require('discord.js');
 
 const client = new Client({ 
@@ -498,7 +498,7 @@ async function sendQueuedMessage() {
       targetChannels.forEach(async id => {
         const webhookURL = channels[id];
         if (webhookURL) {
-          const webhook = new Discord.WebhookClient({ url: webhookURL });
+          const webhook = new WebhookClient({ url: webhookURL });
           try {
             let files = [];
             if (message.attachments.size > 0) {
