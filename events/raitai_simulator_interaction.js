@@ -1,6 +1,5 @@
 const fs = require('node:fs');
 const { Events, EmbedBuilder, ActionRowBuilder, ButtonBuilder } = require('discord.js');
-const cooldowns = new Map();
 
 module.exports = {
 	name: Events.InteractionCreate,
@@ -8,24 +7,7 @@ module.exports = {
 	async execute(interaction) {
         try {
             if (!interaction.isButton()) return;
-        
             if (interaction.customId === 'raitai_enemy_simulator') {
-              const now = Date.now();
-              const cooldownAmount = 10 * 60 * 1000;
-        
-              if (cooldowns.has(interaction.user.id)) {
-                const expirationTime = cooldowns.get(interaction.user.id) + cooldownAmount;
-        
-                if (now < expirationTime) {
-                  const totalSeconds = Math.round((expirationTime - now) / 1000);
-                  const minutes = Math.floor(totalSeconds / 60) % 60;
-                  return interaction.reply({ content: `クールタイム中です。(残り${minutes}分)`, ephemeral: true });
-                }
-              }
-        
-              cooldowns.set(interaction.user.id, now);
-              setTimeout(() => cooldowns.delete(interaction.user.id), cooldownAmount);
-        
               let data;
               try {
                 data = await fs.promises.readFile('./data.json', 'utf-8');
@@ -93,7 +75,7 @@ module.exports = {
                 try {
                   await message.delete();
                 } catch (err) {
-                  return interaction.reply({ content: 'メッセージは既に削除されています', ephemeral: true });
+                  return interaction.reply({ content: 'メッセージが存在しません。', ephemeral: true });
                 }
               } else {
                 return interaction.reply({ content: 'メッセージは既に削除されています。', ephemeral: true });
