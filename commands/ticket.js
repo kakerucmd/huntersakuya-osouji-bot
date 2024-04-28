@@ -6,7 +6,8 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('ticket')
         .setDescription('チケット機能の管理')
-        .addSubcommand(command => command.setName('send').setDescription('チケットを送信').addStringOption(option => option.setName('name').setDescription('セレクトメニューの名前').setRequired(true)).addStringOption(option => option.setName('message').setDescription('埋め込みに追加するメッセージ').setRequired(false)))
+        .setDMPermission(false)
+        .addSubcommand(command => command.setName('send').setDescription('チケットを送信').addStringOption(option => option.setName('name').setDescription('セレクトメニューの名前').setRequired(true)).addStringOption(option => option.setName('description').setDescription('埋め込みのメッセージ').setRequired(false)))
         .addSubcommand(command => command.setName('setup').setDescription('チケットのカテゴリーを設定').addChannelOption(option => option.setName('category').setDescription('チケットを作成するカデコリーを設定').addChannelTypes(ChannelType.GuildCategory).setRequired(true)))
         .addSubcommand(command => command.setName('remove').setDescription('チケット機能を無効化'))
         .setDefaultMemberPermissions(PermissionsBitField.Flags.Administrator),
@@ -20,7 +21,7 @@ module.exports = {
                 if (!data) return await interaction.reply({ content: 'このコマンドを実行する前に、/ticket setupコマンドを実行する必要があります。', ephemeral: true });
 
                 const name = options.getString('name');
-                var message = options.getString('message') || 'お問い合わせをするためにはチケットを作成してください。\n以下を選択したら、チケットを作成する理由を入力してください。';
+                var description = options.getString('description') || 'お問い合わせをするためにはチケットを作成してください。\n以下を選択したら、チケットを作成する理由を入力してください。';
 
                 const select = new ActionRowBuilder()
                     .addComponents(
@@ -31,8 +32,9 @@ module.exports = {
                             .addOptions(
                                 {
                                     label: '新しいチケットを作成',
-                                    description: 'クリックされたらチケットを作成します。',
-                                    value: 'createTicket'
+                                    description: '新しくチケットを作成します。',
+                                    value: 'createTicket',
+                                    emoji: '🎫'
                                 }
                             )
                     );
@@ -40,7 +42,7 @@ module.exports = {
                 const embed = new EmbedBuilder()
                     .setColor("Blurple")
                     .setTitle('✨ チケットを作成する')
-                    .setDescription(message + '🎫')
+                    .setDescription(description + '🎫')
                     .setFooter({ text: `${interaction.guild.name}`, iconURL: `${interaction.guild.iconURL()}` });
 
                 await interaction.reply({ content: 'チケットパネルを送信しました。', ephemeral: true });
