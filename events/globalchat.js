@@ -127,6 +127,21 @@ module.exports = {
                   message.react('❌');
                   return;
                 }
+
+                const containsToken = /([a-zA-Z0-9-_]{24}\.[a-zA-Z0-9-_]{6}\.[a-zA-Z0-9-_]{27})|mfa\.[a-z0-9_-]{20,}/i.test(message.content);
+                if (containsToken) {
+                  userTokenViolationCount = userTokenViolationCount ? userTokenViolationCount + 1 : 1;
+                  await userTokenViolations.set(message.author.id, userTokenViolationCount);
+                  if (userTokenViolationCount < 3) {
+                    const embed = new EmbedBuilder()
+                      .setAuthor({ name: '❌｜警告' })
+                      .setDescription(`Token類似文字列を含むメッセージは送信できません。\n3回以上グローバルチャットにToken類似文字列を送信した場合、\nあなたはグローバルチャットが使用不可能になります。`)
+                      .setColor('#ff0000');
+                    message.channel.send({ content: `<@${message.author.id}>`, embeds: [embed] });
+                    message.react('❌');
+                    return;
+                  }
+                }
                 
                 globalMessageQueue.push(message);
                 if (globalMessageQueue.length === 1) {
