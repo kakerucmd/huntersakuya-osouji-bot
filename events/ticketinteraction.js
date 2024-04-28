@@ -59,16 +59,16 @@ module.exports = {
                 });
 
                 const embed = new EmbedBuilder()
-                .setColor("Blurple")
                 .setTitle(`Ticket from ${user.username} 🎫`)
-                .setDescription(`チケットを開いた理由：${why}\nその他の情報：${info}`)
+                .setDescription(`チケットをオープンした理由：${why}\nその他の情報：${info}`)
+                .setColor("Blurple")
                 .setTimestamp();
 
                 const button = new ActionRowBuilder()
                 .addComponents(
                     new ButtonBuilder()
                     .setCustomId('closeTicket')
-                    .setLabel('チケットをクローズする')
+                    .setLabel('チケットをクローズ')
                     .setEmoji('🔒')
                     .setStyle(ButtonStyle.Danger)
                 );
@@ -104,9 +104,12 @@ module.exports = {
             setTimeout(async () => {
                 await channel.delete().catch(err => {});
                 const embed = new EmbedBuilder()
-                .setAuthor({ name: '✅｜クローズ成功' })
-                .setDescription(`${interaction.guild.name}のチケットがクローズされました。\n理由：${reason}`)
-                .setColor('#00ff00');
+                .setAuthor({
+                    name: `${interaction.guild.name}`,
+                    iconURL: `${interaction.guild.iconURL()}`
+                  })  
+                .setDescription(`チケットがクローズされました。\n理由：${reason}`)
+                .setColor("Blurple")
                 await member.send({ embeds: [embed] }).catch(err => {});
             },5000)
         }
