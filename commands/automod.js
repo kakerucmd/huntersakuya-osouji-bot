@@ -4,6 +4,7 @@ module.exports = {
     data: new SlashCommandBuilder()
     .setName('automod')
     .setDescription('Automodを設定します')
+    .setDMPermission(false)
     .setDefaultMemberPermissions(PermissionsBitField.Flags.Administrator)
     .addSubcommand(command => command.setName('flagged-words').setDescription('冒涜的な言葉、性的な内容、中傷をブロック(現状は英語のみ対応)'))
     .addSubcommand(command => command.setName('spam-messages').setDescription('スパムの疑いのあるメッセージをブロック'))
@@ -20,7 +21,7 @@ module.exports = {
             await interaction.reply({ content: `Loading your automod rule...` })
 
             const rule = await guild.autoModerationRules.create({
-                name: `Block profanity, sexual content, and siurs by お掃除上方修正しろbot`,
+                name: `フラッグされることの多い語句をブロック`,
                 creatorid: `1175248665972060160`,
                 enabled:true,
                 eventType:1,
@@ -65,7 +66,7 @@ module.exports = {
             const word = options.getString('word');
 
             const rule2 = await guild.autoModerationRules.create({
-                name: `Prevent the word ${word} from being userd by お掃除上方修正しろbot`,
+                name: `${word}をブロック`,
                 creatorid: `1175248665972060160`,
                 enabled:true,
                 eventType:1,
@@ -109,7 +110,7 @@ module.exports = {
             await interaction.reply({ content: `Loading your automod rule...` })
 
             const rule3 = await guild.autoModerationRules.create({
-                name: `Prevent spam messages by お掃除上方修正しろbot`,
+                name: `スパム疑惑のあるコンテンツをブロック`,
                 creatorid: `1175248665972060160`,
                 enabled:true,
                 eventType:1,
@@ -154,7 +155,7 @@ module.exports = {
             const number = options.getInteger('number');
 
             const rule4 = await guild.autoModerationRules.create({
-                name: `Prevent spam mentions by お掃除上方修正しろbot`,
+                name: `Block Mention Spam`,
                 creatorid: `1175248665972060160`,
                 enabled:true,
                 eventType:1,
