@@ -9,7 +9,7 @@ module.exports = {
 			const embed = new EmbedBuilder()
 				.setColor('#FF0000')
 				.setTitle('サーバーが過疎化しています')
-				.setImage('https://cdn.discordapp.com/attachments/1160798192166776892/1163409629527679058/image.png?ex=6613ba26&is=66014526&hm=4ff85af42b40d3c7e66e3c9642ca823ed3b0bef1c6e75c6b603caf449fe51e77&');
+				.setImage('https://media.discordapp.net/attachments/1160798192166776892/1163409629527679058/image.png?ex=66301266&is=662ec0e6&hm=7234104c5ce32316ccd951c4efe091b531215a8bd8041f8dabb177ff009b4798&=&format=webp&quality=lossless&width=1178&height=662');
 			await interaction.reply({ embeds: [embed] });
 		} catch (error) {
 			console.error(`エラーが発生しました: ${error}`);
