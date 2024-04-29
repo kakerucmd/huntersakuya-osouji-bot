@@ -16,8 +16,8 @@ module.exports = {
             const why = new TextInputBuilder()
             .setCustomId('whyTicket')
             .setRequired(true)
-            .setPlaceholder('このチケットを作成した理由')
-            .setLabel('なぜチケットを作成しましたか？')
+            .setPlaceholder('チケットを作成する理由')
+            .setLabel('なぜチケットを作成しますか？')
             .setStyle(TextInputStyle.Paragraph);
 
             const info = new TextInputBuilder()
@@ -44,7 +44,7 @@ module.exports = {
                 const channel = await interaction.guild.channels.create({
                     name: `ticket- ${user.id}`,
                     type: ChannelType.GuildText,
-                    topic: `Ticket user: ${user.username}; Ticket reason: ${why}`,
+                    topic: `Ticket user: ${user.username}`,
                     parent: category,
                     permissionOverwrites: [
                         {
