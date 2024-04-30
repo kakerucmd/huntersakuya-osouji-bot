@@ -1,20 +1,22 @@
-const { Events, EmbedBuilder, WebhookClient, Collection } = require('discord.js');
+const { Events, EmbedBuilder, WebhookClient } = require('discord.js');
 const Keyv = require('keyv');
 const globalchannels = new Keyv('sqlite://db.sqlite', { table: 'globalchannels' });
 const userTokenViolations = new Keyv('sqlite://db.sqlite', { table: 'TokenViolations' });
 const userSpamCounts = new Keyv('sqlite://db.sqlite', { table: 'SpamCounts' });
-
-const userData = new Collection();
+const userMessageTimestamps = new Map();
+const userMessageCounts = new Map();
 const globalMessageQueue = [];
+const userLastMessageTimes = new Map();
+const userPenaltyTimestamps = new Map();
 
 async function sendQueuedMessage() {
     const message = globalMessageQueue.shift();
     if (message) {
       const now = Date.now();
-      const lastMessageTime = userData.get('global')?.lastMessageTime || now;
+      const lastMessageTime = userLastMessageTimes.get('global') || now;
       const delay = now - lastMessageTime < 1000 ? 1000 - (now - lastMessageTime) : 0;
       setTimeout(async () => {
-        userData.set('global', { lastMessageTime: now + delay });
+        userLastMessageTimes.set('global', now + delay);
         const channels = await globalchannels.get('globalchannels');
         const targetChannels = Object.keys(channels).filter(id => id !== message.channel.id);
         targetChannels.forEach(async id => {
@@ -46,10 +48,12 @@ async function sendQueuedMessage() {
               }).then(() => {
                 message.react('✅');
               }).catch(async error => {
-                console.error(`Webhookへのメッセージ送信中にエラーが発生しました: ${error}\nWebhookURL：${webhookURL}`);
-                const channels = await globalchannels.get('globalchannels');
-                delete channels[id];
-                await globalchannels.set('globalchannels', channels);
+                console.error(`Webhookへのメッセージ送信中にエラーが発生しました: ${error}\nWebhookURL:${webhookURL}`);
+                if (error.code === 10015) {
+                  const channels = await globalchannels.get('globalchannels');
+                  delete channels[id];
+                  await globalchannels.set('globalchannels', channels);
+                }
               });
             } catch (error) {
               console.error(`エラーが発生しました: ${error}`);
@@ -61,7 +65,7 @@ async function sendQueuedMessage() {
         }
       }, delay);
     }
-}
+  }
 
 module.exports = {
 	name: Events.MessageCreate,
@@ -96,38 +100,8 @@ module.exports = {
                 }
         
                 const now = Date.now();
-                const userKey = `${message.author.id}-${message.content}`;
-                const lastMessageTimestamp = userData.get(userKey)?.messageTimestamp;
-                userData.set(userKey, { messageTimestamp: now });
-                const userCountKey = `${message.author.id}`;
-                const messageCount = userData.get(userCountKey)?.messageCount || 0;
-                userData.set(userCountKey, { messageCount: messageCount + 1 });
-                if (messageCount >= 4 && (now - lastMessageTimestamp) < 10000) {
-                  userSpamCount = userSpamCount ? userSpamCount + 1 : 1;
-                  await userSpamCounts.set(message.author.id, userSpamCount);
-                  const embed = new EmbedBuilder()
-                    .setAuthor({ name: '⚠️｜スパム対策' })
-                    .setDescription(`スパムが検出されました。\n1分間メッセージの転送が停止されます。`)
-                    .setColor('#ff0000');
-                  message.channel.send({ content: `<@${message.author.id}>`, embeds: [embed] });
-                  message.react('❌');
-                  userData.set(message.author.id, { penaltyTimestamp: now });
-                  setTimeout(() => {
-                    userData.delete(userCountKey);
-                  }, 60000);
-                  return;
-                }
-                
-                setTimeout(() => {
-                  userData.delete(userKey);
-                }, 5000);
-      
-                const penaltyTimestamp = userData.get(message.author.id)?.penaltyTimestamp;
-                if (penaltyTimestamp && now - penaltyTimestamp < 60000) {
-                  message.react('❌');
-                  return;
-                }
-
+                userLastMessageTimes.set('global', now);
+        
                 const containsToken = /([a-zA-Z0-9-_]{24}\.[a-zA-Z0-9-_]{6}\.[a-zA-Z0-9-_]{27})|mfa\.[a-z0-9_-]{20,}/i.test(message.content);
                 if (containsToken) {
                   userTokenViolationCount = userTokenViolationCount ? userTokenViolationCount + 1 : 1;
@@ -142,10 +116,43 @@ module.exports = {
                     return;
                   }
                 }
-                
-                globalMessageQueue.push(message);
-                if (globalMessageQueue.length === 1) {
-                  sendQueuedMessage();
+                if (message.content.trim() !== '' || message.attachments.size > 0) {
+                  const userKey = `${message.author.id}-${message.content}`;
+                  const lastMessageTimestamp = userMessageTimestamps.get(userKey);
+                  userMessageTimestamps.set(userKey, now);
+                  const userCountKey = `${message.author.id}`;
+                  const messageCount = userMessageCounts.get(userCountKey) || 0;
+                  userMessageCounts.set(userCountKey, messageCount + 1);
+                  if (messageCount >= 4 && (now - lastMessageTimestamp) < 10000) {
+                    userSpamCount = userSpamCount ? userSpamCount + 1 : 1;
+                    await userSpamCounts.set(message.author.id, userSpamCount);
+                    const embed = new EmbedBuilder()
+                      .setAuthor({ name: '⚠️｜スパム対策' })
+                      .setDescription(`スパムが検出されました。\n1分間メッセージの転送が停止されます。`)
+                      .setColor('#ff0000');
+                    message.channel.send({ content: `<@${message.author.id}>`, embeds: [embed] });
+                    message.react('❌');
+                    userPenaltyTimestamps.set(message.author.id, now);
+                    setTimeout(() => {
+                      userMessageCounts.delete(userCountKey);
+                    }, 60000);
+                    return;
+                  }
+                  
+                  setTimeout(() => {
+                    userMessageTimestamps.delete(userKey);
+                  }, 5000);
+        
+                  const penaltyTimestamp = userPenaltyTimestamps.get(message.author.id);
+                  if (penaltyTimestamp && now - penaltyTimestamp < 60000) {
+                    message.react('❌');
+                    return;
+                  }
+                  
+                  globalMessageQueue.push(message);
+                  if (globalMessageQueue.length === 1) {
+                    sendQueuedMessage();
+                  }
                 }
               }
             }
