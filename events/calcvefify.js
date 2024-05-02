@@ -64,7 +64,7 @@ module.exports = {
           if (operation === 0) {
             // 足し算の場合
             answer = num1 + num2;
-            label = `${num1} + ${num2} = ? (答えを半角数字で入力してください)`;
+            label = `${num1} + ${num2} = ?`;
           } else if (operation === 1) {
             // 引き算の場合、num1 >= num2 となるように調整
             if (num2 > num1) {
@@ -73,29 +73,29 @@ module.exports = {
               num2 = temp;
             }
             answer = num1 - num2;
-            label = `${num1} - ${num2} = ? (答えを半角数字で入力してください)`;
+            label = `${num1} - ${num2} = ?`;
           } else if (operation === 2) {
             // 掛け算の場合
             answer = num1 * num2;
-            label = `${num1} × ${num2} = ? (答えを半角数字で入力してください)`;
+            label = `${num1} × ${num2} = ?`;
           } else {
             // 割り算の場合、num1 >= num2 となるように調整し、num1 が num2 の倍数となるように調整
             num2 = Math.floor(Math.random() * 10 + 1);
             num1 = num2 * Math.floor(Math.random() * 10 + 1);
             answer = num1 / num2;
-            label = `${num1} ÷ ${num2} = ? (答えを半角数字で入力してください)`;
+            label = `${num1} ÷ ${num2} = ?`;
           }
       
           const modalId = 'calcAuth' + interaction.user.id + Date.now();
           const modal = new ModalBuilder()
             .setCustomId(modalId)
-            .setTitle('計算問題を解く');
+            .setTitle(label);
       
           const problemInput = new TextInputBuilder()
             .setCustomId('problemInput')
-            .setLabel(label)
+            .setLabel('答えを半角数字で入力してください')
             .setStyle(TextInputStyle.Short)
-            .setPlaceholder('答えをここに入力');
+            .setPlaceholder('答えを半角数字でここに入力');
       
           const actionRow = new ActionRowBuilder().addComponents(problemInput);
           modal.addComponents(actionRow);
