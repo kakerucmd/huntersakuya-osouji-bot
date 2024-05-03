@@ -6,10 +6,10 @@ module.exports = {
     .setDescription('Automodを設定します')
     .setDMPermission(false)
     .setDefaultMemberPermissions(PermissionsBitField.Flags.Administrator)
-    .addSubcommand(command => command.setName('flagged-words').setDescription('冒涜的な言葉、性的な内容、中傷をブロック(現状は英語のみ対応)'))
+    .addSubcommand(command => command.setName('flagged-words').setDescription('フラッグされることの多い単語をブロック(現状は英語のみ対応)'))
     .addSubcommand(command => command.setName('spam-messages').setDescription('スパムの疑いのあるメッセージをブロック'))
     .addSubcommand(command => command.setName('mention-spam').setDescription('指定した数以上のメンションを含むメッセージをブロックする').addIntegerOption(option => option.setName('number').setDescription('The number of mentions required to block a message').setRequired(true)))
-    .addSubcommand(command => command.setName('keyword').setDescription('指定したキーワードをサーバー内でブロックする').addStringOption(option => option.setName('word').setDescription('the word you want block').setRequired(true))),
+    .addSubcommand(command => command.setName('keyword').setDescription('指定の単語を含むメッセージをブロックする').addStringOption(option => option.setName('word').setDescription('the word you want block').setRequired(true))),
     async execute(interaction) {
 
         const { guild, options } = interaction;
@@ -53,7 +53,7 @@ module.exports = {
             const embed = new EmbedBuilder()
             .setAuthor({ name: '✅｜成功' })
             .setColor("#3498db")
-            .setDescription(`Automodルールが作成されました。不適切な発言はブロックされます。`)
+            .setDescription(`Automodルールが作成されました。フラッグされることの多い語句はブロックされます。`)
 
             await interaction.editReply({ embeds: [embed] });
         }, 3000)
