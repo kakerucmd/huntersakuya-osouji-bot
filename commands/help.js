@@ -155,6 +155,14 @@ module.exports = {
                         value:'チケット機能を使用します。\nサブコマンド：「setup」「send」「remove」'
                     },
                     {
+                        name: '**/welcome**',
+                        value:'ウェルカムメッセージ機能を使用します。\nサブコマンド：「setup」「disable」'
+                    },
+                    {
+                        name: '**/joinleavelogs**',
+                        value:'入退室ログ機能を使用します。\nサブコマンド：「setup」「disable」'
+                    },
+                    {
                         name: '**～～～～～～～～～～**',
                         value:'下記からbotの概要'
                     },
