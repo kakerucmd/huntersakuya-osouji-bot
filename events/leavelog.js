@@ -15,7 +15,7 @@ module.exports = {
                 name: `${member.guild.name}`,
                 iconURL: `${member.guild.iconURL()}`
               })  
-            .setDescription(`**<@${member.username}>**(${member.id})さんが\n**${member.guild.name}**から退出しました`)
+            .setDescription(`**${member.user.username}**(${member.id})さんが\n**${member.guild.name}**から退出しました`)
             .setColor("Blurple")
             .setTimestamp();
             await channel.send({ embeds: [embed] }).catch(err => {});
