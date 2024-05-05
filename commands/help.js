@@ -122,7 +122,7 @@ module.exports = {
                     },
                     {
                         name: '**/osoujireply**',
-                        value:'「お掃除」等の単語に対して反応する機能を設定します。\n(setupで有効化、disableで無効化)'
+                        value:'「お掃除」等の単語に対して反応する機能を設定します。\n(enableで有効化、disableで無効化)'
                     },
                     {
                         name: '**/settogglelevel**',
