@@ -121,7 +121,7 @@ module.exports = {
                         value:'ロールを10個まで指定できるロールパネルを作成します。'
                     },
                     {
-                        name: '**osoujireply**',
+                        name: '**/osoujireply**',
                         value:'「お掃除」等の単語に対して反応する機能を設定します。\n(setupで有効化、disableで無効化)'
                     },
                     {
