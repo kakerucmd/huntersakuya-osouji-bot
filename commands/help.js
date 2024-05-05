@@ -121,6 +121,10 @@ module.exports = {
                         value:'ロールを10個まで指定できるロールパネルを作成します。'
                     },
                     {
+                        name: '**osoujireply**',
+                        value:'「お掃除」等の単語に対して反応する機能を設定します。\n(setupで有効化、disableで無効化)'
+                    },
+                    {
                         name: '**/settogglelevel**',
                         value:'レベル機能の設定を行います。'
                     },
@@ -133,16 +137,12 @@ module.exports = {
                         value:'即抜けの通知設定を行います。'
                     },
                     {
-                        name: '**/setosoujireply**',
-                        value:'「お掃除」等の単語に対して反応する機能を有効にするか設定します。'
-                    },
-                    {
                         name: '**/setglobalchat**',
                         value:'指定したチャンネルでグローバルチャットを有効にするか設定します。'
                     },
                     {
                         name: '**/automod**',
-                        value:'Automodを設定します。\n「flagged-words」「keyword」「mention-spam」「spam-messages」'
+                        value:'Automodを設定します。\n(詳細はドキュメントをお読みください)'
                     },
                 )
                 embed.setColor('Blurple');
@@ -152,15 +152,15 @@ module.exports = {
                 embed.setFields(
                     {
                         name: '**/ticket**',
-                        value:'チケット機能を使用します。\nサブコマンド：「setup」「send」「remove」'
+                        value:'チケット機能を使用します。\n(setupで設定、sendでチケットパネルを送信、removeで設定を削除)'
                     },
                     {
                         name: '**/welcome**',
-                        value:'ウェルカムメッセージ機能を使用します。\nサブコマンド：「setup」「disable」'
+                        value:'ウェルカムメッセージ機能を使用します。\n(setupで有効化、disableで無効化)'
                     },
                     {
                         name: '**/joinleavelogs**',
-                        value:'入退室ログ機能を使用します。\nサブコマンド：「setup」「disable」'
+                        value:'入退室ログ機能を使用します。\n(setupで有効化、disableで無効化)'
                     },
                     {
                         name: '**～～～～～～～～～～**',
