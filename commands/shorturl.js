@@ -1,5 +1,5 @@
-const { SlashCommandBuilder } = require('discord.js')
-const request = require('request');
+const { SlashCommandBuilder } = require('discord.js');
+const axios = require('axios');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -29,17 +29,11 @@ module.exports = {
 	},
 };
 
-function createShortLink(url) {
-	return new Promise((resolve, reject) => {
-		request({
-			url: "https://ur0.cc/api.php?create=true&url="+encodeURIComponent(url),
-			json: true
-		}, function (error, response, body) {
-			if (error) {
-				reject(error);
-			} else {
-				resolve(body);
-			}
-		});
-	});
+async function createShortLink(url) {
+	try {
+		const response = await axios.get("https://ur0.cc/api.php?create=true&url="+encodeURIComponent(url));
+		return response.data;
+	} catch (error) {
+		throw error;
+	}
 }
