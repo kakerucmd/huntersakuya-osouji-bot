@@ -22,11 +22,10 @@ module.exports = {
                 name: `${user.username}`,
                 iconURL: `${user.displayAvatarURL()}`
               })  
-            .setTitle(`**${user.username} 's AvatarURL**`)
+            .setTitle('**AvatarURL**')
             .setColor('#0099ff')
             .setImage(avatarURL)
             .setURL(avatarURL)
-            .setTimestamp()
             .setFooter({
                 iconURL: interaction.user.displayAvatarURL({ dynamic: true, size: 1024 }),
                 text: `${interaction.user.username}さんがコマンドを実行しました`
@@ -35,7 +34,7 @@ module.exports = {
             await interaction.reply({ embeds: [embed] });
         } catch (error) {
             console.error(error);
-            await interaction.reply({ content: 'エラーが発生しました。後ほど再試行してください。', ephemeral: true });
+            await interaction.reply({ content: 'エラーが発生しました。', ephemeral: true });
         }
     },
 };
