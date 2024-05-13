@@ -65,7 +65,7 @@ client.on(Events.InteractionCreate, async interaction => {
 
 	const now = Date.now();
 	const timestamps = cooldowns.get(command.data.name);
-	const defaultCooldownDuration = 7;
+	const defaultCooldownDuration = 3;
 	const cooldownAmount = (command.cooldown ?? defaultCooldownDuration) * 1000;
 
 	if (timestamps.has(interaction.user.id)) {
@@ -96,20 +96,10 @@ setInterval(() => {
   client.user.setActivity(`お掃除上方修正しろ！！| ${client.guilds.cache.size} servers ${client.ws.ping}ms`);
 }, 60000);
 
-  client.on("guildMemberAdd", member => {
-	if (member.user.bot) return;
-	if (member.guild.id !== "1157575317196648458") return;
-	member.guild.channels.cache.get("1160503607548977222").send(`${member.user}さん、${member.guild.name}へようこそ！`);
-  });
-  
-  client.on("guildMemberAdd", member => {
-	if (member.guild.id !== "1199944982090481714") return;
-	member.guild.channels.cache.get("1199944983092924441").send(`${member.user}さん、${member.guild.name}へようこそ！\nhttps://discord.com/channels/1199944982090481714/1199944983092924439 で認証することで、会話に参加できます`);
-  });
-  
+//個人鯖用(雑)
   const days = ['日', '月', '火', '水', '木', '金', '土'];
   client.on('ready', () => {
-	  let channel = client.channels.cache.get('1204703379553779712');
+	  let channel = client.channels.cache.get('channelid');
 	  setInterval(() => {
 		  let date = new Date();
 		  let day = days[date.getDay()];
@@ -118,5 +108,26 @@ setInterval(() => {
 			  .catch(console.error);
 	  }, 60000);
   });
+
+  client.on('ready', () => {
+    const channelId = 'channelid';
+    const fn = () => {
+        const channel = client.channels.cache.get(channelId);
+        if (!channel) {
+            console.log(`${channelId}が存在しません。`);
+        } else {
+            channel.send('日付が変わりました！');
+        }
+    };
+
+    let now = new Date();
+    let tomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
+    let diff = tomorrow - now;
+
+    setTimeout(() => {
+        fn();
+        setInterval(fn, 1000 * 60 * 60 * 24);
+    }, diff);
+});
 
 client.login(token);
