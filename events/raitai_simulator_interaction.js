@@ -55,7 +55,7 @@ module.exports = {
                       new ButtonBuilder()
                       .setCustomId('delete_raitai_embed')
                       .setLabel('擂台予報を削除')
-                      .setStyle(ButtonStyle.Primary)
+                      .setStyle(ButtonStyle.Danger)
                       .setEmoji('\u{1F5D1}')
                     ),
                 ],
