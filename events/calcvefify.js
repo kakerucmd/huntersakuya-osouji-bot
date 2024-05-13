@@ -5,7 +5,7 @@ const verify = new Keyv('sqlite://db.sqlite');
 module.exports = {
 	name: Events.InteractionCreate,
 	once: false,
-	  async execute(interaction) {
+ async execute(interaction) {
         if (!interaction.isButton()) return;
         const roleId = interaction.customId.split('_')[1];
         if (interaction.customId === `osouzirole_${roleId}`) {
