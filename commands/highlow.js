@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -22,12 +22,12 @@ module.exports = {
         const highButton = new ButtonBuilder()
             .setCustomId('high')
             .setLabel('High')
-            .setStyle('Primary');
+            .setStyle(ButtonStyle.Primary);
 
         const lowButton = new ButtonBuilder()
             .setCustomId('low')
             .setLabel('Low')
-            .setStyle('Primary');
+            .setStyle(ButtonStyle.Primary);
 
         const row = new ActionRowBuilder()
             .addComponents(highButton, lowButton);
