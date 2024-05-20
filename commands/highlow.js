@@ -51,7 +51,7 @@ module.exports = {
         await interaction.deferReply();
         let embed = new EmbedBuilder()
             .setAuthor({ name: '✅｜ハイ＆ローの開始に成功' })
-            .setColor('#00ff00')
+            .setColor("Blurple")
             .setDescription(`現在の数は${number}です。\n次の数は現在の数より高い(high)と思いますか？\nそれとも低い(low)と思いますか？`);
         await interaction.editReply({ content: `${interaction.user}`, embeds: [embed], components: [row] });
 
@@ -72,35 +72,35 @@ module.exports = {
                 collector.stop('stopped');
                 return;
             }
-
+        
             const guess = i.customId;
             let nextNumber;
             do {
                 nextNumber = Math.floor(Math.random() * 9) + 1;
             } while (nextNumber === number);
-
+        
             if ((guess === 'high' && nextNumber > number) || (guess === 'low' && nextNumber < number)) {
                 correctCount++;
                 embed = new EmbedBuilder()
                     .setAuthor({ name: '⭕️｜正解' })
-                    .setColor('#00ff00')
+                    .setColor(guess === 'high' ? "Blurple" : "DarkGreen")
                     .setDescription(`次の数は${nextNumber}でした。現在の数は${nextNumber}です。\n次の数は現在の数より高い(high)と思いますか？\nそれとも低い(low)と思いますか？`);
                 await i.update({ content: `${interaction.user}`, embeds: [embed], components: [row] });
             } else {
                 embed = new EmbedBuilder()
                     .setAuthor({ name: '❌｜不正解' })
-                    .setColor('#00ff00')
+                    .setColor(guess === 'high' ? "Blurple" : "DarkGreen")
                     .setDescription(`次の数は${nextNumber}でした。現在の数は${nextNumber}です。\n次の数は現在の数より高い(high)と思いますか？\nそれとも低い(low)と思いますか？`);
                 await i.update({ content: `${interaction.user}`, embeds: [embed], components: [row] });
             }
-
+        
             count++;
             number = nextNumber;
-
+        
             if (count >= rounds) {
                 collector.stop();
             }
-        });
+        });        
 
         collector.on('end', (collected, reason) => {
             activehighlow.delete(userId);
