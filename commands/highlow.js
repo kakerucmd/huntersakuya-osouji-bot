@@ -57,11 +57,14 @@ module.exports = {
 
         const filter = i => {
             if ((i.customId === 'high' || i.customId === 'low' || i.customId === 'stop') && i.user.id !== userId) {
-                i.reply({ content: 'これはあなたが開始したハイ＆ローではありません。\n`/highlow`で、自分のゲームを開始してください。', ephemeral: true });
+                i.deferUpdate().then(() => {
+                    i.followUp({ content: 'これはあなたが開始したハイ＆ローではありません。\n`/highlow`で、自分のゲームを開始してください。', ephemeral: true });
+                });
                 return false;
             }
             return (i.customId === 'high' || i.customId === 'low' || i.customId === 'stop') && i.user.id === userId;
         };
+        
         const collector = interaction.channel.createMessageComponentCollector({ filter, time: 120000 });
 
         collector.on('collect', async i => {
