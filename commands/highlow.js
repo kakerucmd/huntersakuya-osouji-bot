@@ -120,7 +120,7 @@ module.exports = {
             } else {
                 embed = new EmbedBuilder()
                     .setAuthor({ name: '✨｜結果' })
-                    .setColor('#00ff00')
+                    .setColor("Blurple")
                     .setDescription(`${rounds}回のハイ＆ローが終了しました。\n計${correctCount}回正解しました！`);
                 interaction.editReply({ content: `${interaction.user}`, embeds: [embed], components: [] });
             }
