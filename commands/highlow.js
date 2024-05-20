@@ -1,4 +1,6 @@
-const { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, Collection } = require('discord.js');
+
+const activehighlow = new Collection();
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -10,10 +12,19 @@ module.exports = {
                 .setRequired(true)),
     async execute(interaction) {
         const rounds = interaction.options.getInteger('rounds');
+        const userId = interaction.user.id;
+
+        if (activehighlow.has(userId)) {
+            await interaction.reply({ content: '既にハイ＆ローを実行しているようです。\n「ゲームを中止する」ボタンを押してから、コマンドを実行してください。', ephemeral: true });
+            return;
+        }
+
         if (rounds <= 0 || rounds > 10) {
             await interaction.reply({ content: `1~10までの数を入力してください。`, ephemeral: true });
             return;
         }
+
+        activehighlow.set(userId, true);
 
         let count = 0;
         let correctCount = 0;
@@ -45,11 +56,11 @@ module.exports = {
         await interaction.editReply({ content: `${interaction.user}`, embeds: [embed], components: [row] });
 
         const filter = i => {
-            if ((i.customId === 'high' || i.customId === 'low' || i.customId === 'stop') && i.user.id !== interaction.user.id) {
+            if ((i.customId === 'high' || i.customId === 'low' || i.customId === 'stop') && i.user.id !== userId) {
                 i.reply({ content: 'これはあなたが開始したハイ＆ローではありません。\n`/highlow`で、自分のゲームを開始してください。', ephemeral: true });
                 return false;
             }
-            return (i.customId === 'high' || i.customId === 'low' || i.customId === 'stop') && i.user.id === interaction.user.id;
+            return (i.customId === 'high' || i.customId === 'low' || i.customId === 'stop') && i.user.id === userId;
         };
         const collector = interaction.channel.createMessageComponentCollector({ filter, time: 120000 });
 
@@ -89,6 +100,8 @@ module.exports = {
         });
 
         collector.on('end', (collected, reason) => {
+            activehighlow.delete(userId);
+
             if (reason === 'stopped') {
                 embed = new EmbedBuilder()
                     .setAuthor({ name: '🛑｜中止' })
