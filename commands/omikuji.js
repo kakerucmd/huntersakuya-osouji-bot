@@ -11,21 +11,47 @@ module.exports = {
     ),
   async execute(interaction) {
     try {
-      let messageList = ["大吉","中吉", "小吉","末吉","凶","大凶","諭吉","不吉","たぬ吉"];
       let num = interaction.options.getInteger('num');
       if(num > 10) {
-        await interaction.reply({ content: 'おみくじは10回まで引けます。', ephemeral: true });
+        await interaction.reply({ content: 'おみくじは一度に最大10回まで引けます。', ephemeral: true });
         return;
       }
+      if (num <= 0) {
+        await interaction.reply({ content: '1以上の値を入力してください', ephemeral: true });
+        return;
+      }
+
+      let probabilities = [
+        { result: "大吉", weight: 5 },
+        { result: "中吉", weight: 20 },
+        { result: "小吉", weight: 25 },
+        { result: "末吉", weight: 25 },
+        { result: "凶", weight: 15 },
+        { result: "大凶", weight: 10 }
+      ];
+
+      function getOmikujiResult() {
+        const sum = probabilities.reduce((acc, curr) => acc + curr.weight, 0);
+        const rand = Math.random() * sum;
+        let accum = 0;
+
+        for (let i = 0; i < probabilities.length; i++) {
+          accum += probabilities[i].weight;
+          if (rand < accum) {
+            return probabilities[i].result;
+          }
+        }
+      }
+
       let results = [];
-      for(let i=0; i<num; i++){
-        let result = `${i+1}回目：${messageList[Math.floor(Math.random()*messageList.length)]}`;
+      for(let i = 0; i < num; i++){
+        let result = `${i + 1}回目：${getOmikujiResult()}`;
         results.push(result);
       }
+      
       await interaction.reply(results.join('\n'));
     } catch (error) {
       console.error(`エラーが発生しました: ${error}`);
-      await interaction.reply({ content: 'エラーが発生しました。後ほど再試行してください。', ephemeral: true });
     }
   },
 };
