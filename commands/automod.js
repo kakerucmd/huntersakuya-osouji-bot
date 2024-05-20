@@ -42,8 +42,7 @@ module.exports = {
             ]
         }).catch(async err => {
             setTimeout(async () =>{
-                console.log(err);
-                await interaction.editReply({ content: 'エラーが発生しました。' });
+                await interaction.editReply({ content: 'エラーが発生しました。\n既にこのAutomodルールはセットアップされている可能性があります。' });
             }, 2000)
         })
 
@@ -53,7 +52,7 @@ module.exports = {
             const embed = new EmbedBuilder()
             .setAuthor({ name: '✅｜成功' })
             .setColor("#3498db")
-            .setDescription(`Automodルールが作成されました。フラッグされることの多い語句はブロックされます。`)
+            .setDescription(`Automodルールが作成されました。\nフラッグされることの多い語句はブロックされます。`)
 
             await interaction.editReply({ embeds: [embed] });
         }, 3000)
@@ -87,8 +86,7 @@ module.exports = {
             ]
         }).catch(async err => {
             setTimeout(async () =>{
-                console.log(err);
-                await interaction.editReply({ content: 'エラーが発生しました。' });
+                await interaction.editReply({ content: 'AutoModルールの作成に失敗しました。' });
             }, 2000)
         })
 
@@ -131,8 +129,7 @@ module.exports = {
             ]
         }).catch(async err => {
             setTimeout(async () =>{
-                console.log(err);
-                await interaction.editReply({ content: 'エラーが発生しました。' });
+                await interaction.editReply({ content: 'エラーが発生しました。\n既にこのAutomodルールはセットアップされている可能性があります。' });
             }, 2000)
         })
 
@@ -176,8 +173,7 @@ module.exports = {
             ]
         }).catch(async err => {
             setTimeout(async () =>{
-                console.log(err);
-                await interaction.editReply({ content: 'エラーが発生しました。' });
+                await interaction.editReply({ content: 'エラーが発生しました。\n既にこのAutomodルールはセットアップされている可能性があります。' });
             }, 2000)
         })
 
