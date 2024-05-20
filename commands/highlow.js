@@ -45,6 +45,10 @@ module.exports = {
         await interaction.editReply({ content: `${interaction.user}`, embeds: [embed], components: [row] });
 
         const filter = i => {
+            if ((i.customId === 'high' || i.customId === 'low' || i.customId === 'stop') && i.user.id !== interaction.user.id) {
+                i.reply({ content: 'これはあなたが開始したハイ＆ローではありません。\n`/highlow`で、自分のゲームを開始してください。', ephemeral: true });
+                return false;
+            }
             return (i.customId === 'high' || i.customId === 'low' || i.customId === 'stop') && i.user.id === interaction.user.id;
         };
         const collector = interaction.channel.createMessageComponentCollector({ filter, time: 120000 });
@@ -66,13 +70,13 @@ module.exports = {
                 embed = new EmbedBuilder()
                     .setAuthor({ name: '⭕️｜正解' })
                     .setColor('#00ff00')
-                    .setDescription(`次の数は${nextNumber}でした。\n現在の数は${nextNumber}です。\n次の数は現在の数より高い(high)と思いますか？\nそれとも低い(low)と思いますか？`);
+                    .setDescription(`次の数は${nextNumber}でした。現在の数は${nextNumber}です。\n次の数は現在の数より高い(high)と思いますか？\nそれとも低い(low)と思いますか？`);
                 await i.update({ content: `${interaction.user}`, embeds: [embed], components: [row] });
             } else {
                 embed = new EmbedBuilder()
                     .setAuthor({ name: '❌｜不正解' })
                     .setColor('#00ff00')
-                    .setDescription(`次の数は${nextNumber}でした。\n現在の数は${nextNumber}です。\n次の数は現在の数より高い(high)と思いますか？\nそれとも低い(low)と思いますか？`);
+                    .setDescription(`次の数は${nextNumber}でした。現在の数は${nextNumber}です。\n次の数は現在の数より高い(high)と思いますか？\nそれとも低い(low)と思いますか？`);
                 await i.update({ content: `${interaction.user}`, embeds: [embed], components: [row] });
             }
 
