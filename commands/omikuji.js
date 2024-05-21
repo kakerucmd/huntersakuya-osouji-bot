@@ -16,7 +16,8 @@ module.exports = {
         await interaction.reply({ content: 'おみくじは一度に最大10回まで引けます。', ephemeral: true });
         return;
       }
-      if (num <= 0) {
+      
+      if(num <= 0) {
         await interaction.reply({ content: '1以上の値を入力してください', ephemeral: true });
         return;
       }
@@ -24,10 +25,14 @@ module.exports = {
       let probabilities = [
         { result: "大吉", weight: 5 },
         { result: "中吉", weight: 20 },
-        { result: "小吉", weight: 25 },
-        { result: "末吉", weight: 25 },
-        { result: "凶", weight: 15 },
-        { result: "大凶", weight: 10 }
+        { result: "小吉", weight: 15 },
+        { result: "末吉", weight: 15 },
+        { result: "凶", weight: 10 },
+        { result: "大凶", weight: 5 },
+        { result: "諭吉", weight: 10 },
+        { result: "不吉", weight: 5 },
+        { result: "たぬ吉", weight: 10 },
+        { result: "ファミ吉", weight: 5 }
       ];
 
       function getOmikujiResult() {
