@@ -38,20 +38,25 @@ module.exports = {
               }
 
               let imageurl = null;
+              let attachmentText = '';
               if (fetchedMessage.attachments.size > 0) {
                 fetchedMessage.attachments.forEach(attachment => {
-                  if (attachment.contentType.startsWith('image/')) {
+                  if (attachment.contentType.startsWith('image/') && !imageurl) {
                     imageurl = attachment.url;
                   } else {
-                    embed.addFields(
-                      { name: '添付ファイル', value: `[${attachment.name}](${attachment.url})` }
-                    );
+                    attachmentText += `[${attachment.name}](${attachment.url})\n`;
                   }
                 });
               }
 
               if (imageurl) {
                 embed.setImage(imageurl);
+              }
+              
+              if (attachmentText) {
+                embed.addFields(
+                  { name: '添付ファイル', value: attachmentText }
+                );
               }
           
               message.channel.send({ embeds: [embed] });
