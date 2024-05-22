@@ -3,9 +3,12 @@
   "main": "index.js",
   "dependencies": {
     "@keyv/sqlite": "^3.6.7",
-    "axios": "^1.6.8",
+    "axios": "^1.7.2",
     "discord.js": "^14.15.2",
     "keyv": "^4.5.4",
     "pify": "^6.1.0"
+  },
+  "scripts": {
+    "start": "node index.js"
   }
 }
