@@ -125,10 +125,6 @@ module.exports = {
                         value:'ロールを10個まで指定できるロールパネルを作成します。'
                     },
                     {
-                        name: '**/osoujireply**',
-                        value:'「お掃除」等の単語に対して反応する機能を設定します。\n(enableで有効化、disableで無効化)'
-                    },
-                    {
                         name: '**/settogglelevel**',
                         value:'レベル機能の設定を行います。'
                     },
@@ -146,7 +142,11 @@ module.exports = {
                     },
                     {
                         name: '**/automod**',
-                        value:'Automodを設定します。\n(詳細はドキュメントをお読みください)'
+                        value:'Automodを設定します。\n(詳細は[ドキュメント](https://kakerucmd.github.io/huntersakuya-osouji-bot_Pages.github.io/document.html)をお読みください)'
+                    },
+                    {
+                        name: '**/osoujireply**',
+                        value:'「お掃除」等の単語に対して反応する機能を設定します。\n(enableで有効化、disableで無効化)'
                     },
                 )
                 embed.setColor('Blurple');
@@ -160,11 +160,15 @@ module.exports = {
                     },
                     {
                         name: '**/welcome**',
-                        value:'ウェルカムメッセージ機能を使用します。\n(setupで有効化、disableで無効化)'
+                        value:'ウェルカムメッセージ機能を使用します。\n(setupで設定、disableで無効化)'
+                    },
+                    {
+                        name: '**/msg-url-embed**',
+                        value:'メッセージのリンクが貼られた時、展開する機能を使用します。\n(enableで有効化、disableで無効化)'
                     },
                     {
                         name: '**/joinleavelogs**',
-                        value:'入退室ログ機能を使用します。\n(setupで有効化、disableで無効化)'
+                        value:'入退室ログ機能を使用します。\n(setupで設定、disableで無効化)'
                     },
                     {
                         name: '**～～～～～～～～～～**',
