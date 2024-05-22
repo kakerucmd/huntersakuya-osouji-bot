@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, ModalBuilder, TextInputBuilder, ActionRowBuilder, TextInputStyle } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, ModalBuilder, TextInputBuilder, ActionRowBuilder, TextInputStyle } = require('discord.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -69,14 +69,14 @@ async function replyWithImage(mInteraction, top, bottom) {
         validateInput(top, bottom);
         const encodedTop = encodeURIComponent(top);
         const encodedBottom = encodeURIComponent(bottom);
-        await mInteraction.followUp({
-            embeds: [{
-                image: {
-                    url: `https://gsapi.cbrx.io/image?top=${encodedTop}&bottom=${encodedBottom}&type=png`
-                }
-            }]
-        });
+
+        const embed = new EmbedBuilder()
+			.setColor("Blurple")
+            .setImage(`https://gsapi.cbrx.io/image?top=${encodedTop}&bottom=${encodedBottom}&type=png`)
+            .setFooter({ text: 'Powered by 5000choyen-api' })
+
+		await mInteraction.editReply({ embeds: [embed] });
     } catch (error) {
-        await mInteraction.followUp({ content: error.message, ephemeral: true });
+        await mInteraction.editReply({ content: 'エラーが発生しました。' });
     }
 }
