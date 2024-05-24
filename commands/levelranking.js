@@ -60,7 +60,7 @@ module.exports = {
         const embed = new EmbedBuilder()
           .setColor("Blurple")
           .setAuthor({
-            name: `ギルド内XPランキング`,
+            name: `${interaction.guild.name}`,
             iconURL: `${interaction.guild.iconURL() || 'https://cdn.discordapp.com/embed/avatars/0.png'}`
           })  
           .setDescription(ranking.slice(0, 10).join('\n'))
