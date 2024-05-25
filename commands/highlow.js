@@ -31,17 +31,17 @@ module.exports = {
         let number = Math.floor(Math.random() * 9) + 1;
 
         const highButton = new ButtonBuilder()
-            .setCustomId('high')
+            .setCustomId(`high_${userId}`)
             .setLabel('High')
             .setStyle(ButtonStyle.Primary);
 
         const lowButton = new ButtonBuilder()
-            .setCustomId('low')
+            .setCustomId(`low_${userId}`)
             .setLabel('Low')
             .setStyle(ButtonStyle.Success);
 
         const stopButton = new ButtonBuilder()
-            .setCustomId('stop')
+            .setCustomId(`stop_${userId}`)
             .setLabel('ゲームを中止する')
             .setStyle(ButtonStyle.Danger);
 
@@ -55,25 +55,17 @@ module.exports = {
             .setDescription(`現在の数は${number}です。\n次の数は現在の数より高い(high)と思いますか？\nそれとも低い(low)と思いますか？`);
         await interaction.editReply({ content: `${interaction.user}`, embeds: [embed], components: [row] });
 
-        const filter = i => {
-            if ((i.customId === 'high' || i.customId === 'low' || i.customId === 'stop') && i.user.id !== userId) {
-                i.deferUpdate().then(() => {
-                    i.followUp({ content: 'これはあなたが開始したハイ＆ローではありません。\n`/highlow`で、自分のゲームを開始してください。', ephemeral: true });
-                });
-                return false;
-            }
-            return (i.customId === 'high' || i.customId === 'low' || i.customId === 'stop') && i.user.id === userId;
-        };
-        
+        const filter = i => i.customId.endsWith(`_${userId}`) && i.user.id === userId;
+
         const collector = interaction.channel.createMessageComponentCollector({ filter, time: 120000 });
 
         collector.on('collect', async i => {
-            if (i.customId === 'stop') {
+            if (i.customId === `stop_${userId}`) {
                 collector.stop('stopped');
                 return;
             }
         
-            const guess = i.customId;
+            const guess = i.customId.split('_')[0];
             let nextNumber;
             do {
                 nextNumber = Math.floor(Math.random() * 9) + 1;
@@ -85,13 +77,17 @@ module.exports = {
                     .setAuthor({ name: '⭕️｜正解' })
                     .setColor(guess === 'high' ? "Blurple" : "DarkGreen")
                     .setDescription(`次の数は${nextNumber}でした。現在の数は${nextNumber}です。\n次の数は現在の数より高い(high)と思いますか？\nそれとも低い(low)と思いますか？`);
-                await i.update({ content: `${interaction.user}`, embeds: [embed], components: [row] });
             } else {
                 embed = new EmbedBuilder()
                     .setAuthor({ name: '❌｜不正解' })
                     .setColor(guess === 'high' ? "Blurple" : "DarkGreen")
                     .setDescription(`次の数は${nextNumber}でした。現在の数は${nextNumber}です。\n次の数は現在の数より高い(high)と思いますか？\nそれとも低い(low)と思いますか？`);
+            }
+
+            try {
                 await i.update({ content: `${interaction.user}`, embeds: [embed], components: [row] });
+            } catch (error) {
+                console.error(error);
             }
         
             count++;
@@ -100,7 +96,7 @@ module.exports = {
             if (count >= rounds) {
                 collector.stop();
             }
-        });        
+        });
 
         collector.on('end', (collected, reason) => {
             activehighlow.delete(userId);
