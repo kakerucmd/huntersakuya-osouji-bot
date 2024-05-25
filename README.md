@@ -1,13 +1,12 @@
-# お掃除上方修正しろbotVer3.0のソースコード
+# お掃除上方修正しろbotのソースコード
 
-**Official site**
-
-https://kakerucmd.github.io/huntersakuya-osouji-bot_Pages.github.io/index.html
-
-**botの招待は下記から**
-
-https://discord.com/oauth2/authorize?client_id=1175248665972060160&permissions=8&scope=applications.commands%20bot
-
-何か追加してほしい機能がありましたらサポートサーバーまでお願いします
-
-https://discord.gg/dE3JpBXjnx
+```json
+{
+  "bot_name": "お掃除上方修正しろbot#6554",
+  "version": "Ver3.5",
+  "language": "Javascript",
+  "description": "ネタで作り始めた多機能bot",
+  "Official_Site": "https://kakerucmd.github.io/huntersakuya-osouji-bot_Pages.github.io/"
+  "Invite": "https://kakerucmd.github.io/huntersakuya-osouji-bot_Pages.github.io/invite.html"
+  "support": "https://discord.com/invite/dE3JpBXjnx",
+}
