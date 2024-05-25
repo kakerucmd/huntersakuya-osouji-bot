@@ -133,8 +133,8 @@ module.exports = {
                         value:'ロールを10個まで指定できるロールパネルを作成します。'
                     },
                     {
-                        name: '**/setglobalchat**',
-                        value:'指定したチャンネルでグローバルチャットを有効にするか設定します。'
+                        name: '**/globalchat**',
+                        value:'グローバルチャットを設定します。\n(enableで有効化、disableで無効化)'
                     },
                     {
                         name: '**/automod**',
