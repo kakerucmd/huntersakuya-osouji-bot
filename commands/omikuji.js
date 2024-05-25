@@ -24,15 +24,16 @@ module.exports = {
 
       let probabilities = [
         { result: "大吉", weight: 5 },
-        { result: "中吉", weight: 20 },
+        { result: "中吉", weight: 15 },
         { result: "小吉", weight: 15 },
-        { result: "末吉", weight: 15 },
+        { result: "末吉", weight: 10 },
         { result: "凶", weight: 10 },
         { result: "大凶", weight: 5 },
         { result: "諭吉", weight: 10 },
         { result: "不吉", weight: 5 },
         { result: "たぬ吉", weight: 10 },
-        { result: "ファミ吉", weight: 5 }
+        { result: "ファミ吉", weight: 5 },
+        { result: "中古", weight: 10 }
       ];
 
       function getOmikujiResult() {
