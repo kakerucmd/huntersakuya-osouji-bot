@@ -93,7 +93,7 @@ client.on(Events.InteractionCreate, async interaction => {
 });
 
 setInterval(() => {
-  client.user.setActivity(`Ver3.4 | ${client.guilds.cache.size} servers ${client.ws.ping}ms`);
+  client.user.setActivity(`Ver3.5 | ${client.guilds.cache.size} servers ${client.ws.ping}ms`);
 }, 60000);
 
 //個人鯖用(雑)
