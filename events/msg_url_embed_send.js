@@ -4,9 +4,9 @@ const Keyv = require('keyv');
 const msg_url_embed = new Keyv('sqlite://db.sqlite', { table: 'msgurlembed' });
 
 module.exports = {
-	name: Events.MessageCreate,
-	once: false,
-	async execute(message) {
+    name: Events.MessageCreate,
+    once: false,
+    async execute(message) {
         try {
             const data = await msg_url_embed.get(message.guild.id);
             if (!data) return;
@@ -17,51 +17,52 @@ module.exports = {
             const MESSAGE_URL_REGEX = /https?:\/\/discord\.com\/channels\/(\d+)\/(\d+)\/(\d+)/g;
             const matches = MESSAGE_URL_REGEX.exec(message.content);
             if (matches) {
-              const [_, guildId, channelId, messageId] = matches;
-              const guild = await client.guilds.fetch(guildId);
-              const channel = await client.channels.fetch(channelId);
+                const [_, guildId, channelId, messageId] = matches;
+                const guild = await client.guilds.fetch(guildId);
+                const channel = await client.channels.fetch(channelId);
 
-              if (guild.id !== message.guild.id) {
-                return;
-              }
+                if (guild.id !== message.guild.id) {
+                    return;
+                }
           
-              const fetchedMessage = await channel.messages.fetch(messageId);
+                const fetchedMessage = await channel.messages.fetch(messageId);
           
-              const embed = new EmbedBuilder()
-                .setColor("Blurple")
-                .setAuthor({ name: fetchedMessage.author.tag, iconURL: fetchedMessage.author.displayAvatarURL() })
-                .setFooter({ text: `${guild.name}`, iconURL: `${guild.iconURL() || 'https://cdn.discordapp.com/embed/avatars/0.png'}` })
-                .setTimestamp(fetchedMessage.createdTimestamp);
+                const embed = new EmbedBuilder()
+                    .setColor("Blurple")
+                    .setAuthor({ name: fetchedMessage.author.tag, iconURL: fetchedMessage.author.displayAvatarURL() })
+                    .setFooter({ text: `${guild.name}`, iconURL: `${guild.iconURL() || 'https://cdn.discordapp.com/embed/avatars/0.png'}` })
+                    .setTimestamp(fetchedMessage.createdTimestamp);
 
-              if (fetchedMessage.content) {
-                embed.setDescription(`${fetchedMessage.content}\n\n[元メッセージ](${fetchedMessage.url})`);
-              }
+                if (fetchedMessage.content) {
+                    embed.setDescription(`${fetchedMessage.content}\n\n元メッセージ`);
+                }
 
-              let imageurl = null;
-              let attachmentText = '';
-              if (fetchedMessage.attachments.size > 0) {
-                fetchedMessage.attachments.forEach(attachment => {
-                  if (attachment.contentType.startsWith('image/') && !imageurl) {
-                    imageurl = attachment.url;
-                  } else {
-                    attachmentText += `[${attachment.name}](${attachment.url})\n`;
-                  }
-                });
-              }
+                let imageurl = null;
+                let attachmentText = '';
+                if (fetchedMessage.attachments.size > 0) {
+                    fetchedMessage.attachments.forEach(attachment => {
+                        if (attachment.contentType.startsWith('image/') && !imageurl) {
+                            imageurl = attachment.url;
+                        } else {
+                            attachmentText += `${attachment.name}\n`;
+                        }
+                    });
+                }
 
-              if (imageurl) {
-                embed.setImage(imageurl);
-              }
+                if (imageurl) {
+                    embed.setImage(imageurl);
+                }
               
-              if (attachmentText) {
-                embed.addFields(
-                  { name: '添付ファイル', value: attachmentText }
-                );
-              }
+                if (attachmentText) {
+                    embed.addFields(
+                        { name: '添付ファイル', value: attachmentText }
+                    );
+                }
           
-              message.channel.send({ embeds: [embed] });
+                message.channel.send({ embeds: [embed] });
             }
         } catch (error) {
-      }
-	},
+            console.error(`エラーが発生しました: ${error}`);
+        }
+    },
 };
