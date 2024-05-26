@@ -23,7 +23,7 @@ module.exports = {
       }
 
       let probabilities = [
-        { result: "大吉", weight: 10 },
+        { result: "大吉", weight: 5 },
         { result: "中吉", weight: 20 },
         { result: "小吉", weight: 20 },
         { result: "末吉", weight: 15 },
@@ -33,6 +33,7 @@ module.exports = {
         { result: "不吉", weight: 3 },
         { result: "たぬ吉", weight: 5 },
         { result: "ファミ吉", weight: 5 },
+        { result: "大𠮷", weight: 5 },
         { result: "チ吉キ", weight:5 },
         { result: "中古", weight: 5 },
         { result: "四凶", weight: 1 },
