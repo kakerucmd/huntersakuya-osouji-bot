@@ -10,14 +10,13 @@ const MAX_LEVEL = 111;
 module.exports = {
     cooldown: 60,
     data: new SlashCommandBuilder()
-      .setName('level_ranking')
-      .setDescription('実行したサーバーのレベルランキングを表示します')
-      .setDMPermission(false),
+        .setName('level_ranking')
+        .setDescription('実行したサーバーのレベルランキングを表示します')
+        .setDMPermission(false),
     async execute(interaction) {
-
         const isEnabled = await levelsettings.get(interaction.guild.id);
         if (!isEnabled) { 
-          return interaction.reply({ content: 'このサーバーではレベル機能が有効になっていません。', ephemeral: true });
+            return interaction.reply({ content: 'このサーバーではレベル機能が有効になっていません。', ephemeral: true });
         } 
 
         await interaction.deferReply();
@@ -58,17 +57,17 @@ module.exports = {
         }
 
         const embed = new EmbedBuilder()
-          .setColor("Blurple")
-          .setAuthor({
-            name: `${interaction.guild.name}`,
-            iconURL: `${interaction.guild.iconURL() || 'https://cdn.discordapp.com/embed/avatars/0.png'}`
-          })  
-          .setDescription(ranking.slice(0, 10).join('\n'))
-          .setTimestamp()
-          .setFooter({
-            iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 1024 }) || 'https://cdn.discordapp.com/embed/avatars/0.png'}`,
-            text: `${interaction.user.username}さんがコマンドを実行しました`
-        });
+            .setColor("Blurple")
+            .setAuthor({
+                name: `${interaction.guild.name}`,
+                iconURL: `${interaction.guild.iconURL() || 'https://cdn.discordapp.com/embed/avatars/0.png'}`
+            })  
+            .setDescription(ranking.slice(0, 10).join('\n'))
+            .setTimestamp()
+            .setFooter({
+                iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 1024 }) || 'https://cdn.discordapp.com/embed/avatars/0.png'}`,
+                text: `${interaction.user.username}さんがコマンドを実行しました`
+            });
         await interaction.editReply({ embeds: [embed] });
     },
 };

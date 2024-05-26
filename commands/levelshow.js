@@ -9,17 +9,17 @@ const EXP_PER_LEVEL = 10;
 
 module.exports = {
     data: new SlashCommandBuilder()
-      .setName('level_show')
-      .setDescription('指定したユーザーのレベルを表示します')
-      .setDMPermission(false)
-      .addUserOption(option => 
-        option.setName('user')
-        .setDescription('レベルを確認したいユーザー(指定しなかったら自身のレベルを表示します)')
-        .setRequired(false)),
+        .setName('level_show')
+        .setDescription('指定したユーザーのレベルを表示します')
+        .setDMPermission(false)
+        .addUserOption(option =>
+            option.setName('user')
+                .setDescription('レベルを確認したいユーザー(指定しなかったら自身のレベルを表示します)')
+                .setRequired(false)),
     async execute(interaction) {
         const isEnabled = await settings.get(interaction.guild.id);
         if (!isEnabled) { 
-          return interaction.reply({ content: `このサーバーではレベル機能が有効化されていません。`, ephemeral: true });
+            return interaction.reply({ content: `このサーバーではレベル機能が有効化されていません。`, ephemeral: true });
         } 
         const user = interaction.options.getUser('user') || interaction.user;
         const key = `${user.id}-${interaction.guild.id}`; 
@@ -29,23 +29,23 @@ module.exports = {
         const progressText = `**${level.count}/${EXP_PER_LEVEL * level.level}XP（${percentage}%）**`;
 
         const embed = new EmbedBuilder()
-          .setColor("Blurple")
-          .setThumbnail(`${user.displayAvatarURL() || 'https://cdn.discordapp.com/embed/avatars/0.png'}`)
-          .setAuthor({
-              name: `${interaction.guild.name}`,
-              iconURL: `${interaction.guild.iconURL() || 'https://cdn.discordapp.com/embed/avatars/0.png'}`
-          })    
-          .setTimestamp()
+            .setColor("Blurple")
+            .setThumbnail(`${user.displayAvatarURL() || 'https://cdn.discordapp.com/embed/avatars/0.png'}`)
+            .setAuthor({
+                name: `${interaction.guild.name}`,
+                iconURL: `${interaction.guild.iconURL() || 'https://cdn.discordapp.com/embed/avatars/0.png'}`
+            })    
+            .setTimestamp()
 
         if (level.level === MAX_LEVEL) {
-          embed.setDescription(`<@${user.id}>さんのレベルは${level.level}(最大レベル)です。`)
+            embed.setDescription(`<@${user.id}>さんのレベルは${level.level}(最大レベル)です。`)
         } else {
-          const progress = Math.round((level.count / (EXP_PER_LEVEL * level.level)) * 10);
-          const progressBar = '🟩'.repeat(progress) + '⬜'.repeat(10 - progress);
+            const progress = Math.round((level.count / (EXP_PER_LEVEL * level.level)) * 10);
+            const progressBar = '🟩'.repeat(progress) + '⬜'.repeat(10 - progress);
 
-          embed.setDescription(`<@${user.id}>さんのレベルは${level.level}です。\n${progressText}\n${progressBar}`)
+            embed.setDescription(`<@${user.id}>さんのレベルは${level.level}です。\n${progressText}\n${progressBar}`)
         }
 
         await interaction.reply({ embeds: [embed] });
-  },
+    },
 };
