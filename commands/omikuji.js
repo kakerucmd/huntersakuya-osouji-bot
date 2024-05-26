@@ -23,17 +23,24 @@ module.exports = {
       }
 
       let probabilities = [
-        { result: "大吉", weight: 5 },
-        { result: "中吉", weight: 15 },
-        { result: "小吉", weight: 15 },
-        { result: "末吉", weight: 10 },
-        { result: "凶", weight: 10 },
-        { result: "大凶", weight: 5 },
-        { result: "諭吉", weight: 10 },
-        { result: "不吉", weight: 5 },
-        { result: "たぬ吉", weight: 10 },
+        { result: "大吉", weight: 10 },
+        { result: "中吉", weight: 20 },
+        { result: "小吉", weight: 20 },
+        { result: "末吉", weight: 15 },
+        { result: "凶", weight: 3 },
+        { result: "大凶", weight: 2 },
+        { result: "諭吉", weight: 5 },
+        { result: "不吉", weight: 3 },
+        { result: "たぬ吉", weight: 5 },
         { result: "ファミ吉", weight: 5 },
-        { result: "中古", weight: 10 }
+        { result: "チ吉キ", weight:5 },
+        { result: "中古", weight: 5 },
+        { result: "四凶", weight: 1 },
+        { result: "帝凶平成大学", weight: 1 },
+        { result: "凶和国", weight: 1 },
+        { result: "吉田沙保吉", weight: 1 },
+        { result: "獄門凶", weight: 2 },
+        { result: "らっ凶", weight: 1 }
       ];
 
       function getOmikujiResult() {
