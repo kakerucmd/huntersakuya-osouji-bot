@@ -1,6 +1,7 @@
-const { SlashCommandBuilder, EmbedBuilder, PermissionsBitField, ChannelType } = require('discord.js');
-const Keyv = require('keyv');
+const { SlashCommandBuilder, PermissionsBitField, ChannelType } = require('discord.js');
+const { createEmbed } = require('../functions/createembed');
 
+const Keyv = require('keyv');
 const globalchannels = new Keyv('sqlite://db.sqlite', { table: 'globalchannels' });
 
 module.exports = {
@@ -25,10 +26,7 @@ module.exports = {
                 await interaction.deferReply({ ephemeral: true });
 
                 if (channels[channel.id]) {
-                    const embed = new EmbedBuilder()
-                        .setAuthor({ name: '⚠️｜エラー' })
-                        .setDescription(`グローバルチャットは既に${channel}で有効化されています。`)
-                        .setColor('#ff0000');
+                    const embed = createEmbed('⚠️｜エラー', '#ff0000', `グローバルチャットは既に${channel}で有効化されています。`);
                     await interaction.editReply({ embeds: [embed] });
                     return;
                 }
@@ -37,18 +35,12 @@ module.exports = {
                     const webhook = await channel.createWebhook({ name: "Global chat Webhook" });
                     channels[channel.id] = webhook.url;
 
-                    const embed = new EmbedBuilder()
-                        .setAuthor({ name: '✅｜成功' })
-                        .setDescription(`グローバルチャットが${channel}で有効化されました。\nスパム行為などはおやめください。`)
-                        .setColor('#00ff00');
+                    const embed = createEmbed('✅｜成功', '#00ff00', `グローバルチャットが${channel}で有効化されました。\nスパム行為などはおやめください。`);
                     await interaction.editReply({ embeds: [embed] });
 
                     await channel.setRateLimitPerUser(5);
                 } catch (error) {
-                    const embed = new EmbedBuilder()
-                        .setAuthor({ name: '❌｜エラー' })
-                        .setDescription(`Webhookの作成中にエラーが発生しました。\nBotにWebhookを作成する権限があることを確認してください。`)
-                        .setColor('#ff0000');
+                    const embed = createEmbed('❌｜エラー', '#ff0000', `Webhookの作成中にエラーが発生しました。\nBotにWebhookを作成する権限があることを確認してください。`);
                     return interaction.editReply({ embeds: [embed] });
                 }
                 await globalchannels.set('globalchannels', channels);
@@ -57,10 +49,7 @@ module.exports = {
                 case 'disable':
                     await interaction.deferReply({ ephemeral: true });
                     if (!channels[channel.id]) {
-                        const embed = new EmbedBuilder()
-                            .setAuthor({ name: '⚠️｜エラー' })
-                            .setDescription(`グローバルチャットが${channel}で有効化されていません。`)
-                            .setColor('#ff0000');
+                        const embed = createEmbed('⚠️｜エラー', '#ff0000', `グローバルチャットが${channel}で有効化されていません。`);
                         await interaction.editReply({ embeds: [embed] });
                         return;
                     }
@@ -77,17 +66,11 @@ module.exports = {
                             }
                         }
                     } catch (error) {
-                        const embed = new EmbedBuilder()
-                            .setAuthor({ name: '⚠️｜成功' })
-                            .setDescription(`グローバルチャットの無効化に成功しましたが、グローバルチャット用Webhookの削除に失敗しました。\nグローバルチャット用Webhookは手動で削除を行ってください。`)
-                            .setColor('#ff0000');
+                        const embed = createEmbed('⚠️｜成功', '#ff0000', `グローバルチャットの無効化に成功しましたが、グローバルチャット用Webhookの削除に失敗しました。\nグローバルチャット用Webhookは手動で削除を行ってください。`);
                         return interaction.editReply({ embeds: [embed] });
                     }
                 
-                    const embed = new EmbedBuilder()
-                        .setAuthor({ name: '✅｜成功' })
-                        .setDescription(`グローバルチャットが${channel}で無効化されました。`)
-                        .setColor('#00ff00');
+                    const embed = createEmbed('✅｜成功', '#00ff00', `グローバルチャットが${channel}で無効化されました。`);
                     await interaction.editReply({ embeds: [embed] });
                     await channel.setRateLimitPerUser(0);                
         }

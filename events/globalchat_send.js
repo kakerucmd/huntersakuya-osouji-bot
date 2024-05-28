@@ -1,13 +1,15 @@
-const { Events, EmbedBuilder, WebhookClient } = require('discord.js');
-const Keyv = require('keyv');
-const globalchannels = new Keyv('sqlite://db.sqlite', { table: 'globalchannels' });
-const userTokenViolations = new Keyv('sqlite://db.sqlite', { table: 'TokenViolations' });
-const userSpamCounts = new Keyv('sqlite://db.sqlite', { table: 'SpamCounts' });
+const { Events, WebhookClient } = require('discord.js');
+const { createEmbed } = require('../functions/createembed');
 const userMessageTimestamps = new Map();
 const userMessageCounts = new Map();
 const globalMessageQueue = [];
 const userLastMessageTimes = new Map();
 const userPenaltyTimestamps = new Map();
+
+const Keyv = require('keyv');
+const globalchannels = new Keyv('sqlite://db.sqlite', { table: 'globalchannels' });
+const userTokenViolations = new Keyv('sqlite://db.sqlite', { table: 'TokenViolations' });
+const userSpamCounts = new Keyv('sqlite://db.sqlite', { table: 'SpamCounts' });
 
 async function sendQueuedMessage() {
     const message = globalMessageQueue.shift();
@@ -78,19 +80,13 @@ module.exports = {
                     let userTokenViolationCount = await userTokenViolations.get(message.author.id);
                     let userSpamCount = await userSpamCounts.get(message.author.id);
                     if (userTokenViolationCount >= 3) {
-                        const embed = new EmbedBuilder()
-                            .setAuthor({ name: '❌｜エラー' })
-                            .setDescription(`あなたは3回以上Token類似文字列を含むメッセージを送信したため、\nグローバルチャットにメッセージは転送されません。`)
-                            .setColor('#ff0000');
+                        const embed = createEmbed('❌｜エラー', '#ff0000', `あなたは3回以上Token類似文字列を含むメッセージを送信したため、\nグローバルチャットにメッセージは転送されません。`);
                         message.channel.send({ content: `<@${message.author.id}>`, embeds: [embed] });
                         message.react('❌');
                         return;
                     }
                     if (userSpamCount >= 3) {
-                        const embed = new EmbedBuilder()
-                            .setAuthor({ name: '❌｜エラー' })
-                            .setDescription(`あなたは3回以上スパムを行ったため、\nグローバルチャットにメッセージは転送されません。`)
-                            .setColor('#ff0000');
+                        const embed = createEmbed('❌｜エラー', '#ff0000', `あなたは3回以上スパムを行ったため、\nグローバルチャットにメッセージは転送されません。`);
                         message.channel.send({ content: `<@${message.author.id}>`, embeds: [embed] });
                         message.react('❌');
                         return;
@@ -102,10 +98,7 @@ module.exports = {
                         userTokenViolationCount = userTokenViolationCount ? userTokenViolationCount + 1 : 1;
                         await userTokenViolations.set(message.author.id, userTokenViolationCount);
                         if (userTokenViolationCount < 3) {
-                            const embed = new EmbedBuilder()
-                                .setAuthor({ name: '❌｜警告' })
-                                .setDescription(`Token類似文字列を含むメッセージは送信できません。\n3回以上グローバルチャットにToken類似文字列を送信した場合、\nあなたはグローバルチャットが使用不可能になります。`)
-                                .setColor('#ff0000');
+                            const embed = createEmbed('❌｜警告', '#ff0000', `Token類似文字列を含むメッセージは送信できません。\n3回以上グローバルチャットにToken類似文字列を送信した場合、\nあなたはグローバルチャットが使用不可能になります。`);
                             message.channel.send({ content: `<@${message.author.id}>`, embeds: [embed] });
                             message.react('❌');
                             return;
@@ -121,10 +114,7 @@ module.exports = {
                         if (messageCount >= 4 && (now - lastMessageTimestamp) < 10000) {
                             userSpamCount = userSpamCount ? userSpamCount + 1 : 1;
                             await userSpamCounts.set(message.author.id, userSpamCount);
-                            const embed = new EmbedBuilder()
-                                .setAuthor({ name: '⚠️｜スパム対策' })
-                                .setDescription(`スパムが検出されました。\n1分間メッセージの転送が停止されます。`)
-                                .setColor('#ff0000');
+                            const embed = createEmbed('⚠️｜スパム対策', '#ff0000', `スパムが検出されました。\n1分間メッセージの転送が停止されます。`);
                             message.channel.send({ content: `<@${message.author.id}>`, embeds: [embed] });
                             message.react('❌');
                             userPenaltyTimestamps.set(message.author.id, now);

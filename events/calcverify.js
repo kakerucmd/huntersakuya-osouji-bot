@@ -1,4 +1,6 @@
-const { EmbedBuilder, Events, ModalBuilder, TextInputBuilder, TextInputStyle, ActionRowBuilder } = require('discord.js');
+const { Events, ModalBuilder, TextInputBuilder, TextInputStyle, ActionRowBuilder } = require('discord.js');
+const { createEmbed } = require('../functions/createembed');
+
 const Keyv = require('keyv');
 const verify = new Keyv('sqlite://db.sqlite');
 
@@ -13,45 +15,30 @@ module.exports = {
 
             const guildData = await verify.get(`${interaction.guild.id}_${roleId}`);
             if (!guildData) {
-                const embed = new EmbedBuilder()
-                    .setAuthor({ name: '❌｜認証失敗' })
-                    .setDescription('計算認証パネルが無効になっています。\nサーバー管理者に連絡し、ロールパネルを再作成してください。')
-                    .setColor('#ff0000');
+                const embed = createEmbed('❌｜認証失敗', '#ff0000', '計算認証パネルが無効になっています。\nサーバー管理者に連絡し、ロールパネルを再作成してください。');
                 return interaction.reply({ embeds: [embed], ephemeral: true });
             }
 
             const role = interaction.guild.roles.cache.get(guildData.role);
             if (!role) {
-                const embed = new EmbedBuilder()
-                    .setAuthor({ name: '❌｜認証失敗' })
-                    .setDescription('ロールが存在しません。')
-                    .setColor('#ff0000');
+                const embed = createEmbed('❌｜認証失敗', '#ff0000', 'ロールが存在しません。');
                 return interaction.reply({ embeds: [embed], ephemeral: true });
             }
 
             const member = interaction.guild.members.cache.get(interaction.user.id);
             if (!member) {
-                const embed = new EmbedBuilder()
-                    .setAuthor({ name: '❌｜認証失敗' })
-                    .setDescription('メンバーが存在しません。')
-                    .setColor('#ff0000');
+                const embed = createEmbed('❌｜認証失敗', '#ff0000', 'メンバーが存在しません。');
                 return interaction.reply({ embeds: [embed], ephemeral: true });
             }
 
             if (member.roles.cache.has(role.id)) {
-                const embed = new EmbedBuilder()
-                    .setAuthor({ name: '✅｜認証済み' })
-                    .setDescription('既に認証済みです。')
-                    .setColor('#00ff00');
+                const embed = createEmbed('✅｜認証済み', '#00ff00', '既に認証済みです。');
                 return interaction.reply({ embeds: [embed], ephemeral: true });
             }
 
             const botMember = interaction.guild.members.cache.get(client.user.id);
             if (botMember.roles.highest.comparePositionTo(role) <= 0) {
-                const embed = new EmbedBuilder()
-                    .setAuthor({ name: '⚠️｜役職の位置エラー' })
-                    .setDescription('お掃除上方修正しろBotの役職の位置が付与対象の役職よりも低いため、\n役職を付与、解除することができません。\nサーバー管理者に連絡し、お掃除上方修正しろbotの役職の位置を付与対象のロールより上に上げてください。')
-                    .setColor('#ffcc00');
+                const embed = createEmbed('⚠️｜役職の位置エラー', '#ffcc00', 'お掃除上方修正しろBotの役職の位置が付与対象の役職よりも低いため、\n役職を付与、解除することができません。\nサーバー管理者に連絡し、お掃除上方修正しろbotの役職の位置を付与対象のロールより上に上げてください。');
                 return interaction.reply({ embeds: [embed], ephemeral: true });
             }
 
@@ -105,10 +92,7 @@ module.exports = {
                 await interaction.showModal(modal);
             } catch (error) {
                 console.error('Failed to show modal:', error);
-                const embed = new EmbedBuilder()
-                    .setAuthor({ name: '❌｜エラー' })
-                    .setDescription('エラーが発生しました。後ほど再試行してみてください。')
-                    .setColor('#ff0000');
+                const embed = createEmbed('❌｜エラー', '#ff0000', 'エラーが発生しました。後ほど再試行してみてください。');
                 return interaction.reply({ embeds: [embed], ephemeral: true });
             }
 
@@ -119,40 +103,25 @@ module.exports = {
                         const userAnswer = mInteraction.fields.getTextInputValue('problemInput');
                         const parsedAnswer = parseInt(userAnswer);
                         if (isNaN(parsedAnswer)) {
-                            const embed = new EmbedBuilder()
-                                .setAuthor({ name: '❌｜認証失敗' })
-                                .setDescription('答えは半角数字を入力してください。')
-                                .setColor('#ff0000');
+                            const embed = createEmbed('❌｜認証失敗', '#ff0000', '答えは半角数字を入力してください。');
                             await mInteraction.reply({ embeds: [embed], ephemeral: true });
                         } else if (parsedAnswer === answer) {
                             try {
                                 await member.roles.add(role);
-                                const embed = new EmbedBuilder()
-                                    .setAuthor({ name: '✅｜認証成功' })
-                                    .setDescription(`認証に成功しました。\nサーバーのルールを守り、\n**${interaction.guild.name}**をご利用ください。`)
-                                    .setColor('#00ff00');
+                                const embed = createEmbed('✅｜認証成功', '#00ff00', `認証に成功しました。\nサーバーのルールを守り、\n**${interaction.guild.name}**をご利用ください。`);
                                 await mInteraction.reply({ embeds: [embed], ephemeral: true });
                             } catch (error) {
                                 console.error('Failed to add role:', error);
-                                const embed = new EmbedBuilder()
-                                    .setAuthor({ name: '❌｜エラー' })
-                                    .setDescription('エラーが発生しました。後ほど再試行してみてください。')
-                                    .setColor('#ff0000');
+                                const embed = createEmbed('❌｜エラー', '#ff0000', 'エラーが発生しました。後ほど再試行してみてください。');
                                 await mInteraction.reply({ embeds: [embed], ephemeral: true });
                             }
                         } else {
-                            const embed = new EmbedBuilder()
-                                .setAuthor({ name: '❌｜認証失敗' })
-                                .setDescription(`認証に失敗しました。\n計算の正解は \`${answer}\` です。`)
-                                .setColor('#ff0000');
+                            const embed = createEmbed('❌｜認証失敗', '#ff0000', `認証に失敗しました。\n計算の正解は \`${answer}\` です。`);
                             return mInteraction.reply({ embeds: [embed], ephemeral: true });
                         }
                     } catch (error) {
                         console.error('Failed to process user input:', error);
-                        const embed = new EmbedBuilder()
-                            .setAuthor({ name: '❌｜エラー' })
-                            .setDescription('エラーが発生しました。後ほど再試行してみてください。')
-                            .setColor('#ff0000');
+                        const embed = createEmbed('❌｜エラー', '#ff0000', 'エラーが発生しました。後ほど再試行してみてください。');
                         await mInteraction.reply({ embeds: [embed], ephemeral: true });
                     }
                 })

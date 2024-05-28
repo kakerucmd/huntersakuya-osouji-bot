@@ -1,4 +1,6 @@
-const { Events, EmbedBuilder } = require('discord.js');
+const { Events } = require('discord.js');
+const { createEmbed } = require('../functions/createembed');
+
 const Keyv = require('keyv');
 const verify = new Keyv('sqlite://db.sqlite');
 
@@ -14,54 +16,36 @@ module.exports = {
 
             const guildData = await verify.get(`${interaction.guild.id}_${roleId}`);
             if (!guildData) {
-                const embed = new EmbedBuilder()
-                    .setAuthor({ name: '❌｜ロールの付与/削除失敗' })
-                    .setDescription('ロールパネルが無効になっています。\nサーバー管理者に連絡し、ロールパネルを再作成してください。')
-                    .setColor('#ff0000');
+                const embed = createEmbed('❌｜ロールの付与/削除失敗', '#ff0000', 'ロールパネルが無効になっています。\nサーバー管理者に連絡し、ロールパネルを再作成してください。');
                 return interaction.editReply({ embeds: [embed], ephemeral: true });
             }
 
             const role = interaction.guild.roles.cache.get(guildData.role);
             if (!role) {
-                const embed = new EmbedBuilder()
-                    .setAuthor({ name: '❌｜ロールの付与/削除失敗' })
-                    .setDescription('ロールが存在しません')
-                    .setColor('#ff0000');
+                const embed = createEmbed('❌｜ロールの付与/削除失敗', '#ff0000', 'ロールが存在しません');
                 return interaction.editReply({ embeds: [embed], ephemeral: true });
             }
 
             const member = interaction.guild.members.cache.get(interaction.user.id);
             if (!member) {
-                const embed = new EmbedBuilder()
-                    .setAuthor({ name: '❌｜ロールの付与/削除失敗' })
-                    .setDescription('メンバーが存在しません')
-                    .setColor('#ff0000');
+                const embed = createEmbed('❌｜ロールの付与/削除失敗', '#ff0000', 'メンバーが存在しません');
                 return interaction.editReply({ embeds: [embed], ephemeral: true });
             }
 
             const botMember = interaction.guild.members.cache.get(client.user.id);
             if (botMember.roles.highest.comparePositionTo(role) <= 0) {
-                const embed = new EmbedBuilder()
-                    .setAuthor({ name: '⚠️｜役職の位置エラー' })
-                    .setDescription('お掃除上方修正しろBotの役職の位置が付与対象の役職よりも低いため、\n役職を付与、解除することができません。\nサーバー管理者に連絡し、お掃除上方修正しろbotの役職の位置を付与対象のロールより上に上げてください。')
-                    .setColor('#ffcc00');
+                const embed = createEmbed('⚠️｜役職の位置エラー', '#ffcc00', 'お掃除上方修正しろBotの役職の位置が付与対象の役職よりも低いため、\n役職を付与、解除することができません。\nサーバー管理者に連絡し、お掃除上方修正しろbotの役職の位置を付与対象のロールより上に上げてください。');
                 return interaction.editReply({ embeds: [embed], ephemeral: true });
             }
 
             if (member.roles.cache.has(role.id)) {
                 await member.roles.remove(role);
-                const embed = new EmbedBuilder()
-                    .setAuthor({ name: '❌｜ロールの削除' })
-                    .setDescription(`<@&${role.id}>の削除に成功しました`)
-                    .setColor('#ff0000');
+                const embed = createEmbed('❌｜ロールの削除', '#ff0000', `<@&${role.id}>の削除に成功しました`);
                 return interaction.editReply({ embeds: [embed], ephemeral: true });
             }
 
             await member.roles.add(role);
-            const embed = new EmbedBuilder()
-                .setAuthor({ name: '✅｜ロールの付与' })
-                .setDescription(`<@&${role.id}>の付与に成功しました`)
-                .setColor('#00ff00');
+            const embed = createEmbed('✅｜ロールの付与', '#00ff00', `<@&${role.id}>の付与に成功しました`);
             return interaction.editReply({ embeds: [embed], ephemeral: true });
         }
     },
