@@ -125,6 +125,10 @@ module.exports = {
                         value:'実行したサーバー内のこのbotの設定を表示します。'
                     },
                     {
+                        name: '**/reaction-role**',
+                        value:'ロールを10個まで指定できるリアクションロールパネルを作成します。'
+                    },
+                    {
                         name: '**/createverifypanel**',
                         value:'指定した形式の認証パネルを作成します。'
                     },
