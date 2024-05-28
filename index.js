@@ -99,7 +99,7 @@ setInterval(() => {
 
   const days = ['日', '月', '火', '水', '木', '金', '土'];
   client.on('ready', () => {
-	  let channel = client.channels.cache.get('1204703379553779712');
+	  let channel = client.channels.cache.get('your-channel-id-goes-here');
 	  setInterval(() => {
 		  let date = new Date();
 		  let day = days[date.getDay()];
@@ -110,7 +110,7 @@ setInterval(() => {
   });
 
   client.on('ready', () => {
-    const channelId = '1238135056191586345';
+    const channelId = 'your-channel-id-goes-here';
     const fn = () => {
         const channel = client.channels.cache.get(channelId);
         if (!channel) {
