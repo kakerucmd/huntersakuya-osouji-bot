@@ -9,9 +9,10 @@ const client = new Client({
         GatewayIntentBits.Guilds, 
         GatewayIntentBits.GuildMembers,
         GatewayIntentBits.MessageContent, 
-        GatewayIntentBits.GuildMessages 
+        GatewayIntentBits.GuildMessages,
+		GatewayIntentBits.GuildMessageReactions
     ], 
-    partials: [Partials.Channel] 
+    partials: [Partials.Channel,Partials.Reaction,Partials.Message] 
 });
 
 const joinTimestamps = new Map();
@@ -93,13 +94,12 @@ client.on(Events.InteractionCreate, async interaction => {
 });
 
 setInterval(() => {
-  client.user.setActivity(`Ver3.5 | ${client.guilds.cache.size} servers ${client.ws.ping}ms`);
+  client.user.setActivity(`Ver3.6 | ${client.guilds.cache.size} servers ${client.ws.ping}ms`);
 }, 60000);
 
-//個人鯖用(雑)
   const days = ['日', '月', '火', '水', '木', '金', '土'];
   client.on('ready', () => {
-	  let channel = client.channels.cache.get('channelid');
+	  let channel = client.channels.cache.get('1204703379553779712');
 	  setInterval(() => {
 		  let date = new Date();
 		  let day = days[date.getDay()];
@@ -110,7 +110,7 @@ setInterval(() => {
   });
 
   client.on('ready', () => {
-    const channelId = 'channelid';
+    const channelId = '1238135056191586345';
     const fn = () => {
         const channel = client.channels.cache.get(channelId);
         if (!channel) {
