@@ -34,7 +34,7 @@ module.exports = {
                     .setTimestamp(fetchedMessage.createdTimestamp);
 
                 if (fetchedMessage.content) {
-                    embed.setDescription(`${fetchedMessage.content}\n\n元メッセージ`);
+                    embed.setDescription(`${fetchedMessage.content}\n\n[元メッセージ](${fetchedMessage.url})`);
                 }
 
                 let imageurl = null;
@@ -44,7 +44,7 @@ module.exports = {
                         if (attachment.contentType.startsWith('image/') && !imageurl) {
                             imageurl = attachment.url;
                         } else {
-                            attachmentText += `${attachment.name}\n`;
+                            attachmentText += `[${attachment.name}](${attachment.url})\n`;
                         }
                     });
                 }
