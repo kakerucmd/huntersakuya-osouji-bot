@@ -38,7 +38,7 @@ module.exports = {
             .setTimestamp()
 
         if (level.level === MAX_LEVEL) {
-            embed.setDescription(`<@${user.id}>さんのレベルは${level.level}(最大レベル)です。`)
+            embed.setDescription(`<@${user.id}>さんのレベルは${level.level}(最大レベル)です。\n**1110XP（MAX）**\n🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩`);
         } else {
             const progress = Math.round((level.count / (EXP_PER_LEVEL * level.level)) * 10);
             const progressBar = '🟩'.repeat(progress) + '⬜'.repeat(10 - progress);
