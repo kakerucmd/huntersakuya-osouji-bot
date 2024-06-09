@@ -63,10 +63,7 @@ module.exports = {
 
             const message = await interaction.channel.send({ embeds: [embed] });
 
-            await reactionrole.set(`${interaction.guild.id}`, {
-                messageId: message.id,
-                roles: roleData
-            });
+            await reactionrole.set(`${interaction.guild.id}-${message.id}`, roleData);
 
             for (let i = 0; i < uniqueRoles.length; i++) {
                 await message.react(emojiNumbers[i]);
