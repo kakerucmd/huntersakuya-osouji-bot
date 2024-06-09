@@ -3,7 +3,7 @@
 ```json
 {
   "bot_name": "お掃除上方修正しろbot#6554",
-  "version": "Ver3.6",
+  "version": "Ver3.7",
   "language": "Javascript",
   "description": "ネタで作り始めた多機能bot",
   "Official_Site": "https://kakerucmd.github.io/huntersakuya-osouji-bot_Pages.github.io/"

@@ -94,7 +94,7 @@ client.on(Events.InteractionCreate, async interaction => {
 });
 
 setInterval(() => {
-  client.user.setActivity(`Ver3.6 | ${client.guilds.cache.size} servers ${client.ws.ping}ms`);
+  client.user.setActivity(`Ver3.7 | ${client.guilds.cache.size} servers ${client.ws.ping}ms`);
 }, 60000);
 
   const days = ['日', '月', '火', '水', '木', '金', '土'];
