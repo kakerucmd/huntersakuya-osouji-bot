@@ -11,7 +11,9 @@ module.exports = {
         if (message.author.bot) return;
 
         let triggerWord;
-        if (message.content.includes('お掃除上方修正')) {
+        if (message.content.includes('お掃除上方修正しろ')) {
+            triggerWord = 'お掃除上方修正しろ';
+        } else if (message.content.includes('お掃除上方修正')) {
             triggerWord = 'お掃除上方修正';
         } else if (message.content.includes('大掃除')) {
             triggerWord = '大掃除';
@@ -38,7 +40,9 @@ module.exports = {
                         }, 1000);
                     } else {
                         let replyMessage = '';
-                        if (triggerWord === 'お掃除上方修正') {
+                        if (triggerWord === 'お掃除上方修正しろ') {
+                            replyMessage = 'お掃除上方修正しろ！(便乗)';
+                        } else if (triggerWord === 'お掃除上方修正') {
                             replyMessage = 'しろ！！';
                         } else if (triggerWord === '大掃除') {
                             replyMessage = '大掃除...？お掃除...逆襲....お掃除逆襲しろ！！';
