@@ -4,8 +4,8 @@ const verify = new Keyv('sqlite://db.sqlite');
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('createrolepanel')
-        .setDescription('指定したロールのロールパネルを作成します')
+        .setName('button-role')
+        .setDescription('指定したロールのボタンロールパネルを作成します')
         .setDefaultMemberPermissions(PermissionsBitField.Flags.Administrator)
         .setDMPermission(false)
         .addRoleOption(option => option.setName('role1').setDescription('1つ目のロールを選択(必須)').setRequired(true))

@@ -4,22 +4,18 @@ const verify = new Keyv('sqlite://db.sqlite');
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('createverifypanel')
+        .setName('verifypanel')
         .setDescription('指定したロールの認証パネルを作成します')
         .setDefaultMemberPermissions(PermissionsBitField.Flags.Administrator)
         .setDMPermission(false)
         .addStringOption(option =>
             option.setName('verifyformat')
                 .setDescription('認証形式を選択(必須)')
-                .addChoices({
-                    name: 'ボタン認証',
-                    value: 'button'
-                })
-                .addChoices({
-                    name: '計算認証',
-                    value: 'calc'
-                })
-                .setRequired(true))
+                .setRequired(true)
+                .addChoices(
+                    { name: `ボタン認証`, value: `button` },
+                    { name: `計算認証`, value: `calc` },
+                ))
         .addRoleOption(option => 
             option.setName('role')
                 .setDescription('ロールを選択(必須)')
@@ -38,13 +34,11 @@ module.exports = {
             await interaction.deferReply({ ephemeral: true });
                 
             const role = interaction.options.getRole('role');
-    
-            // ロールの存在チェック
+            
             if (!role) {
                 return interaction.editReply({ content: '指定されたロールがこのサーバーに存在しません。' });
             }
-    
-            // 連携ロール、@everyone、@hereのチェック
+
             if (role.id === interaction.guild.roles.everyone.id || role.managed) {
                 return interaction.editReply({ content: '連携ロール、@everyone、@hereは選択できません。' });
             }
