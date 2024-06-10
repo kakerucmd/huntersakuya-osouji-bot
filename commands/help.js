@@ -129,12 +129,12 @@ module.exports = {
                         value:'ロールを10個まで指定できるリアクションロールパネルを作成します。'
                     },
                     {
-                        name: '**/createverifypanel**',
-                        value:'指定した形式の認証パネルを作成します。'
+                        name: '**/button-role**',
+                        value:'ロールを10個まで指定できるロールパネルを作成します。'
                     },
                     {
-                        name: '**/createrolepanel**',
-                        value:'ロールを10個まで指定できるロールパネルを作成します。'
+                        name: '**/verifypanel**',
+                        value:'指定した形式の認証パネルを作成します。'
                     },
                     {
                         name: '**/globalchat**',
