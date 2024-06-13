@@ -10,7 +10,8 @@ const client = new Client({
         GatewayIntentBits.GuildMembers,
         GatewayIntentBits.MessageContent, 
         GatewayIntentBits.GuildMessages,
-		GatewayIntentBits.GuildMessageReactions
+		GatewayIntentBits.GuildMessageReactions,
+		GatewayIntentBits.GuildVoiceStates
     ], 
     partials: [Partials.Channel,Partials.Reaction,Partials.Message] 
 });
@@ -50,7 +51,7 @@ for (const file of eventFiles) {
 }
 
 client.on(Events.InteractionCreate, async interaction => {
-	if (!interaction.isChatInputCommand()) return;
+	if (!interaction.isChatInputCommand() && !interaction.isContextMenuCommand()) return;
 	const command = client.commands.get(interaction.commandName);
 
 	if (!command) {
@@ -94,40 +95,7 @@ client.on(Events.InteractionCreate, async interaction => {
 });
 
 setInterval(() => {
-  client.user.setActivity(`Ver3.7 | ${client.guilds.cache.size} servers ${client.ws.ping}ms`);
+  client.user.setActivity(`Ver3.8 | ${client.guilds.cache.size} servers ${client.ws.ping}ms`);
 }, 60000);
-
-  const days = ['日', '月', '火', '水', '木', '金', '土'];
-  client.on('ready', () => {
-	  let channel = client.channels.cache.get('your-channel-id-goes-here');
-	  setInterval(() => {
-		  let date = new Date();
-		  let day = days[date.getDay()];
-		  let newName = `${date.getMonth()+1}/${date.getDate()} - ${day}`;
-		  channel.setName(newName)
-			  .catch(console.error);
-	  }, 60000);
-  });
-
-  client.on('ready', () => {
-    const channelId = 'your-channel-id-goes-here';
-    const fn = () => {
-        const channel = client.channels.cache.get(channelId);
-        if (!channel) {
-            console.log(`${channelId}が存在しません。`);
-        } else {
-            channel.send('日付が変わりました！');
-        }
-    };
-
-    let now = new Date();
-    let tomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
-    let diff = tomorrow - now;
-
-    setTimeout(() => {
-        fn();
-        setInterval(fn, 1000 * 60 * 60 * 24);
-    }, diff);
-});
 
 client.login(token);
