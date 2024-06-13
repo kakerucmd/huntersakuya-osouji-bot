@@ -10,8 +10,7 @@ const client = new Client({
         GatewayIntentBits.GuildMembers,
         GatewayIntentBits.MessageContent, 
         GatewayIntentBits.GuildMessages,
-		GatewayIntentBits.GuildMessageReactions,
-		GatewayIntentBits.GuildVoiceStates
+		GatewayIntentBits.GuildMessageReactions
     ], 
     partials: [Partials.Channel,Partials.Reaction,Partials.Message] 
 });
@@ -95,7 +94,7 @@ client.on(Events.InteractionCreate, async interaction => {
 });
 
 setInterval(() => {
-  client.user.setActivity(`Ver3.8 | ${client.guilds.cache.size} servers ${client.ws.ping}ms`);
+  client.user.setActivity(`Ver3.9 | ${client.guilds.cache.size} servers ${client.ws.ping}ms`);
 }, 60000);
 
 client.login(token);
