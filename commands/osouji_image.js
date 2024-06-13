@@ -1,19 +1,20 @@
-const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, AttachmentBuilder } = require('discord.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('osouji_image')
-		.setDescription('お掃除上方修正しろの画像を返します(表示に時間がかかる場合があります)'),
+		.setDescription('お掃除上方修正しろ！の5000兆円画像を送信します。'),
 	async execute(interaction) {
 		try {
+			const file = new AttachmentBuilder('./images/jouhousyuseisiro.png');
 			const embed = new EmbedBuilder()
 				.setColor("Blurple")
 				.setTitle('お掃除上方修正しろ！！')
-				.setImage('https://gsapi.cbrx.io/image?top=%E3%81%8A%E6%8E%83%E9%99%A4&bottom=%E4%B8%8A%E6%96%B9%E4%BF%AE%E6%AD%A3%E3%81%97%E3%82%8D%EF%BC%81%EF%BC%81&type=png');
-			await interaction.reply({ embeds: [embed] });
+				.setImage('attachment://jouhousyuseisiro.png');
+			await interaction.reply({ embeds: [embed], files: [file] });
 		} catch (error) {
 			console.error(`エラーが発生しました: ${error}`);
-			await interaction.reply({ content: 'エラーが発生しました。後ほど再試行してください。', ephemeral: true });
+			await interaction.reply({ content: 'エラーが発生しました。', ephemeral: true });
 		}
 	},
 };
