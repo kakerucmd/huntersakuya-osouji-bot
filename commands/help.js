@@ -88,10 +88,6 @@ module.exports = {
                         value:'指定した回数ハイ&ローを行います。'
                     },
                     {
-                        name: '**/parlortrick**',
-                        value:'PARLOR TRICKを再生します'
-                    },
-                    {
                         name: '**/level**',
                         value:'レベル機能を設定します。\n(setupで設定、disableで設定を削除し無効化)'
                     },
