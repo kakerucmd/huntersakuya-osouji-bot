@@ -44,7 +44,7 @@ module.exports = {
         }
 
         try {
-            await member.ban({ reason: `${reason} ` });
+            await member.ban({ reason: `${reason}` });
             try {
                 await interaction.reply({ content: `<@${member.user.id}>をBanしました。理由: ${reason}`, ephemeral: true });
             } catch (error) {

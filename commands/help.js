@@ -125,8 +125,8 @@ module.exports = {
                         value:'指定したユーザーをBANします。'
                     },
                     {
-                        name: '**/getallsettings**',
-                        value:'実行したサーバー内のこのbotの設定を表示します。'
+                        name: '**/server_settings**',
+                        value:'実行したサーバーのこのbotの設定を表示します。'
                     },
                     {
                         name: '**/reaction-role**',

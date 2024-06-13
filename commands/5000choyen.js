@@ -3,7 +3,7 @@ const { SlashCommandBuilder, EmbedBuilder, ModalBuilder, TextInputBuilder, Actio
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('5000choyen')
-		.setDescription('5000兆円画像生成(合計32文字以下になるようにしてください)'),
+		.setDescription('5000兆円画像生成(上部と下部の文字列を入力してください)'),
 	async execute(interaction) {
 		try {
 			const modalId = '5000choyen' + interaction.user.id + Date.now();
@@ -36,7 +36,7 @@ function createModal(modalId) {
 		.setCustomId('topInput')
 		.setLabel("上部文字列")
 		.setStyle(TextInputStyle.Short)
-		.setPlaceholder('下部文字列をここに入力');
+		.setPlaceholder('上部文字列をここに入力');
 
 	const bottomInput = new TextInputBuilder()
 		.setCustomId('bottomInput')
@@ -58,15 +58,8 @@ function getTextInputValues(mInteraction) {
 	return { top, bottom };
 }
 
-function validateInput(top, bottom) {
-    if (top.length + bottom.length > 32) {
-        throw new Error('上部文字列と下部文字列の合計は32文字以内で入力してください。');
-    }
-}
-
 async function replyWithImage(mInteraction, top, bottom) {
     try {
-        validateInput(top, bottom);
         const encodedTop = encodeURIComponent(top);
         const encodedBottom = encodeURIComponent(bottom);
 
