@@ -45,7 +45,7 @@ module.exports = {
                 { name: 'ウェルカムメッセージ', value: welcome_data ? '有効' : '無効' },
                 { name: 'チケット機能', value: ticket_data ? '有効' : '無効' },
                 { name: '即抜けの通知', value: quickleave_data ? `有効(<#${leavechannel_data}>に通知を送信)` : '無効' },
-                { name: 'レベル機能', value: levelsettings_data? `有効(<#${levelchannels_data}>に通知を送信)` : '無効' },
+                { name: 'レベル機能', value: levelsettings_data ? `有効(${levelchannels_data ? `<#${levelchannels_data}>に通知を送信` : '通知を送信しない'})` : '無効' },
             )
             .setTimestamp()
 
