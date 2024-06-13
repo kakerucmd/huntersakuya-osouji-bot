@@ -8,8 +8,10 @@ module.exports = {
         .setDescription('ヘルプを表示します'),
     async execute(interaction) {
 
+        const botAvatar = interaction.client.user.displayAvatarURL({ format: 'webp', size: 1024 });
+
         const embeds = [];
-        for (var i = 0; i < 4; i++){
+        for (var i = 0; i < 5; i++){
             const embed = new EmbedBuilder();
             if (i === 0) {
                 embed.setDescription('コマンド(/)')
@@ -125,6 +127,10 @@ module.exports = {
                         value:'実行したサーバーのこのbotの設定を表示します。'
                     },
                     {
+                        name: '**/automod**',
+                        value:'Automodを設定します。\n(詳細は[ドキュメント](https://kakerucmd.github.io/huntersakuya_osouji-bot/document.html)をお読みください)'
+                    },
+                    {
                         name: '**/reaction-role**',
                         value:'ロールを10個まで指定できるリアクションロールパネルを作成します。'
                     },
@@ -136,24 +142,19 @@ module.exports = {
                         name: '**/verifypanel**',
                         value:'指定した形式の認証パネルを作成します。'
                     },
-                    {
-                        name: '**/globalchat**',
-                        value:'グローバルチャットを設定します。\n(enableで有効化、disableで無効化)'
-                    },
-                    {
-                        name: '**/automod**',
-                        value:'Automodを設定します。\n(詳細は[ドキュメント](https://kakerucmd.github.io/huntersakuya-osouji-bot_Pages.github.io/document.html)をお読みください)'
-                    },
+                )
+                embed.setColor('Blurple');
+            } else if (i === 3) {
+                embed.setTitle('コマンド(/)')
+                embed.setFields(
                     {
                         name: '**/osoujireply**',
                         value:'「お掃除」等の単語に対して反応する機能を設定します。\n(enableで有効化、disableで無効化)'
                     },
-                )
-                embed.setColor('Blurple');
-            } else if (i === 3) {
-                embed.setTitle('コマンド(/)、概要')
-                embed.setThumbnail('https://cdn.discordapp.com/avatars/1175248665972060160/ef2f2557ae2989b7635cd7ead0702240.webp?size=1024&format=webp&width=0&height=320')
-                embed.setFields(
+                    {
+                        name: '**/globalchat**',
+                        value:'グローバルチャットを設定します。\n(enableで有効化、disableで無効化)'
+                    },
                     {
                         name: '**/ticket**',
                         value:'チケット機能を使用します。\n(setupで設定、sendでチケットパネルを送信、removeで設定を削除)'
@@ -174,12 +175,14 @@ module.exports = {
                         name: '**/quick-leave**',
                         value:'即抜け通知機能を使用します。\n(setupで設定、disableで無効化)'
                     },
+                )
+                embed.setColor('Blurple');
+            } else if (i === 4) {
+                embed.setTitle('Botの概要')
+                embed.setThumbnail(botAvatar)
+                embed.setFields(
                     {
-                        name: '**～～～～～～～～～～**',
-                        value:'下記からbotの概要'
-                    },
-                    {
-                        name: '**bot製作者**',
+                        name: '**製作者**',
                         value:'・<@1090951958107521107>'
                     },
                     {
@@ -192,7 +195,15 @@ module.exports = {
                     },
                     {
                         name: '**Official Site**',
-                        value:'https://kakerucmd.github.io/huntersakuya-osouji-bot_Pages.github.io/'
+                        value:'https://kakerucmd.github.io/huntersakuya_osouji-bot/'
+                    },
+                    {
+                        name: '**利用規約**',
+                        value:'https://kakerucmd.github.io/huntersakuya_osouji-bot/TermOfUse.html'
+                    },
+                    {
+                        name: '**プライバシーポリシー**',
+                        value:'https://kakerucmd.github.io/huntersakuya_osouji-bot/policy.html'
                     },
                 )
                 embed.setColor('Blurple');
