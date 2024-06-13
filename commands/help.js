@@ -54,15 +54,15 @@ module.exports = {
                         name: '**/avatar**',
                         value:'指定したユーザーのアバターを表示します。'
                     },
+                    {
+                        name: '**/omikuji**',
+                        value:'指定した回数おみくじをします。'
+                    },
                 )
                 embed.setColor('Blurple');
             } else if (i === 1) {
                 embed.setDescription('コマンド(/)')
                 embed.setFields(
-                    {
-                        name: '**/omikuji**',
-                        value:'指定した回数おみくじをします。'
-                    },
                     {
                         name: '**/bulkdelete**',
                         value:'指定したユーザーのメッセージを一括削除します。'
@@ -86,6 +86,10 @@ module.exports = {
                     {
                         name: '**/highlow**',
                         value:'指定した回数ハイ&ローを行います。'
+                    },
+                    {
+                        name: '**/parlortrick**',
+                        value:'PARLOR TRICKを再生します'
                     },
                     {
                         name: '**/level**',
