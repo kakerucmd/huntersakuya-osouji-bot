@@ -15,11 +15,6 @@ const client = new Client({
     partials: [Partials.Channel,Partials.Reaction,Partials.Message] 
 });
 
-const joinTimestamps = new Map();
-
-global.joinTimestamps = joinTimestamps;
-global.client = client;
-
 client.cooldowns = new Collection();
 client.commands = new Collection();
 
@@ -93,8 +88,8 @@ client.on(Events.InteractionCreate, async interaction => {
 	}
 });
 
-setInterval(() => {
-  client.user.setActivity(`Ver3.9 | ${client.guilds.cache.size} servers ${client.ws.ping}ms`);
-}, 60000);
+const joinTimestamps = new Collection();
+
+global.joinTimestamps = joinTimestamps;
 
 client.login(token);
