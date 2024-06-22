@@ -90,6 +90,7 @@ client.on(Events.InteractionCreate, async interaction => {
 
 const joinTimestamps = new Collection();
 
+global.client = client;
 global.joinTimestamps = joinTimestamps;
 
 client.login(token);

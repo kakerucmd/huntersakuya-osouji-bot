@@ -8,6 +8,9 @@ module.exports = {
     once: false,
     async execute(message) {
         try {
+
+            const client = global.client;
+
             const data = await msg_url_embed.get(message.guild.id);
             if (!data) return;
 
