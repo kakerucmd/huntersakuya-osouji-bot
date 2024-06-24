@@ -3,6 +3,7 @@
   "main": "index.js",
   "dependencies": {
     "@keyv/sqlite": "^3.6.7",
+    "@napi-rs/canvas": "^0.1.53",
     "axios": "^1.7.2",
     "discord.js": "^14.15.2",
     "keyv": "^4.5.4",

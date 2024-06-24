@@ -98,6 +98,10 @@ module.exports = {
                         value:'指定したユーザーのレベルを表示します。'
                     },
                     {
+                        name: '**/level_card**',
+                        value:'指定したユーザーのレベルを画像+埋め込みで表示します。'
+                    },
+                    {
                         name: '**/level_ranking**',
                         value:'サーバー全体でのレベルのランキングを表示します。'
                     },
