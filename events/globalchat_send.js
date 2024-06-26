@@ -101,6 +101,13 @@ async function handleSpamDetection(message, userId, userKey, now) {
         userSpamCount += 1;
         await userSpamCounts.set(userId, userSpamCount);
 
+        if (userSpamCount >= 3) {
+            const embed = createEmbed('❌｜エラー', '#ff0000', 'あなたは3回以上スパムを行ったため、\nグローバルチャットにメッセージは転送されません。');
+            message.channel.send({ content: `<@${userId}>`, embeds: [embed] });
+            message.react('❌');
+            return true;
+        }
+
         const embed = createEmbed('⚠️｜スパム対策', '#ff0000', 'スパムが検出されました。\n1分間メッセージの転送が停止されます。');
         message.channel.send({ content: `<@${userId}>`, embeds: [embed] });
         message.react('❌');
