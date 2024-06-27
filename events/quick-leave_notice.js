@@ -19,10 +19,11 @@ module.exports = {
                 if (channel) {
                     const embed = new EmbedBuilder()
                         .setAuthor({
-                            name: member.user.tag,
-                            iconURL: member.user.displayAvatarURL()
+                            name: member.guild.name,
+                            iconURL: member.guild.iconURL()
                         })
                         .setDescription(`**${member.user}**(${member.user.id})さんが即抜けしました`)
+                        .setThumbnail(member.user.displayAvatarURL())
                         .setColor('Blurple')
                         .setFooter({
                             text: `${Math.floor(diffMinutes)}分${Math.floor((diffMinutes % 1) * 60)}秒で即抜けしました`
@@ -33,6 +34,6 @@ module.exports = {
             }
         }
 
-        global.joinTimestamps.delete(member.id);
+        global.joinTtimestamps.delete(member.id);
     },
 };

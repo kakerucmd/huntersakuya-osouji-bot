@@ -15,6 +15,7 @@ module.exports = {
                     name: `${member.guild.name}`,
                     iconURL: `${member.guild.iconURL() || 'https://cdn.discordapp.com/embed/avatars/0.png'}`
                 })  
+                .setThumbnail(member.user.displayAvatarURL())
                 .setDescription(`**${member.user.username}**(${member.id})さんが\n**${member.guild.name}**から退出しました`)
                 .setColor("Blurple")
                 .setTimestamp();

@@ -91,8 +91,8 @@ module.exports = {
                 closeModal.addComponents(one);
                 await interaction.showModal(closeModal);       
             } else if (interaction.customId == 'closeTicketModal') {
-                var channel = interaction.channel;
-                var name = channel.name;
+                const channel = interaction.channel;
+                let name = channel.name;
                 name = name.replace('ticket-','');
                 const member = await interaction.guild.members.cache.get(name);
 

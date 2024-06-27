@@ -21,7 +21,7 @@ module.exports = {
                 if (!data) return await interaction.reply({ content: 'このコマンドを実行する前に、/ticket setupコマンドを実行する必要があります。', ephemeral: true });
 
                 const name = options.getString('name');
-                var description = options.getString('description') || 'お問い合わせをするためにはチケットを作成してください。\n以下を選択したら、チケットを作成する理由を入力してください。';
+                const description = options.getString('description') || 'お問い合わせをするためにはチケットを作成してください。\n以下を選択したら、チケットを作成する理由を入力してください。';
 
                 const select = new ActionRowBuilder()
                     .addComponents(
