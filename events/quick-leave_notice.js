@@ -34,6 +34,6 @@ module.exports = {
             }
         }
 
-        global.joinTtimestamps.delete(member.id);
+        global.joinTimestamps.delete(member.id);
     },
 };
