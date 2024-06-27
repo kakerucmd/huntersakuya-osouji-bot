@@ -27,7 +27,8 @@ module.exports = {
                         .setColor('Blurple')
                         .setFooter({
                             text: `${Math.floor(diffMinutes)}分${Math.floor((diffMinutes % 1) * 60)}秒で即抜けしました`
-                        });
+                        })
+                        .setTimestamp();
 
                     channel.send({ embeds: [embed] });
                 }
