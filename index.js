@@ -1,6 +1,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { token } = require('./config.json');
+const { bannedUsers } = require('./banned.json');
 
 const { Client, Events, Collection, GatewayIntentBits, Partials } = require('discord.js');
 
@@ -46,6 +47,11 @@ for (const file of eventFiles) {
 
 client.on(Events.InteractionCreate, async interaction => {
 	if (!interaction.isChatInputCommand() && !interaction.isContextMenuCommand()) return;
+
+	if (bannedUsers.includes(interaction.user.id)) {
+        return interaction.reply({ content: 'あなたのアカウントはこのBotからBANされているため、機能を使用することができません。', ephemeral: true });
+    }
+
 	const command = client.commands.get(interaction.commandName);
 
 	if (!command) {
