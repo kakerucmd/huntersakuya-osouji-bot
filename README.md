@@ -10,3 +10,7 @@
   "Invite": "https://kakerucmd.github.io/huntersakuya_osouji-bot/invite.html"
   "support": "https://discord.com/invite/dE3JpBXjnx",
 }
+
+# Lisence
+
+This project is licensed under the MIT License, see the LICENSE.txt file for details
