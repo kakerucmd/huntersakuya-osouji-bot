@@ -28,7 +28,7 @@ module.exports = {
 
                 const rule1 = await guild.autoModerationRules.create({
                     name: `フラッグされることの多い語句をブロック`,
-                    creatorid: '1175248665972060160',
+                    creatorid: 'your-application-id-goes-here',
                     enabled: true,
                     eventType: 1,
                     triggerType: 4,
@@ -75,7 +75,7 @@ module.exports = {
 
                 const rule2 = await guild.autoModerationRules.create({
                     name: `${word}を含むメッセージをブロック`,
-                    creatorid: '1175248665972060160',
+                    creatorid: 'your-application-id-goes-here',
                     enabled: true,
                     eventType: 1,
                     triggerType: 1,
@@ -121,7 +121,7 @@ module.exports = {
 
                 const rule3 = await guild.autoModerationRules.create({
                     name: `スパム疑惑のあるコンテンツをブロック`,
-                    creatorid: '1175248665972060160',
+                    creatorid: 'your-application-id-goes-here',
                     enabled: true,
                     eventType: 1,
                     triggerType: 3,
@@ -166,7 +166,7 @@ module.exports = {
 
                 const rule4 = await guild.autoModerationRules.create({
                     name: `Block Mention Spam`,
-                    creatorid: '1175248665972060160',
+                    creatorid: 'your-application-id-goes-here',
                     enabled: true,
                     eventType: 1,
                     triggerType: 5,
