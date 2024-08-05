@@ -10,7 +10,7 @@ module.exports = {
             if (interaction.customId === 'raitai_enemy_simulator') {
                 let data;
                 try {
-                    data = await fs.promises.readFile('./data.json', 'utf-8');
+                    data = await fs.promises.readFile('./enemy_data.json', 'utf-8');
                 } catch (err) {
                     console.error(`ファイルの読み取りに失敗しました: ${err}`)
                     return interaction.reply({ content: 'エラーが発生しました', ephemeral: true });
