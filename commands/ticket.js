@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder, PermissionsBitField, ActionRowBuilder, StringSelectMenuBuilder, ChannelType } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, PermissionsBitField, ActionRowBuilder, StringSelectMenuBuilder, ChannelType, InteractionContextType } = require('discord.js');
 const Keyv = require('keyv');
 const ticket = new Keyv('sqlite://db.sqlite', { table: 'ticket' });
 
@@ -6,7 +6,7 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('ticket')
         .setDescription('チケット機能の管理')
-        .setDMPermission(false)
+        .setContexts(InteractionContextType.Guild)
         .addSubcommand(command => command.setName('send').setDescription('チケットを送信').addStringOption(option => option.setName('name').setDescription('セレクトメニューのプレースホルダーの名前を指定').setRequired(true)).addStringOption(option => option.setName('description').setDescription('埋め込みのメッセージ').setRequired(false)))
         .addSubcommand(command => command.setName('setup').setDescription('チケットのカテゴリーを設定').addChannelOption(option => option.setName('category').setDescription('チケットを作成するカデコリーを設定').addChannelTypes(ChannelType.GuildCategory).setRequired(true)))
         .addSubcommand(command => command.setName('remove').setDescription('チケット機能を無効化'))

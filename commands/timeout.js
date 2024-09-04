@@ -1,11 +1,11 @@
-const { SlashCommandBuilder, EmbedBuilder, PermissionsBitField } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, PermissionsBitField, InteractionContextType } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('timeout')
         .setDescription('指定したユーザーをタイムアウトします')
         .setDefaultMemberPermissions(PermissionsBitField.Flags.MuteMembers)
-        .setDMPermission(false)
+        .setContexts(InteractionContextType.Guild)
         .addUserOption(option => option.setName('user').setDescription('タイムアウトするユーザー').setRequired(true))
         .addStringOption(option => option.setName('duration').setDescription('タイムアウトする時間').setRequired(true).addChoices(
             { name: `60秒`, value: `60` },

@@ -3,9 +3,9 @@
   "main": "index.js",
   "dependencies": {
     "@keyv/sqlite": "^3.6.7",
-    "@napi-rs/canvas": "^0.1.53",
-    "axios": "^1.7.2",
-    "discord.js": "^14.15.2",
+    "@napi-rs/canvas": "^0.1.54",
+    "axios": "^1.7.7",
+    "discord.js": "^14.16.1",
     "keyv": "^4.5.4",
     "pify": "^6.1.0"
   },

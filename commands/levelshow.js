@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, InteractionContextType } = require('discord.js');
 const Keyv = require('keyv');
 
 const levels = new Keyv('sqlite://db.sqlite', { table: 'levels' });
@@ -11,7 +11,7 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('level_show')
         .setDescription('指定したユーザーのレベルを表示します')
-        .setDMPermission(false)
+        .setContexts(InteractionContextType.Guild)
         .addUserOption(option =>
             option.setName('user')
                 .setDescription('レベルを確認したいユーザー(指定しなかったら自身のレベルを表示します)')

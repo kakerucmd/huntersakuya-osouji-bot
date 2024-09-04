@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder, PermissionsBitField, ChannelType } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, PermissionsBitField, ChannelType,InteractionContextType } = require('discord.js');
 const Keyv = require('keyv');
 
 const settings = new Keyv('sqlite://db.sqlite', { table: 'levelsettings' });
@@ -10,7 +10,7 @@ module.exports = {
     .setName('level')
     .setDescription('レベル機能の管理')
     .setDefaultMemberPermissions(PermissionsBitField.Flags.Administrator)
-    .setDMPermission(false)
+    .setContexts(InteractionContextType.Guild)
     .addSubcommand(command => command.setName('setup').setDescription('レベル機能をセットアップします').addChannelOption(option => option.setName('channel').setDescription('レベルアップ時に通知を送信するチャンネル').addChannelTypes(ChannelType.GuildText).setRequired(false)).addStringOption(option => option.setName('message').setDescription('レベルアップ時に通知するメッセージ(詳細はドキュメントをお読みください)').setRequired(false)))
     .addSubcommand(command => command.setName('disable').setDescription('レベル機能の設定を削除し、無効にします。レベルは削除されません。')),
 

@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder, PermissionsBitField } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, PermissionsBitField, InteractionContextType } = require('discord.js');
 const Keyv = require('keyv');
 
 const joinleavelog = new Keyv('sqlite://db.sqlite', { table: 'joinleavelog' });
@@ -16,7 +16,7 @@ module.exports = {
         .setName('server-settings')
         .setDescription('このサーバーでのbotの設定をすべて取得します')
         .setDefaultMemberPermissions(PermissionsBitField.Flags.Administrator)
-        .setDMPermission(false),
+        .setContexts(InteractionContextType.Guild),
     async execute(interaction) {
 
         const guildId = interaction.guild.id;

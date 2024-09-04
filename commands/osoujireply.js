@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder, PermissionsBitField } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, PermissionsBitField, InteractionContextType } = require('discord.js');
 const Keyv = require('keyv');
 
 const osouzireply = new Keyv('sqlite://db.sqlite', { table: 'osouzireply' });
@@ -8,7 +8,7 @@ module.exports = {
         .setName('osoujireply')
         .setDescription('「お掃除」「上方修正」の単語に対して反応する機能を設定します')
         .setDefaultMemberPermissions(PermissionsBitField.Flags.Administrator)
-        .setDMPermission(false)
+        .setContexts(InteractionContextType.Guild)
         .addSubcommand(command => command.setName('enable').setDescription('「お掃除」「上方修正」の単語に対して反応する機能を有効にします'))
         .addSubcommand(command => command.setName('disable').setDescription('「お掃除」「上方修正」の単語に対して反応する機能を無効にします')),
         async execute(interaction) {

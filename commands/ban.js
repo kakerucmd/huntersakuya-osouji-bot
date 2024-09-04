@@ -1,11 +1,11 @@
-const { SlashCommandBuilder, PermissionsBitField } = require('discord.js');
+const { SlashCommandBuilder, PermissionsBitField, InteractionContextType } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('ban')
         .setDescription('指定したユーザーをBanします')
+        .setContexts(InteractionContextType.Guild)
         .setDefaultMemberPermissions(PermissionsBitField.Flags.BanMembers)
-        .setDMPermission(false)
         .addUserOption(option =>
             option.setName('user')
                 .setDescription('Banするユーザー')

@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, AttachmentBuilder, EmbedBuilder } = require('discord.js');
+const { SlashCommandBuilder, AttachmentBuilder, InteractionContextType } = require('discord.js');
 const Keyv = require('keyv');
 const { createCanvas, loadImage } = require('@napi-rs/canvas');
 const path = require('path');
@@ -30,7 +30,7 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('level_card')
         .setDescription('指定したユーザーのレベルを画像で表示します')
-        .setDMPermission(false)
+        .setContexts(InteractionContextType.Guild)
         .addUserOption(option =>
             option.setName('user')
                 .setDescription('レベルを確認したいユーザー(未指定な場合コマンド実行者のレベルを表示します)')
@@ -112,15 +112,6 @@ module.exports = {
         const buffer = canvas.toBuffer('image/png');
         const attachment = new AttachmentBuilder(buffer, { name: 'level.png' });
 
-        const embed = new EmbedBuilder()
-            .setAuthor({
-                name: `${interaction.guild.name}`,
-                iconURL: `${interaction.guild.iconURL() || 'https://cdn.discordapp.com/embed/avatars/0.png'}`
-            })
-            .setImage('attachment://level.png')
-            .setColor("Blurple")
-            .setTimestamp();
-
-        await interaction.editReply({ embeds: [embed], files: [attachment] });
+        await interaction.editReply({ files: [attachment] });
     },
 };

@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, PermissionsBitField } = require('discord.js');
+const { SlashCommandBuilder, PermissionsBitField, InteractionContextType } = require('discord.js');
 const Keyv = require('keyv');
 
 const levels = new Keyv('sqlite://db.sqlite', { table: 'levels' });
@@ -10,7 +10,7 @@ module.exports = {
         .setName('setlevel')
         .setDescription('指定したユーザーのレベルを設定します')
         .setDefaultMemberPermissions(PermissionsBitField.Flags.Administrator)
-        .setDMPermission(false)
+        .setContexts(InteractionContextType.Guild)
         .addUserOption(option =>
             option.setName('user')
                 .setDescription('レベルを設定するユーザー')

@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder, PermissionsBitField, ChannelType } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, PermissionsBitField, ChannelType, InteractionContextType } = require('discord.js');
 const Keyv = require('keyv');
 const joinleavelog = new Keyv('sqlite://db.sqlite', { table: 'joinleavelog' });
 
@@ -7,7 +7,7 @@ module.exports = {
     .setName('joinleavelogs')
     .setDescription('入退室ログの管理')
     .setDefaultMemberPermissions(PermissionsBitField.Flags.Administrator)
-    .setDMPermission(false)
+    .setContexts(InteractionContextType.Guild)
     .addSubcommand(command => command.setName('setup').setDescription('入退室ログをセットアップします').addChannelOption(option => option.setName('channel').setDescription('入退室ログを送信するチャンネル').addChannelTypes(ChannelType.GuildText).setRequired(true)))
     .addSubcommand(command => command.setName('disable').setDescription('入退室ログを無効にします')),
     async execute (interaction) {

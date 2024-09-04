@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder, PermissionsBitField } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, PermissionsBitField, InteractionContextType } = require('discord.js');
 const Keyv = require('keyv');
 
 const msg_url_embed = new Keyv('sqlite://db.sqlite', { table: 'msgurlembed' });
@@ -8,7 +8,7 @@ module.exports = {
         .setName('msg-url-embed')
         .setDescription('メッセージのリンクが貼られた時、展開する機能を設定します')
         .setDefaultMemberPermissions(PermissionsBitField.Flags.Administrator)
-        .setDMPermission(false)
+        .setContexts(InteractionContextType.Guild)
         .addSubcommand(command => command.setName('enable').setDescription('メッセージのリンクが貼られた時、展開する機能を有効化します'))
         .addSubcommand(command => command.setName('disable').setDescription('メッセージのリンクが貼られた時、展開する機能を無効にします。')),
         async execute(interaction) {

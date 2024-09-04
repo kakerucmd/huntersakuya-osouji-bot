@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder, PermissionsBitField } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, PermissionsBitField, InteractionContextType } = require('discord.js');
 const Keyv = require('keyv');
 const reactionrole = new Keyv('sqlite://db.sqlite', { table: 'reactionrole' });
 
@@ -7,7 +7,7 @@ module.exports = {
         .setName('reaction-role')
         .setDescription('指定したロールのリアクションロールパネルを作成します')
         .setDefaultMemberPermissions(PermissionsBitField.Flags.Administrator)
-        .setDMPermission(false)
+        .setContexts(InteractionContextType.Guild)
         .addRoleOption(option => option.setName('role1').setDescription('1つ目のロールを選択(必須)').setRequired(true))
         .addStringOption(option => option.setName('title').setDescription('埋め込みのタイトルを指定(任意)').setRequired(false))
         .addRoleOption(option => option.setName('role2').setDescription('2つ目のロールを選択(任意)').setRequired(false))

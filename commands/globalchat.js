@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, PermissionsBitField, ChannelType } = require('discord.js');
+const { SlashCommandBuilder, PermissionsBitField, ChannelType, InteractionContextType } = require('discord.js');
 const { createEmbed } = require('../functions/createembed');
 
 const Keyv = require('keyv');
@@ -9,7 +9,7 @@ module.exports = {
     .setName('globalchat')
     .setDescription('グローバルチャットの管理')
     .setDefaultMemberPermissions(PermissionsBitField.Flags.Administrator)
-    .setDMPermission(false)
+    .setContexts(InteractionContextType.Guild)
     .addSubcommand(command => command.setName('enable').setDescription('指定したチャンネルのグローバルチャットを有効にします').addChannelOption(option => option.setName('channel').setDescription('グローバルチャットにするチャンネル').addChannelTypes(ChannelType.GuildText).setRequired(true)))
     .addSubcommand(command => command.setName('disable').setDescription('指定したチャンネルのグローバルチャットを無効にします').addChannelOption(option => option.setName('channel').setDescription('グローバルチャットを無効にするチャンネル').addChannelTypes(ChannelType.GuildText).setRequired(true))),
 

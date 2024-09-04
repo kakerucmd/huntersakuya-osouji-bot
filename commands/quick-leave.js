@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder, PermissionsBitField, ChannelType } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, PermissionsBitField, ChannelType, InteractionContextType } = require('discord.js');
 const Keyv = require('keyv');
 
 const toggleleave = new Keyv('sqlite://db.sqlite', { table: 'toggleleave' });
@@ -9,7 +9,7 @@ module.exports = {
     .setName('quick-leave')
     .setDescription('即抜け通知機能の管理')
     .setDefaultMemberPermissions(PermissionsBitField.Flags.Administrator)
-    .setDMPermission(false)
+    .setContexts(InteractionContextType.Guild)
     .addSubcommand(command => command.setName('setup').setDescription('即抜け通知をセットアップします').addChannelOption(option => option.setName('channel').setDescription('即抜け通知を送信するチャンネル').addChannelTypes(ChannelType.GuildText).setRequired(true)))
     .addSubcommand(command => command.setName('disable').setDescription('即抜け通知を無効にします')),
     async execute (interaction) {

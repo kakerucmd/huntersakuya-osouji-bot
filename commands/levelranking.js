@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, InteractionContextType } = require('discord.js');
 const Keyv = require('keyv');
 
 const levels = new Keyv('sqlite://db.sqlite', { table: 'levels' });
@@ -12,7 +12,7 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('level_ranking')
         .setDescription('実行したサーバーのレベルランキングを表示します')
-        .setDMPermission(false),
+        .setContexts(InteractionContextType.Guild),
     async execute(interaction) {
         const isEnabled = await levelsettings.get(interaction.guild.id);
         if (!isEnabled) { 

@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder, PermissionsBitField, ChannelType } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, PermissionsBitField, ChannelType, InteractionContextType } = require('discord.js');
 const Keyv = require('keyv');
 const welcome = new Keyv('sqlite://db.sqlite', { table: 'welcome' });
 
@@ -7,7 +7,7 @@ module.exports = {
     .setName('welcome')
     .setDescription('ウェルカムメッセージ機能の管理')
     .setDefaultMemberPermissions(PermissionsBitField.Flags.Administrator)
-    .setDMPermission(false)
+    .setContexts(InteractionContextType.Guild)
     .addSubcommand(command => command.setName('setup').setDescription('ウェルカムメッセージ機能をセットアップします').addChannelOption(option => option.setName('channel').setDescription('ウェルカムメッセージを送信するチャンネル').addChannelTypes(ChannelType.GuildText).setRequired(true)).addStringOption(option => option.setName('message').setDescription('送信するメッセージ').setRequired(true)))
     .addSubcommand(command => command.setName('disable').setDescription('ウェルカムメッセージ機能を無効にします')),
     async execute (interaction) {
