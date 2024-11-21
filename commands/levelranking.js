@@ -5,7 +5,7 @@ const levels = new Keyv('sqlite://db.sqlite', { table: 'levels' });
 const levelsettings = new Keyv('sqlite://db.sqlite', { table: 'levelsettings' });
 
 const EXP_PER_LEVEL = 10;
-const MAX_LEVEL = 111;
+const MAX_LEVEL = 99;
 
 module.exports = {
     cooldown: 60,

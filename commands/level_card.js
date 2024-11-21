@@ -6,7 +6,7 @@ const path = require('path');
 const levels = new Keyv('sqlite://db.sqlite', { table: 'levels' });
 const settings = new Keyv('sqlite://db.sqlite', { table: 'levelsettings' });
 
-const MAX_LEVEL = 111;
+const MAX_LEVEL = 99;
 const EXP_PER_LEVEL = 10;
 
 function drawFilledRectangle(ctx, x, y, width, height, isLeft) {
