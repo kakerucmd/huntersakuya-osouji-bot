@@ -3,7 +3,7 @@ const Keyv = require('keyv');
 
 const levels = new Keyv('sqlite://db.sqlite', { table: 'levels' });
 
-const MAX_LEVEL = 111;
+const MAX_LEVEL = 99;
 
 module.exports = {
     data: new SlashCommandBuilder()
