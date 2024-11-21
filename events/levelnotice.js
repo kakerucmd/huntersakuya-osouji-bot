@@ -6,7 +6,7 @@ const settings = new Keyv('sqlite://db.sqlite', { table: 'levelsettings' });
 const messages = new Keyv('sqlite://db.sqlite', { table: 'levelmessages' });
 const channels = new Keyv('sqlite://db.sqlite', { table: 'channels' });
 
-const MAX_LEVEL = 111;
+const MAX_LEVEL = 99;
 const EXP_PER_LEVEL = 10;
 
 module.exports = {
