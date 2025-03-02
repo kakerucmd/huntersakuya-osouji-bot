@@ -3,9 +3,14 @@ const { SlashCommandBuilder, EmbedBuilder, ModalBuilder, TextInputBuilder, Actio
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('5000choyen')
-		.setDescription('5000兆円画像生成(上部と下部の文字列を入力してください)'),
+		.setDescription('5000兆円画像生成(上部と下部の文字列を入力してください)')
+		.addBooleanOption(option => 
+			option.setName('rainbow')
+				.setDescription('虹色にするかどうか')
+				.setRequired(false)),
 	async execute(interaction) {
 		try {
+			const rainbow = interaction.options.getBoolean('rainbow') || false;
 			const modalId = '5000choyen' + interaction.user.id + Date.now();
 			const modal = createModal(modalId);
 			await interaction.showModal(modal);
@@ -20,7 +25,7 @@ module.exports = {
 
 			const { top, bottom } = getTextInputValues(mInteraction);
 			await mInteraction.deferReply();
-			await replyWithImage(mInteraction, top, bottom);
+			await replyWithImage(mInteraction, top, bottom, rainbow);
 		} catch (error) {
 			console.error(error);
 		}
@@ -58,18 +63,19 @@ function getTextInputValues(mInteraction) {
 	return { top, bottom };
 }
 
-async function replyWithImage(mInteraction, top, bottom) {
-    try {
-        const encodedTop = encodeURIComponent(top);
-        const encodedBottom = encodeURIComponent(bottom);
+async function replyWithImage(mInteraction, top, bottom, rainbow) {
+	try {
+		const encodedTop = encodeURIComponent(top);
+		const encodedBottom = encodeURIComponent(bottom);
+		const url = `https://gsapi.cbrx.io/image?top=${encodedTop}&bottom=${encodedBottom}&type=png${rainbow ? '&rainbow=true' : ''}`;
 
-        const embed = new EmbedBuilder()
+		const embed = new EmbedBuilder()
 			.setColor("Blurple")
-            .setImage(`https://gsapi.cbrx.io/image?top=${encodedTop}&bottom=${encodedBottom}&type=png`)
-            .setFooter({ text: 'Powered by 5000choyen-api' })
+			.setImage(url)
+			.setFooter({ text: 'Powered by 5000choyen-api' });
 
 		await mInteraction.editReply({ embeds: [embed] });
-    } catch (error) {
-        await mInteraction.editReply({ content: 'エラーが発生しました。' });
-    }
+	} catch (error) {
+		await mInteraction.editReply({ content: 'エラーが発生しました。' });
+	}
 }
