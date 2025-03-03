@@ -3,7 +3,7 @@ const { SlashCommandBuilder } = require('discord.js');
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('osouji')
-		.setDescription('お掃除上方修正しろと返します'),
+		.setDescription('お掃除上方修正しろ！！と返します'),
 	async execute(interaction) {
 		try {
 			await interaction.reply('お掃除上方修正しろ！！');

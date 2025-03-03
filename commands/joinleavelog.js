@@ -8,7 +8,7 @@ module.exports = {
     .setDescription('入退室ログの管理')
     .setDefaultMemberPermissions(PermissionsBitField.Flags.Administrator)
     .setContexts(InteractionContextType.Guild)
-    .addSubcommand(command => command.setName('setup').setDescription('入退室ログをセットアップします').addChannelOption(option => option.setName('channel').setDescription('入退室ログを送信するチャンネル').addChannelTypes(ChannelType.GuildText).setRequired(true)))
+    .addSubcommand(command => command.setName('setup').setDescription('入退室ログを有効にします').addChannelOption(option => option.setName('channel').setDescription('入退室ログを送信するチャンネル').addChannelTypes(ChannelType.GuildText).setRequired(true)))
     .addSubcommand(command => command.setName('disable').setDescription('入退室ログを無効にします')),
     async execute (interaction) {
 
@@ -20,14 +20,14 @@ module.exports = {
             case 'setup':
 
             if (data){
-                return await interaction.reply({ content: '既に入退室ログはセットアップされています。', ephemeral: true });
+                return await interaction.reply({ content: '既に入退室ログは有効化されています。', ephemeral: true });
             } else {
                 const channel = options.getChannel('channel')
 
                 await joinleavelog.set(interaction.guild.id, { channel: channel.id });
 
                 const embed = new EmbedBuilder()
-                .setAuthor({ name: '✅｜セットアップしました' })
+                .setAuthor({ name: '✅｜有効化しました' })
                 .setColor("Blurple")
                 .setDescription(`通知するチャンネル:${channel}`)
 

@@ -8,7 +8,7 @@ module.exports = {
         try {
             if (interaction.customId == 'ticketCreateSelect') {
                 const modal = new ModalBuilder()
-                .setTitle('チケットを作成する')
+                .setTitle('チケット作成手続き')
                 .setCustomId('ticketModal')
 
                 const why = new TextInputBuilder()
@@ -33,7 +33,7 @@ module.exports = {
             } else if (interaction.customId == 'ticketModal'){
                 const user = interaction.user;
                 const data = await ticket.get(interaction.guild.id);
-                if (!data) return await interaction.reply({ content: 'このサーバーではまだチケット機能がセットアップされていません。\nサーバー管理者に連絡してください。', ephemeral: true });
+                if (!data) return await interaction.reply({ content: 'このサーバーではまだチケット機能がセットアップされていないため、使用できません。\nサーバー管理者に連絡してください。', ephemeral: true });
                 else {
                     const why = interaction.fields.getTextInputValue('whyTicket');
                     const info = interaction.fields.getTextInputValue('infoTicket');
@@ -58,7 +58,7 @@ module.exports = {
 
                     const embed = new EmbedBuilder()
                     .setTitle(`Ticket from ${user.username} 🎫`)
-                    .setDescription(`チケットをオープンした理由：${why}\nその他の情報：${info}`)
+                    .setDescription(`チケットを開いた理由：${why}\nその他の情報：${info}`)
                     .setColor("Blurple")
                     .setTimestamp();
 
@@ -66,23 +66,23 @@ module.exports = {
                     .addComponents(
                         new ButtonBuilder()
                         .setCustomId('closeTicket')
-                        .setLabel('チケットをクローズ')
+                        .setLabel('チケットを閉じる')
                         .setEmoji('🔒')
                         .setStyle(ButtonStyle.Danger)
                     );
 
                     await channel.send({ embeds: [embed], components: [button] });
-                    await interaction.reply({ content:`チケットをオープンしました！\n${channel}`, ephemeral: true });
+                    await interaction.reply({ content:`チケットを開きました！\n${channel}`, ephemeral: true });
                 }
             } else if (interaction.customId == 'closeTicket') {
                 const closeModal = new ModalBuilder()
-                .setTitle('チケットをクローズ')
+                .setTitle('チケットを閉じる')
                 .setCustomId('closeTicketModal')
 
                 const reason = new TextInputBuilder()
                 .setCustomId('closeReasonTicket')
                 .setRequired(true)
-                .setPlaceholder('チケットを閉じる理由は何ですか？')
+                .setPlaceholder('チケットを閉じる理由はありますか？')
                 .setLabel('チケットを閉じる理由を入力')
                 .setStyle(TextInputStyle.Paragraph);
 
@@ -97,7 +97,7 @@ module.exports = {
                 const member = await interaction.guild.members.cache.get(name);
 
                 const reason = interaction.fields.getTextInputValue('closeReasonTicket');
-                await interaction.reply({ content: `このチケットを閉じます...` })
+                await interaction.reply({ content: `チケットを閉じます...` })
 
                 setTimeout(async () => {
                     await channel.delete().catch(err => {});
@@ -106,7 +106,7 @@ module.exports = {
                         name: `${interaction.guild.name}`,
                         iconURL: `${interaction.guild.iconURL() || 'https://cdn.discordapp.com/embed/avatars/0.png'}`
                       })  
-                    .setDescription(`チケットがクローズされました。\n理由：${reason}`)
+                    .setDescription(`チケットを閉じました。\n理由：${reason}`)
                     .setColor("Blurple")
                     await member.send({ embeds: [embed] }).catch(err => {});
                 },5000)

@@ -7,7 +7,7 @@ module.exports = {
 		console.log(`お掃除上方修正しろ！！(${client.user.tag}が起動しました)`);
 
 		setInterval(() => {
-			client.user.setActivity(`Ver4.2 | ${client.guilds.cache.size} servers ${client.ws.ping}ms`);
+			client.user.setActivity(`Ver4.3 | ${client.guilds.cache.size} servers ${client.ws.ping}ms`);
 		}, 60000);
 	},
 };
