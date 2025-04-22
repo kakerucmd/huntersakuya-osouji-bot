@@ -1,28 +1,16 @@
 const fs = require('node:fs');
-const { Events, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
+const { Events, EmbedBuilder, AttachmentBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 
 module.exports = {
     name: Events.InteractionCreate,
     once: false,
     async execute(interaction) {
-        try {
-            if (!interaction.isButton()) return;
-            if (interaction.customId === 'raitai_enemy_simulator') {
-                let data;
-                try {
-                    data = await fs.promises.readFile('./enemy_data.json', 'utf-8');
-                } catch (err) {
-                    console.error(`ファイルの読み取りに失敗しました: ${err}`)
-                    return interaction.reply({ content: 'エラーが発生しました', ephemeral: true });
-                }
+        if (!interaction.isButton()) return;
 
-                let jsonData;
-                try {
-                    jsonData = JSON.parse(data);
-                } catch (err) {
-                    console.error(`JSONの解析に失敗しました: ${err}`);
-                    return interaction.reply({ content: 'エラーが発生しました。', ephemeral: true });
-                }
+        try {
+            if (interaction.customId === 'raitai_enemy_simulator') {
+                const data = await fs.promises.readFile('./enemy_data_V2.json', 'utf-8');
+                const jsonData = JSON.parse(data);
 
                 const content = [];
                 const selectedElements = [];
@@ -30,9 +18,9 @@ module.exports = {
                 for (let wave = 1; wave <= 4; wave++) {
                     const numElements = Math.floor(Math.random() * 3) + 1;
                     const waveElements = [];
+
                     for (let i = 0; i < numElements; i++) {
-                        let randomIndex;
-                        let randomElement;
+                        let randomIndex, randomElement;
                         do {
                             randomIndex = Math.floor(Math.random() * jsonData.length);
                             randomElement = jsonData[randomIndex];
@@ -40,52 +28,47 @@ module.exports = {
                         selectedElements.push(randomElement);
                         waveElements.push(randomElement);
                     }
-                    content.push(`**${wave}wave目**\n${waveElements.map(element => `${element.name} ${element.description}`).join('\n\n')}`);
+
+                    const waveContent = waveElements.map(element => {
+                        const weaknesses = element.weaknesses.join('・');
+                        const resistances = element.resistances.join('・');
+                        return `**${element.name}**\n弱点: ${weaknesses}\n耐性: ${resistances}\nスキル: ${element.skill}`;
+                    }).join('\n\n');
+
+                    content.push(`**${wave}wave目**\n${waveContent}`);
                 }
+
+                const raitaiImage = new AttachmentBuilder('./images/raitai.png');
+
                 const raitai_embed = new EmbedBuilder()
                     .setTitle('明日の擂台予報')
                     .setDescription(`実行者：<@${interaction.user.id}>\n\n` + content.join('\n\n'))
+                    .setThumbnail('attachment://raitai.png')
                     .setColor("Blurple");
 
                 await interaction.reply({
                     embeds: [raitai_embed],
+                    files: [raitaiImage],
                     components: [
-                        new ActionRowBuilder()
-                            .addComponents(
-                                new ButtonBuilder()
-                                    .setCustomId('delete_raitai_embed')
-                                    .setLabel('擂台予報を削除')
-                                    .setStyle(ButtonStyle.Danger)
-                                    .setEmoji('\u{1F5D1}')
-                            ),
+                        new ActionRowBuilder().addComponents(
+                            new ButtonBuilder()
+                                .setCustomId('delete_raitai_embed')
+                                .setLabel('擂台予報を削除')
+                                .setStyle(ButtonStyle.Danger)
+                                .setEmoji('\u{1F5D1}')
+                        ),
                     ],
                 });
             }
 
             if (interaction.customId === 'delete_raitai_embed') {
-                let message;
-                try {
-                    message = await interaction.channel.messages.fetch(interaction.message.id);
-                } catch (err) {
-                    console.error(`メッセージの取得に失敗しました: ${err}`);
-                    return interaction.reply({ content: 'メッセージの取得に失敗しました。', ephemeral: true });
-                }
-
-                if (message) {
-                    try {
-                        await message.delete();
-                    } catch (err) {
-                        return interaction.reply({ content: 'メッセージが存在しません。', ephemeral: true });
-                    }
-                } else {
-                    return interaction.reply({ content: 'メッセージは既に削除されています。', ephemeral: true });
-                }
-
+                const message = await interaction.channel.messages.fetch(interaction.message.id);
+                await message.delete();
                 await interaction.reply({ content: '擂台予報の埋め込みを削除しました。', ephemeral: true });
             }
         } catch (err) {
             console.error(`エラーが発生しました: ${err}`);
-            interaction.reply({ content: 'エラーが発生しました。', ephemeral: true });
+            await interaction.reply({ content: 'エラーが発生しました。', ephemeral: true });
         }
     },
 };
