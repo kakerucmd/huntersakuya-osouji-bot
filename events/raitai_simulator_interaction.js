@@ -32,8 +32,8 @@ module.exports = {
                     const waveContent = waveElements.map(element => {
                         const weaknesses = element.weaknesses.join('・');
                         const resistances = element.resistances.join('・');
-                        return `**${element.name}**\n弱点: ${weaknesses}\n耐性: ${resistances}\nスキル: ${element.skill}`;
-                    }).join('\n\n');
+                        return `**${element.name} (${element.Barrier}枚勢)**\n弱点: ${weaknesses}\n耐性: ${resistances}\nスキル: ${element.skill}`;
+                    }).join('\n\n');                    
 
                     content.push(`**${wave}wave目**\n${waveContent}`);
                 }
