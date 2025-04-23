@@ -46,8 +46,8 @@ module.exports = {
 
 			const renderLegend = () => {
 				return (
-					emojis
-					.map((emoji, i) => `${emoji} → ${i + 1}`)
+					inputWords
+					.map((word, i) => `${emojiPool[i]} → ${word}`)
 					.join('\n') +
 					`\n\n⬛：未使用スロット\n🟨：当たりの場所（下中央）`
 				);
@@ -59,7 +59,7 @@ module.exports = {
 					.setColor("Blurple")
 					.addFields({
 						name: 'スロットボード',
-						value: `\`\`\`\n${boardContent}\n\`\`\``
+						value: `\`\`\`\n${boardContent}\n\`\`\`` 
 					}, {
 						name: '絵文字対応表',
 						value: renderLegend()
