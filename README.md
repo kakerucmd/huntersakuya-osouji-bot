@@ -2,12 +2,12 @@
 
 # Lisence
 
-This project is licensed under the MIT License, see the LICENSE file for details
+このプロジェクトはMITライセンスの下で公開されています。詳細については、LICENSEファイルをご覧ください。
 
 ```json
 {
   "bot_name": "お掃除上方修正しろbot#6554",
-  "version": "Ver4.3",
+  "version": "Ver4.4",
   "language": "Javascript",
   "description": "ネタで作り始めた多機能bot",
   "site": "https://kakerucmd.github.io/huntersakuya_osouji-bot/"
