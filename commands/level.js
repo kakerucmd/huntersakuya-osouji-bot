@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder, PermissionsBitField, ChannelType,InteractionContextType } = require('discord.js');
+const { SlashCommandBuilder, StringSelectMenuBuilder, ActionRowBuilder, PermissionsBitField, InteractionContextType, ChannelType } = require('discord.js');
 const Keyv = require('keyv');
 
 const settings = new Keyv('sqlite://db.sqlite', { table: 'levelsettings' });
@@ -7,56 +7,111 @@ const channels = new Keyv('sqlite://db.sqlite', { table: 'channels' });
 
 module.exports = {
     data: new SlashCommandBuilder()
-    .setName('level')
-    .setDescription('レベル機能の管理')
-    .setDefaultMemberPermissions(PermissionsBitField.Flags.Administrator)
-    .setContexts(InteractionContextType.Guild)
-    .addSubcommand(command => command.setName('setup').setDescription('レベル機能をセットアップします').addChannelOption(option => option.setName('channel').setDescription('レベルアップ時に通知を送信するチャンネル').addChannelTypes(ChannelType.GuildText).setRequired(false)).addStringOption(option => option.setName('message').setDescription('レベルアップ時に通知するメッセージ(詳細はドキュメントをお読みください)').setRequired(false)))
-    .addSubcommand(command => command.setName('disable').setDescription('レベル機能の設定を削除し、無効にします。レベルは削除されません。')),
+        .setName('level')
+        .setDescription('レベル機能の管理')
+        .setDefaultMemberPermissions(PermissionsBitField.Flags.Administrator)
+        .setContexts(InteractionContextType.Guild)
+        .addSubcommand(command => command.setName('setup').setDescription('レベル機能をセットアップします'))
+        .addSubcommand(command => command.setName('config').setDescription('レベル機能の追加設定を行います'))
+        .addSubcommand(command => command.setName('disable').setDescription('レベル機能の設定を削除し、無効にします。レベルは削除されません。')),
 
-    async execute (interaction) {
-
-        const  { options } = interaction;
+    async execute(interaction) {
+        const { options } = interaction;
         const sub = options.getSubcommand();
         const data = await settings.get(interaction.guild.id);
 
+        function getConfigSelectMenu() {
+            return new StringSelectMenuBuilder()
+                .setCustomId('levelConfigSelect')
+                .setPlaceholder('設定したい項目を選んでください')
+                .addOptions([
+                    {
+                        label: '🔔 通知オン/オフ切り替え',
+                        description: '通知の有効/無効を切り替えます',
+                        value: 'toggle_notification',
+                    },
+                    {
+                        label: '📝 メッセージを再設定する',
+                        description: 'レベルアップ時のメッセージを変更します',
+                        value: 'edit_message',
+                    },
+                    {
+                        label: '🚫 レベル機能を無効化',
+                        description: 'レベル機能を無効化します（設定削除）',
+                        value: 'disable_level',
+                    },
+                ]);
+        }
+
         switch (sub) {
             case 'setup':
+                if (data) {
+                    await interaction.reply({
+                        content: '既にセットアップされています。変更したい場合は、以下のオプションから選んでください。',
+                        components: [new ActionRowBuilder().addComponents(getConfigSelectMenu())],
+                        ephemeral: true,
+                    });
+                } else {
+                    const channelsList = interaction.guild.channels.cache.filter(channel => channel.type === ChannelType.GuildText);
+                    const options = channelsList.map(channel => ({
+                        label: channel.name,
+                        value: channel.id,
+                    }));
 
-            if (data){
-                return await interaction.reply({ content: '既にレベル機能はセットアップされています。', ephemeral: true });
-            } else {
-                const channel = options.getChannel('channel')
-                const message = options.getString('message')
+                    options.push({
+                        label: '通知しない',
+                        value: 'none',
+                    });
 
-                await settings.set(interaction.guild.id, true);
-                if (channel) {
-                  await channels.set(interaction.guild.id, channel.id);
+                    const selectMenu = new StringSelectMenuBuilder()
+                        .setCustomId('levelNotificationSelect')
+                        .setPlaceholder('通知を送るチャンネルを選んでください')
+                        .addOptions(options);
+
+                    const row = new ActionRowBuilder().addComponents(selectMenu);
+
+                    await interaction.reply({
+                        content: '通知するチャンネルを選択してください。',
+                        components: [row],
+                        ephemeral: true,
+                    });
                 }
-                if (message) {
-                  await messages.set(interaction.guild.id, message);
-                }
+                break;
 
-                const embed = new EmbedBuilder()
-                .setAuthor({ name: '✅｜セットアップしました' })
-                .setColor("Blurple")
-                .setDescription(`通知するチャンネル:${channel ? channel : '通知しない'}\n通知するメッセージ:${message ? message : 'デフォルトのメッセージが使用されます。'}`)
-
-              await interaction.reply({ embeds: [embed], ephemeral: true });
-            }
-
-            break;
             case 'disable':
+                if (!data) {
+                    await interaction.reply({
+                        content: 'レベル機能が有効化されていません。',
+                        ephemeral: true,
+                    });
+                } else {
+                    await settings.delete(interaction.guild.id);
+                    await messages.delete(interaction.guild.id);
+                    await channels.delete(interaction.guild.id);
+                    await interaction.reply({
+                        content: 'レベル機能の設定を削除し、無効にしました。',
+                        ephemeral: true,
+                    });
+                }
+                break;
 
-            if (!data) {
-                return await interaction.reply({ content: `レベル機能が有効化されていません。`, ephemeral: true })
-            } else {
-                await settings.delete(interaction.guild.id);
-                await messages.delete(interaction.guild.id);
-                await channels.delete(interaction.guild.id);
-                return await interaction.reply({ content: `レベル機能の設定を削除し、無効にしました。`, ephemeral: true })
-            }
+            case 'config':
+                if (!data) {
+                    await interaction.reply({
+                        content: 'レベル機能がまだ有効化されていません。まず `/level setup` を行ってください。',
+                        ephemeral: true,
+                    });
+                } else {
+                    const select = getConfigSelectMenu();
+                    const row = new ActionRowBuilder().addComponents(select);
+
+                    await interaction.reply({
+                        content: '設定したい項目を選んでください。',
+                        components: [row],
+                        ephemeral: true,
+                    });
+                }
+                break;
         }
-        
     }
-}
+};

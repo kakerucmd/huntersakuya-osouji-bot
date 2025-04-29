@@ -45,10 +45,6 @@ module.exports = {
                         value:'擂台予報を送信するボタンを送信します。'
                     },
                     {
-                        name: '**/raitai_enemy_l1**',
-                        value:'擂台のエネミー(L1)を表示します。(現在無効化中)'
-                    },
-                    {
                         name: '**/5000choyen**',
                         value:'5000兆円ジェネレータ―を使用します。'
                     },
@@ -91,7 +87,7 @@ module.exports = {
                     },
                     {
                         name: '**/level**',
-                        value:'レベル機能を設定します。\n(setupで設定、disableで設定を削除し無効化)'
+                        value:'レベル機能を設定します。\n(setupで設定、configで設定を変更、disableで設定を削除し無効化)'
                     },
                     {
                         name: '**/level_show**',
