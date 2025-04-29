@@ -90,7 +90,7 @@ module.exports = {
 
                         const messageInput = new TextInputBuilder()
                             .setCustomId('message')
-                            .setLabel('新しい通知メッセージを入力してください')
+                            .setLabel('新しい通知メッセージを入力してください（空欄にするとデフォルトに戻ります）')
                             .setPlaceholder(currentMessage || '例: {user}さんのレベルが{level}になりました！')
                             .setStyle(TextInputStyle.Paragraph)
                             .setRequired(false);
@@ -115,7 +115,9 @@ module.exports = {
                 if (interaction.customId === 'levelSetupModal') {
                     const message = interaction.fields.getTextInputValue('message');
 
-                    if (message) {
+                    if (message.trim() === '') {
+                        await messages.delete(interaction.guild.id);
+                    } else {
                         await messages.set(interaction.guild.id, message);
                     }
 
@@ -124,7 +126,7 @@ module.exports = {
                     const embed = new EmbedBuilder()
                         .setColor('Green')
                         .setTitle('✅ レベル機能のセットアップが完了しました！')
-                        .setDescription(`通知チャンネル: ${await channels.get(interaction.guild.id) ? `<#${await channels.get(interaction.guild.id)}>` : 'なし'}\nメッセージ: ${message ? message : 'デフォルトメッセージが使用されます。'}`);
+                        .setDescription(`通知チャンネル: ${await channels.get(interaction.guild.id) ? `<#${await channels.get(interaction.guild.id)}>` : 'なし'}\nメッセージ: ${message.trim() ? message : 'デフォルトメッセージが使用されます。'}`);
 
                     await interaction.reply({ embeds: [embed], ephemeral: true });
                     return;
@@ -133,13 +135,16 @@ module.exports = {
                 if (interaction.customId === 'levelMessageEditModal') {
                     const newMessage = interaction.fields.getTextInputValue('message');
 
-                    if (newMessage) {
+                    if (newMessage.trim() === '') {
+                        await messages.delete(interaction.guild.id);
+                    } else {
                         await messages.set(interaction.guild.id, newMessage);
                     }
+
                     const embed = new EmbedBuilder()
                         .setColor('Green')
                         .setTitle('✅ 通知するメッセージが変更されました')
-                        .setDescription(`${newMessage ? newMessage : 'デフォルトメッセージが使用されます。'}`);
+                        .setDescription(`${newMessage.trim() ? newMessage : 'デフォルトメッセージが使用されます。'}`);
 
                     await interaction.reply({ embeds: [embed], ephemeral: true });
                     return;
