@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, MessageFlags } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -27,22 +27,22 @@ module.exports = {
         let seconds = interaction.options.getInteger('seconds');
 
         if (minutes === null && seconds === null) {
-            return await interaction.reply({ content: 'エラー：時間を指定してください。', ephemeral: true });
+            return await interaction.reply({ content: 'エラー：時間を指定してください。', flags: MessageFlags.Ephemeral });
         }
 
         minutes = minutes ? minutes : 0;
         seconds = seconds ? seconds : 0;
 
         if (minutes < 0 || seconds < 0) {
-            return await interaction.reply({ content: 'エラー：時間は0以上の値でなければなりません。', ephemeral: true });
+            return await interaction.reply({ content: 'エラー：時間は0以上の値でなければなりません。', flags: MessageFlags.Ephemeral });
         }
 
         if (isNaN(minutes) || isNaN(seconds)) {
-            return await interaction.reply({ content: 'エラー：時間は数値でなければなりません。', ephemeral: true });
+            return await interaction.reply({ content: 'エラー：時間は数値でなければなりません。', flags: MessageFlags.Ephemeral });
         }
 
         const time = minutes * 60 + seconds;
-        await interaction.reply({ content: 'クイズを開始します...', ephemeral: true });
+        await interaction.reply({ content: 'クイズを開始します...', flags: MessageFlags.Ephemeral });
         const embed = new EmbedBuilder()
             .setAuthor({ name: '❓｜クイズ' })
             .setDescription(`${interaction.user}さんが送信した問題\n${question}`)

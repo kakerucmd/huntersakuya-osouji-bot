@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, PermissionsBitField, ChannelType, InteractionContextType } = require('discord.js');
+const { SlashCommandBuilder, PermissionsBitField, ChannelType, InteractionContextType, MessageFlags } = require('discord.js');
 const { createEmbed } = require('../functions/createembed');
 
 const Keyv = require('keyv');
@@ -23,7 +23,7 @@ module.exports = {
 
         switch (sub) {
             case 'enable':
-                await interaction.deferReply({ ephemeral: true });
+                await interaction.deferReply({ flags: MessageFlags.Ephemeral });
 
                 if (channels[channel.id]) {
                     const embed = createEmbed('⚠️｜エラー', '#ff0000', `グローバルチャットは既に${channel}で有効化されています。`);
@@ -47,7 +47,7 @@ module.exports = {
                 break;
 
                 case 'disable':
-                    await interaction.deferReply({ ephemeral: true });
+                    await interaction.deferReply({ flags: MessageFlags.Ephemeral });
                     if (!channels[channel.id]) {
                         const embed = createEmbed('⚠️｜エラー', '#ff0000', `グローバルチャットが${channel}で有効化されていません。`);
                         await interaction.editReply({ embeds: [embed] });

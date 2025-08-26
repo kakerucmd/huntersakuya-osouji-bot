@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, AttachmentBuilder, InteractionContextType } = require('discord.js');
+const { SlashCommandBuilder, AttachmentBuilder, InteractionContextType, MessageFlags } = require('discord.js');
 const Keyv = require('keyv');
 const { createCanvas, loadImage } = require('@napi-rs/canvas');
 const path = require('path');
@@ -38,7 +38,7 @@ module.exports = {
     async execute(interaction) {
         const isEnabled = await settings.get(interaction.guild.id);
         if (!isEnabled) { 
-            return interaction.reply({ content: `このサーバーではレベル機能が有効化されていません。`, ephemeral: true });
+            return interaction.reply({ content: `このサーバーではレベル機能が有効化されていません。`, flags: MessageFlags.Ephemeral });
         } 
 
         await interaction.deferReply();

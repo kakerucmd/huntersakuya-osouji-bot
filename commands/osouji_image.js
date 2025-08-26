@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder, AttachmentBuilder } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, AttachmentBuilder, MessageFlags } = require('discord.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -13,8 +13,8 @@ module.exports = {
 				.setImage('attachment://jouhousyuseisiro.png');
 			await interaction.reply({ embeds: [embed], files: [file] });
 		} catch (error) {
-			console.error(`エラーが発生しました: ${error}`);
-			await interaction.reply({ content: 'エラーが発生しました。', ephemeral: true });
+			console.error(`/osouji_imageでエラー発生: ${error}`);
+			await interaction.reply({ content: 'エラーが発生しました。', flags: MessageFlags.Ephemeral });
 		}
 	},
 };

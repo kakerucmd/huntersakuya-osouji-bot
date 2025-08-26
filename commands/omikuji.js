@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('discord.js');
+const { SlashCommandBuilder, MessageFlags } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -13,12 +13,12 @@ module.exports = {
         try {
             let num = interaction.options.getInteger('num');
             if(num > 10) {
-                await interaction.reply({ content: 'おみくじは一度に最大10回まで引けます。', ephemeral: true });
+                await interaction.reply({ content: 'おみくじは一度に最大10回まで引けます。', flags: MessageFlags.Ephemeral });
                 return;
             }
             
             if(num <= 0) {
-                await interaction.reply({ content: '1以上の値を入力してください', ephemeral: true });
+                await interaction.reply({ content: '1以上の値を入力してください', flags: MessageFlags.Ephemeral });
                 return;
             }
 

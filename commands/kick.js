@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, PermissionsBitField, InteractionContextType } = require('discord.js');
+const { SlashCommandBuilder, PermissionsBitField, InteractionContextType, MessageFlags } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -25,19 +25,19 @@ module.exports = {
         }
 
         if (!member) {
-            return await interaction.reply({ content: 'サーバー内に存在するユーザーのみキックできます。', ephemeral: true });
+            return await interaction.reply({ content: 'サーバー内に存在するユーザーのみキックできます。', flags: MessageFlags.Ephemeral });
         }
 
         if (guild.ownerId !== user.id && member.roles.highest.comparePositionTo(interaction.member.roles.highest) >= 0) {
             try {
-                return await interaction.reply({ content: 'あなたと同等以上の役職をもつメンバーをキックすることはできません', ephemeral: true });
+                return await interaction.reply({ content: 'あなたと同等以上の役職をもつメンバーをキックすることはできません', flags: MessageFlags.Ephemeral });
             } catch (error) {
                 console.error(error);
             }
         }
         if (!member.kickable) {
             try {
-                return await interaction.reply({ content: 'botがこのユーザーをキックすることができません。権限を確認してください', ephemeral: true });
+                return await interaction.reply({ content: 'botがこのユーザーをキックすることができません。権限を確認してください', flags: MessageFlags.Ephemeral });
             } catch (error) {
                 console.error(error);
             }
@@ -46,7 +46,7 @@ module.exports = {
         try {
             await member.kick(reason);
             try {
-                await interaction.reply({ content: `<@${member.user.id}>をキックしました。理由: ${reason}`, ephemeral: true });
+                await interaction.reply({ content: `<@${member.user.id}>をキックしました。理由: ${reason}`, flags: MessageFlags.Ephemeral });
             } catch (error) {
                 console.error(error);
             }

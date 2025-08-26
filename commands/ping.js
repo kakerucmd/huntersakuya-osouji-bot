@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('discord.js');
+const { SlashCommandBuilder, MessageFlags } = require('discord.js');
 
 module.exports = {
 	cooldown: 5,
@@ -11,8 +11,8 @@ module.exports = {
 			let msg = await interaction.fetchReply();
 			await interaction.editReply(`WebSocket Ping: ${interaction.client.ws.ping}ms\nAPI Endpoint Ping: ${msg.createdTimestamp - interaction.createdTimestamp}ms`);
 		} catch (error) {
-			console.error(error);
-			await interaction.reply({ content: 'エラーが発生しました。', ephemeral: true });
+			console.error(`/pingでエラー発生: ${error}`);
+			await interaction.reply({ content: 'エラーが発生しました。', flags: MessageFlags.Ephemeral });
 		}
 	},
 };

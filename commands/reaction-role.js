@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder, PermissionsBitField, InteractionContextType } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, PermissionsBitField, InteractionContextType, MessageFlags } = require('discord.js');
 const Keyv = require('keyv');
 const reactionrole = new Keyv('sqlite://db.sqlite', { table: 'reactionrole' });
 
@@ -21,7 +21,7 @@ module.exports = {
         .addRoleOption(option => option.setName('role10').setDescription('10つ目のロールを選択(任意)').setRequired(false)),
     async execute(interaction) {
         try {
-            await interaction.deferReply({ ephemeral: true });
+            await interaction.deferReply({ flags: MessageFlags.Ephemeral });
 
             const roles = ['role1', 'role2', 'role3', 'role4', 'role5', 'role6', 'role7', 'role8', 'role9', 'role10']
                 .map(roleName => interaction.options.getRole(roleName))

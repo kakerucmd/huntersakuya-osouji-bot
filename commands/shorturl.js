@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('discord.js');
+const { SlashCommandBuilder, MessageFlags } = require('discord.js');
 const axios = require('axios');
 
 module.exports = {
@@ -12,18 +12,18 @@ module.exports = {
 	async execute(interaction) {
 		const url = interaction.options.getString('url');
 		if (!url.startsWith('https://')) {
-			await interaction.reply({ content: '`https://` から始まるURLのみ短縮できます。', ephemeral: true });
+			await interaction.reply({ content: '`https://` から始まるURLのみ短縮できます。', flags: MessageFlags.Ephemeral });
 			return;
 		}
 		try {
 			let createResult = await createShortLink(url);
 			if (createResult.code == 200) {
-				await interaction.reply({ content: `短縮URLを生成しました: ${createResult.shorturl}`, ephemeral: true });
+				await interaction.reply({ content: `短縮URLを生成しました: ${createResult.shorturl}`, flags: MessageFlags.Ephemeral });
 			} else {
-				await interaction.reply({ content: `URLの短縮に失敗しました。`, ephemeral: true });
+				await interaction.reply({ content: `URLの短縮に失敗しました。`, flags: MessageFlags.Ephemeral });
 			}
 		} catch (error) {
-			await interaction.reply({ content: `エラーが発生しました。`, ephemeral: true });
+			await interaction.reply({ content: `エラーが発生しました。`, flags: MessageFlags.Ephemeral });
 		}
 	},
 };

@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder, PermissionsBitField, InteractionContextType } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, PermissionsBitField, InteractionContextType, MessageFlags } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -35,11 +35,11 @@ module.exports = {
             const duration = interaction.options.getString('duration');
             const reason = interaction.options.getString('reason') || '理由は指定されていません';
 
-            if (!timeMember) return await interaction.reply({ content: `ユーザーが${interaction.guild.name}に存在しません。`, ephemeral: true })
-            if (timeMember.permissions.has(PermissionsBitField.Flags.Administrator)) return await interaction.reply({ content: '管理者権限を持つユーザーはタイムアウトできません。', ephemeral: true });
+            if (!timeMember) return await interaction.reply({ content: `ユーザーが${interaction.guild.name}に存在しません。`, flags: MessageFlags.Ephemeral })
+            if (timeMember.permissions.has(PermissionsBitField.Flags.Administrator)) return await interaction.reply({ content: '管理者権限を持つユーザーはタイムアウトできません。', flags: MessageFlags.Ephemeral });
 
             if (interaction.guild.ownerId !== interaction.user.id && timeMember.roles.highest.comparePositionTo(interaction.member.roles.highest) >= 0) {
-                return await interaction.reply({ content: 'あなたと同等以上の役職を持つメンバーをタイムアウトすることはできません。', ephemeral: true });
+                return await interaction.reply({ content: 'あなたと同等以上の役職を持つメンバーをタイムアウトすることはできません。', flags: MessageFlags.Ephemeral });
             }
             await timeMember.timeout(duration * 1000, reason);
 

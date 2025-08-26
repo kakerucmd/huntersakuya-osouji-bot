@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder, InteractionContextType } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, InteractionContextType, MessageFlags } = require('discord.js');
 const Keyv = require('keyv');
 
 const levels = new Keyv('sqlite://db.sqlite', { table: 'levels' });
@@ -19,7 +19,7 @@ module.exports = {
     async execute(interaction) {
         const isEnabled = await settings.get(interaction.guild.id);
         if (!isEnabled) { 
-            return interaction.reply({ content: `このサーバーではレベル機能が有効化されていません。`, ephemeral: true });
+            return interaction.reply({ content: `このサーバーではレベル機能が有効化されていません。`, flags: MessageFlags.Ephemeral });
         } 
         const user = interaction.options.getUser('user') || interaction.user;
         const key = `${user.id}-${interaction.guild.id}`; 

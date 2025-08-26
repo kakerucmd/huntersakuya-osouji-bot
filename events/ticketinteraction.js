@@ -1,4 +1,4 @@
-const { Events, ModalBuilder, TextInputBuilder, ActionRowBuilder, TextInputStyle, ChannelType, EmbedBuilder, ButtonBuilder, ButtonStyle, PermissionsBitField } = require('discord.js');
+const { Events, ModalBuilder, TextInputBuilder, ActionRowBuilder, TextInputStyle, ChannelType, EmbedBuilder, ButtonBuilder, ButtonStyle, PermissionsBitField, MessageFlags } = require('discord.js');
 const Keyv = require('keyv');
 const ticket = new Keyv('sqlite://db.sqlite', { table: 'ticket' });
 
@@ -33,7 +33,7 @@ module.exports = {
             } else if (interaction.customId == 'ticketModal'){
                 const user = interaction.user;
                 const data = await ticket.get(interaction.guild.id);
-                if (!data) return await interaction.reply({ content: 'このサーバーではまだチケット機能がセットアップされていないため、使用できません。\nサーバー管理者に連絡してください。', ephemeral: true });
+                if (!data) return await interaction.reply({ content: 'このサーバーではまだチケット機能がセットアップされていないため、使用できません。\nサーバー管理者に連絡してください。', flags: MessageFlags.Ephemeral });
                 else {
                     const why = interaction.fields.getTextInputValue('whyTicket');
                     const info = interaction.fields.getTextInputValue('infoTicket');
@@ -72,7 +72,7 @@ module.exports = {
                     );
 
                     await channel.send({ embeds: [embed], components: [button] });
-                    await interaction.reply({ content:`チケットを開きました！\n${channel}`, ephemeral: true });
+                    await interaction.reply({ content:`チケットを開きました！\n${channel}`, flags: MessageFlags.Ephemeral });
                 }
             } else if (interaction.customId == 'closeTicket') {
                 const closeModal = new ModalBuilder()

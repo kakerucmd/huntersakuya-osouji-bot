@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, StringSelectMenuBuilder, ActionRowBuilder, PermissionsBitField, InteractionContextType, ChannelType } = require('discord.js');
+const { SlashCommandBuilder, StringSelectMenuBuilder, ActionRowBuilder, PermissionsBitField, InteractionContextType, ChannelType, MessageFlags } = require('discord.js');
 const Keyv = require('keyv');
 
 const settings = new Keyv('sqlite://db.sqlite', { table: 'levelsettings' });
@@ -49,7 +49,7 @@ module.exports = {
                     await interaction.reply({
                         content: '既にセットアップされています。変更したい場合は、以下のオプションから選んでください。',
                         components: [new ActionRowBuilder().addComponents(getConfigSelectMenu())],
-                        ephemeral: true,
+                        flags: MessageFlags.Ephemeral,
                     });
                 } else {
                     const channelsList = interaction.guild.channels.cache.filter(channel => channel.type === ChannelType.GuildText);
@@ -73,7 +73,7 @@ module.exports = {
                     await interaction.reply({
                         content: '通知するチャンネルを選択してください。',
                         components: [row],
-                        ephemeral: true,
+                        flags: MessageFlags.Ephemeral,
                     });
                 }
                 break;
@@ -82,7 +82,7 @@ module.exports = {
                 if (!data) {
                     await interaction.reply({
                         content: 'レベル機能が有効化されていません。',
-                        ephemeral: true,
+                        flags: MessageFlags.Ephemeral,
                     });
                 } else {
                     await settings.delete(interaction.guild.id);
@@ -90,7 +90,7 @@ module.exports = {
                     await channels.delete(interaction.guild.id);
                     await interaction.reply({
                         content: 'レベル機能の設定を削除し、無効にしました。',
-                        ephemeral: true,
+                        flags: MessageFlags.Ephemeral,
                     });
                 }
                 break;
@@ -99,7 +99,7 @@ module.exports = {
                 if (!data) {
                     await interaction.reply({
                         content: 'レベル機能がまだ有効化されていません。まず `/level setup` を行ってください。',
-                        ephemeral: true,
+                        flags: MessageFlags.Ephemeral,
                     });
                 } else {
                     const select = getConfigSelectMenu();
@@ -108,7 +108,7 @@ module.exports = {
                     await interaction.reply({
                         content: '設定したい項目を選んでください。',
                         components: [row],
-                        ephemeral: true,
+                        flags: MessageFlags.Ephemeral,
                     });
                 }
                 break;

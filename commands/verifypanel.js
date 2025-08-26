@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, PermissionsBitField, InteractionContextType } = require('discord.js');
+const { SlashCommandBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, PermissionsBitField, InteractionContextType, MessageFlags } = require('discord.js');
 const Keyv = require('keyv');
 const verify = new Keyv('sqlite://db.sqlite');
 
@@ -31,7 +31,7 @@ module.exports = {
                 
     async execute(interaction) {
         try {
-            await interaction.deferReply({ ephemeral: true });
+            await interaction.deferReply({ flags: MessageFlags.Ephemeral });
                 
             const role = interaction.options.getRole('role');
             

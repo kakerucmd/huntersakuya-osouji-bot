@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('discord.js');
+const { SlashCommandBuilder, MessageFlags } = require('discord.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -8,8 +8,8 @@ module.exports = {
 		try {
 			await interaction.reply('お掃除上方修正しろ！！');
 		} catch (error) {
-			console.error(`エラーが発生しました: ${error}`);
-			await interaction.reply({ content: 'エラーが発生しました。後ほど再試行してください。', ephemeral: true });
+			console.error(`/huntersakuyaでエラーが発生: ${error}`);
+			await interaction.reply({ content: 'エラーが発生しました。', flags: MessageFlags.Ephemeral });
 		}
 	},
 };

@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder, PermissionsBitField, InteractionContextType } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, PermissionsBitField, InteractionContextType, MessageFlags } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -21,7 +21,7 @@ module.exports = {
             case 'flagged-words':
                 ruleExists = existingRules.some(rule => rule.triggerType === 4 && rule.triggerMetadata.presets.includes(1));
                 if (ruleExists) {
-                    return interaction.reply({ content: '既に同じAutomodルールが存在します。', ephemeral: true });
+                    return interaction.reply({ content: '既に同じAutomodルールが存在します。', flags: MessageFlags.Ephemeral });
                 }
 
                 await interaction.reply({ content: `Loading your automod rule...` });
@@ -68,7 +68,7 @@ module.exports = {
                 const word = options.getString('word');
                 ruleExists = existingRules.some(rule => rule.triggerType === 1 && rule.triggerMetadata.keywordFilter.includes(word));
                 if (ruleExists) {
-                    return interaction.reply({ content: '既にこのAutomodルールは設定済みです。', ephemeral: true });
+                    return interaction.reply({ content: '既にこのAutomodルールは設定済みです。', flags: MessageFlags.Ephemeral });
                 }
 
                 await interaction.reply({ content: `Loading your automod rule...` });
@@ -114,7 +114,7 @@ module.exports = {
             case 'spam-messages':
                 ruleExists = existingRules.some(rule => rule.triggerType === 3);
                 if (ruleExists) {
-                    return interaction.reply({ content: '既にこのAutomodルールは設定済みです。', ephemeral: true });
+                    return interaction.reply({ content: '既にこのAutomodルールは設定済みです。', flags: MessageFlags.Ephemeral });
                 }
 
                 await interaction.reply({ content: `Loading your automod rule...` });
@@ -159,7 +159,7 @@ module.exports = {
                 const number = options.getInteger('number');
                 ruleExists = existingRules.some(rule => rule.triggerType === 5 && rule.triggerMetadata.mentionTotalLimit === number);
                 if (ruleExists) {
-                    return interaction.reply({ content: '既にこのAutomodルールは設定済みです。', ephemeral: true });
+                    return interaction.reply({ content: '既にこのAutomodルールは設定済みです。', flags: MessageFlags.Ephemeral });
                 }
 
                 await interaction.reply({ content: `Loading your automod rule...` });

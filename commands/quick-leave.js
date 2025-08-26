@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder, PermissionsBitField, ChannelType, InteractionContextType } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, PermissionsBitField, ChannelType, InteractionContextType, MessageFlags } = require('discord.js');
 const Keyv = require('keyv');
 
 const toggleleave = new Keyv('sqlite://db.sqlite', { table: 'toggleleave' });
@@ -22,7 +22,7 @@ module.exports = {
             case 'setup':
 
             if (data){
-                return await interaction.reply({ content: '既に即抜け通知はセットアップされています。', ephemeral: true });
+                return await interaction.reply({ content: '既に即抜け通知はセットアップされています。', flags: MessageFlags.Ephemeral });
             } else {
                 const channel = options.getChannel('channel')
 
@@ -36,18 +36,18 @@ module.exports = {
                 .setColor("Blurple")
                 .setDescription(`通知するチャンネル:${channel}`)
 
-              await interaction.reply({ embeds: [embed], ephemeral: true });
+              await interaction.reply({ embeds: [embed], flags: MessageFlags.Ephemeral });
             }
 
             break;
             case 'disable':
 
             if (!data) {
-                return await interaction.reply({ content: `即抜け通知が有効化されていません。`, ephemeral: true })
+                return await interaction.reply({ content: `即抜け通知が有効化されていません。`, flags: MessageFlags.Ephemeral })
             } else {
                 await toggleleave.delete(interaction.guild.id);
                 await leavechannel.delete(interaction.guild.id)
-                return await interaction.reply({ content: `即抜け通知を無効にしました。`, ephemeral: true })
+                return await interaction.reply({ content: `即抜け通知を無効にしました。`, flags: MessageFlags.Ephemeral })
             }
         }
     }

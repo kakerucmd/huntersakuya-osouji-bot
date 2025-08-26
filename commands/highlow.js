@@ -1,4 +1,5 @@
-const { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, Collection } = require('discord.js');
+const { SlashCommandBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, Collection, MessageFlags } = require('discord.js');
+const { createEmbed } = require('../functions/createembed');
 
 const activehighlow = new Collection();
 
@@ -15,12 +16,12 @@ module.exports = {
         const userId = interaction.user.id;
 
         if (activehighlow.has(userId)) {
-            await interaction.reply({ content: '既にハイ＆ローを実行しているようです。\n「ゲームを中止する」ボタンを押してから、コマンドを実行してください。', ephemeral: true });
+            await interaction.reply({ content: '既にハイ＆ローを実行しているようです。\n「ゲームを中止する」ボタンを押してから、コマンドを実行してください。', flags: MessageFlags.Ephemeral });
             return;
         }
 
         if (rounds <= 0 || rounds > 10) {
-            await interaction.reply({ content: `1~10までの数を入力してください。`, ephemeral: true });
+            await interaction.reply({ content: `1~10までの数を入力してください。`, flags: MessageFlags.Ephemeral });
             return;
         }
 
@@ -49,10 +50,7 @@ module.exports = {
             .addComponents(highButton, lowButton, stopButton);
 
         await interaction.deferReply();
-        let embed = new EmbedBuilder()
-            .setAuthor({ name: '✅｜ハイ＆ローの開始に成功' })
-            .setColor("Blurple")
-            .setDescription(`現在の数は${number}です。\n次の数は現在の数より高い(high)と思いますか？\nそれとも低い(low)と思いますか？`);
+        let embed = createEmbed('✅｜ハイ＆ローの開始に成功', "Blurple", `現在の数は${number}です。\n次の数は現在の数より高い(high)と思いますか？\nそれとも低い(low)と思いますか？`);
         await interaction.editReply({ content: `${interaction.user}`, embeds: [embed], components: [row] });
 
         const filter = i => i.customId.endsWith(`_${userId}`) && i.user.id === userId;
@@ -73,15 +71,9 @@ module.exports = {
         
             if ((guess === 'high' && nextNumber > number) || (guess === 'low' && nextNumber < number)) {
                 correctCount++;
-                embed = new EmbedBuilder()
-                    .setAuthor({ name: '⭕️｜正解' })
-                    .setColor(guess === 'high' ? "Blurple" : "DarkGreen")
-                    .setDescription(`次の数は${nextNumber}でした。現在の数は${nextNumber}です。\n次の数は現在の数より高い(high)と思いますか？\nそれとも低い(low)と思いますか？`);
+                embed = createEmbed('⭕️｜正解', guess === 'high' ? "Blurple" : "DarkGreen", `次の数は${nextNumber}でした。現在の数は${nextNumber}です。\n次の数は現在の数より高い(high)と思いますか？\nそれとも低い(low)と思いますか？`);
             } else {
-                embed = new EmbedBuilder()
-                    .setAuthor({ name: '❌｜不正解' })
-                    .setColor(guess === 'high' ? "Blurple" : "DarkGreen")
-                    .setDescription(`次の数は${nextNumber}でした。現在の数は${nextNumber}です。\n次の数は現在の数より高い(high)と思いますか？\nそれとも低い(low)と思いますか？`);
+                embed = createEmbed('❌｜不正解', guess === 'high' ? "Blurple" : "DarkGreen", `次の数は${nextNumber}でした。現在の数は${nextNumber}です。\n次の数は現在の数より高い(high)と思いますか？\nそれとも低い(low)と思いますか？`);
             }
 
             try {
@@ -102,22 +94,13 @@ module.exports = {
             activehighlow.delete(userId);
 
             if (reason === 'stopped') {
-                embed = new EmbedBuilder()
-                    .setAuthor({ name: '🛑｜中止' })
-                    .setColor('#ff0000')
-                    .setDescription('ゲームを中止しました。');
+                embed = createEmbed('🛑｜中止', '#ff0000', 'ゲームを中止しました。');
                 interaction.editReply({ content: `${interaction.user}`, embeds: [embed], components: [] });
             } else if (collected.size === 0 || count < rounds) {
-                embed = new EmbedBuilder()
-                    .setAuthor({ name: '❌｜エラー' })
-                    .setColor('#00ff00')
-                    .setDescription('入力がタイムアウトしました');
+                embed = createEmbed('❌｜エラー', '#00ff00', '入力がタイムアウトしました');
                 interaction.editReply({ content: `${interaction.user}`, embeds: [embed], components: [] });
             } else {
-                embed = new EmbedBuilder()
-                    .setAuthor({ name: '✨｜結果' })
-                    .setColor("Blurple")
-                    .setDescription(`${rounds}回のハイ＆ローが終了しました。\n計${correctCount}回正解しました！`);
+                embed = createEmbed('✨｜結果', "Blurple", `${rounds}回のハイ＆ローが終了しました。\n計${correctCount}回正解しました！`);
                 interaction.editReply({ content: `${interaction.user}`, embeds: [embed], components: [] });
             }
         });

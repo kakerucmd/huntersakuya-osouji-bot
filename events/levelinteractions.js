@@ -1,4 +1,4 @@
-const { Events, ModalBuilder, StringSelectMenuBuilder, TextInputBuilder, TextInputStyle, ActionRowBuilder, EmbedBuilder, ChannelType } = require('discord.js');
+const { Events, ModalBuilder, StringSelectMenuBuilder, TextInputBuilder, TextInputStyle, ActionRowBuilder, EmbedBuilder, ChannelType, MessageFlags } = require('discord.js');
 const Keyv = require('keyv');
 
 const settings = new Keyv('sqlite://db.sqlite', { table: 'levelsettings' });
@@ -23,7 +23,7 @@ module.exports = {
                             .setTitle('✅ レベル機能のセットアップが完了しました！')
                             .setDescription(`通知は行いません。`);
 
-                        await interaction.reply({ embeds: [embed], ephemeral: true });
+                        await interaction.reply({ embeds: [embed], flags: MessageFlags.Ephemeral });
                         return;
                     }
 
@@ -128,7 +128,7 @@ module.exports = {
                         .setTitle('✅ レベル機能のセットアップが完了しました！')
                         .setDescription(`通知チャンネル: ${await channels.get(interaction.guild.id) ? `<#${await channels.get(interaction.guild.id)}>` : 'なし'}\nメッセージ: ${message.trim() ? message : 'デフォルトメッセージが使用されます。'}`);
 
-                    await interaction.reply({ embeds: [embed], ephemeral: true });
+                    await interaction.reply({ embeds: [embed], flags: MessageFlags.Ephemeral });
                     return;
                 }
 
@@ -146,16 +146,16 @@ module.exports = {
                         .setTitle('✅ 通知するメッセージが変更されました')
                         .setDescription(`${newMessage.trim() ? newMessage : 'デフォルトメッセージが使用されます。'}`);
 
-                    await interaction.reply({ embeds: [embed], ephemeral: true });
+                    await interaction.reply({ embeds: [embed], flags: MessageFlags.Ephemeral });
                     return;
                 }
             }
         } catch (error) {
             console.error(error);
             if (interaction.replied || interaction.deferred) {
-                await interaction.followUp({ content: 'エラーが発生しました。', ephemeral: true });
+                await interaction.followUp({ content: 'エラーが発生しました。', flags: MessageFlags.Ephemeral });
             } else {
-                await interaction.reply({ content: 'エラーが発生しました。', ephemeral: true });
+                await interaction.reply({ content: 'エラーが発生しました。', flags: MessageFlags.Ephemeral });
             }
         }
     }

@@ -1,4 +1,4 @@
-const { ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType } = require('discord.js');
+const { ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType, MessageFlags } = require('discord.js');
 
 module.exports = async (interaction, pages, time = 60 * 1000) => {
     try {
@@ -50,7 +50,7 @@ module.exports = async (interaction, pages, time = 60 * 1000) => {
         });
 
         collector.on('collect', async i => {
-            if (i.user.id !== interaction.user.id) return await i.reply({ content: 'あなたはこのページを操作できません。', ephemeral: true });
+            if (i.user.id !== interaction.user.id) return await i.reply({ content: 'あなたはこのページを操作できません。', flags: MessageFlags.Ephemeral });
 
             await i.deferUpdate();
 

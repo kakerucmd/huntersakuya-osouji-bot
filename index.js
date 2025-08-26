@@ -3,7 +3,7 @@ const path = require('node:path');
 const { token } = require('./config.json');
 const { bannedUsers } = require('./banned.json');
 
-const { Client, Events, Collection, GatewayIntentBits, Partials } = require('discord.js');
+const { Client, Events, Collection, GatewayIntentBits, Partials, MessageFlags } = require('discord.js');
 
 const client = new Client({ 
     intents: [
@@ -49,7 +49,7 @@ client.on(Events.InteractionCreate, async interaction => {
 	if (!interaction.isChatInputCommand() && !interaction.isContextMenuCommand()) return;
 
 	if (bannedUsers.includes(interaction.user.id)) {
-        return interaction.reply({ content: 'あなたのアカウントはこのBotからBANされているため、機能を使用することができません。', ephemeral: true });
+        return interaction.reply({ content: 'あなたのアカウントはこのBotからBANされているため、機能を使用することができません。', flags: MessageFlags.Ephemeral });
     }
 
 	const command = client.commands.get(interaction.commandName);
@@ -75,7 +75,7 @@ client.on(Events.InteractionCreate, async interaction => {
 
 		if (now < expirationTime) {
 			const expiredTimestamp = Math.round(expirationTime / 1000);
-			return interaction.reply({ content: `\`/${command.data.name}\`コマンドはクールタイム中です。<t:${expiredTimestamp}:R>に再使用できます。`, ephemeral: true });
+			return interaction.reply({ content: `\`/${command.data.name}\`コマンドはクールタイム中です。<t:${expiredTimestamp}:R>に再使用できます。`, flags: MessageFlags.Ephemeral });
 		}
 	}
 
@@ -87,9 +87,9 @@ client.on(Events.InteractionCreate, async interaction => {
 	} catch (error) {
 		console.error(error);
 		if (interaction.replied || interaction.deferred) {
-			await interaction.followUp({ content: 'エラーが発生しました。', ephemeral: true });
+			await interaction.followUp({ content: 'エラーが発生しました。', flags: MessageFlags.Ephemeral });
 		} else {
-			await interaction.reply({ content: 'エラーが発生しました。', ephemeral: true });
+			await interaction.reply({ content: 'エラーが発生しました。', flags: MessageFlags.Ephemeral });
 		}
 	}
 });

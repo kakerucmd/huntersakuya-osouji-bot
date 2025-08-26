@@ -1,5 +1,5 @@
 const fs = require('node:fs');
-const { Events, EmbedBuilder, AttachmentBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
+const { Events, EmbedBuilder, AttachmentBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, MessageFlags } = require('discord.js');
 
 module.exports = {
     name: Events.InteractionCreate,
@@ -64,11 +64,11 @@ module.exports = {
             if (interaction.customId === 'delete_raitai_embed') {
                 const message = await interaction.channel.messages.fetch(interaction.message.id);
                 await message.delete();
-                await interaction.reply({ content: '擂台予報の埋め込みを削除しました。', ephemeral: true });
+                await interaction.reply({ content: '擂台予報の埋め込みを削除しました。', flags: MessageFlags.Ephemeral });
             }
         } catch (err) {
             console.error(`エラーが発生しました: ${err}`);
-            await interaction.reply({ content: 'エラーが発生しました。', ephemeral: true });
+            await interaction.reply({ content: 'エラーが発生しました。', flags: MessageFlags.Ephemeral });
         }
     },
 };

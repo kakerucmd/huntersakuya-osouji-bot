@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('discord.js');
+const { SlashCommandBuilder, MessageFlags } = require('discord.js');
 
 module.exports = {
     cooldown: 20,
@@ -19,12 +19,12 @@ module.exports = {
 
         if (containsToken) {
             console.log(`Blocked message from ${user.username} (${user.id}) due to token-like content.`);
-            await interaction.reply({ content: 'Token類似文字列を含むメッセージは送信できません。', ephemeral: true });
+            await interaction.reply({ content: 'Token類似文字列を含むメッセージは送信できません。', flags: MessageFlags.Ephemeral });
             return;
         }
         
         console.log(`Sending message to channel from ${user.username} (${user.id})...`);
-        await interaction.reply({ content: 'メッセージを送信しました。\n※サーバーにログは残ります。' });
+        await interaction.reply({ content: 'メッセージを送信しました。\n※botのホストサーバーにログが残ります。' });
         await interaction.channel.send({ content: message });
     },
 };

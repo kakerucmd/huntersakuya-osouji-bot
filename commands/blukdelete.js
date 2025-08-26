@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, PermissionsBitField, InteractionContextType } = require('discord.js');
+const { SlashCommandBuilder, PermissionsBitField, InteractionContextType, MessageFlags } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -8,21 +8,24 @@ module.exports = {
         .setDefaultMemberPermissions(PermissionsBitField.Flags.Administrator)
         .addUserOption(option => 
             option.setName('user')
-                .setDescription('メッセージを削除するユーザー')
-                .setRequired(true)),
+                  .setDescription('メッセージを削除するユーザー')
+                  .setRequired(true)),
+    
     async execute(interaction) {
         try {
-            await interaction.deferReply({ ephemeral: true });
+            await interaction.deferReply({ flags: MessageFlags.Ephemeral });
 
             const user = interaction.options.getUser('user');
             const twoWeeksAgo = Date.now() - 1209600000;
-            const limit = 100
+            const limit = 100;
 
-            const messages = await interaction.channel.messages.fetch({ limit: limit });
+            const messages = await interact1ion.channel.messages.fetch({ limit: limit });
             const filtered = messages.filter(message => message.author.id === user.id && message.createdTimestamp > twoWeeksAgo);
+
             interaction.channel.bulkDelete(filtered)
-                .then(deletedMessages => interaction.editReply({ content: `${deletedMessages.size}件のメッセージが削除されました。` }))
-                .catch(error => interaction.editReply({ content: `エラーが発生しました。` }));
+            .then(deletedMessages => interaction.followUp({ content: `${deletedMessages.size}件のメッセージが削除されました。` }))
+            .catch(error => interaction.followUp({ content: `エラーが発生しました。` }));
+
         } catch (error) {
             console.error(error);
         }

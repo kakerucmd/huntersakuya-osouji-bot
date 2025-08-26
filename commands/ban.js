@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, PermissionsBitField, InteractionContextType } = require('discord.js');
+const { SlashCommandBuilder, PermissionsBitField, InteractionContextType, MessageFlags } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -21,7 +21,7 @@ module.exports = {
         let reason = interaction.options.getString('reason');
 
         if (!member) {
-            return await interaction.reply({ content: 'サーバー内に存在するユーザーのみBANできます。', ephemeral: true });
+            return await interaction.reply({ content: 'サーバー内に存在するユーザーのみBANできます。', flags: MessageFlags.Ephemeral });
         }
 
         if (!reason) {
@@ -30,14 +30,14 @@ module.exports = {
 
         if (guild.ownerId !== user.id && member.roles.highest.comparePositionTo(interaction.member.roles.highest) >= 0) {
             try {
-                return await interaction.reply({ content: 'あなたと同等以上の役職をもつメンバーをBANすることはできません', ephemeral: true });
+                return await interaction.reply({ content: 'あなたと同等以上の役職をもつメンバーをBANすることはできません', flags: MessageFlags.Ephemeral });
             } catch (error) {
                 console.error(error);
             }
         }
         if (!member.bannable) {
             try {
-                return await interaction.reply({ content: 'botがこのユーザーをBANすることができません。権限を確認してください', ephemeral: true });
+                return await interaction.reply({ content: 'botがこのユーザーをBANすることができません。権限を確認してください', flags: MessageFlags.Ephemeral });
             } catch (error) {
                 console.error(error);
             }
@@ -46,7 +46,7 @@ module.exports = {
         try {
             await member.ban({ reason: `${reason}` });
             try {
-                await interaction.reply({ content: `<@${member.user.id}>をBANしました。理由: ${reason}`, ephemeral: true });
+                await interaction.reply({ content: `<@${member.user.id}>をBANしました。理由: ${reason}`, flags: MessageFlags.Ephemeral });
             } catch (error) {
                 console.error(error);
             }

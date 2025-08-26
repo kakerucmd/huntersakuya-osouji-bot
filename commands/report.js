@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder, ModalBuilder, TextInputBuilder, ActionRowBuilder, TextInputStyle, ChannelType, Collection } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, ModalBuilder, TextInputBuilder, ActionRowBuilder, TextInputStyle, ChannelType, Collection, MessageFlags } = require('discord.js');
 
 const reportHistory = new Collection();
 
@@ -13,11 +13,11 @@ module.exports = {
 		const reportedUser = interaction.options.getUser('user');
 
 		if (reportedUser.bot) {
-			return interaction.reply({ content: 'Botを通報することはできません。', ephemeral: true });
+			return interaction.reply({ content: 'Botを通報することはできません。', flags: MessageFlags.Ephemeral });
 		}
 
 		if (reportHistory.has(userId) && currentTime - reportHistory.get(userId) < 600000) {
-			return interaction.reply({ content: '連続した通報は行えません。', ephemeral: true });
+			return interaction.reply({ content: '連続した通報は行えません。', flags: MessageFlags.Ephemeral });
 		}
 
 		const modal = new ModalBuilder()
@@ -65,7 +65,7 @@ module.exports = {
 
 				reportHistory.set(userId, currentTime);
 
-				await mInteraction.reply({ content: '通報が正常に送信されました。\nBot管理者が手動で確認するため、対応が遅くなる可能性があります。', ephemeral: true });
+				await mInteraction.reply({ content: '通報が正常に送信されました。\nBot管理者が手動で確認するため、対応が遅くなる可能性があります。', flags: MessageFlags.Ephemeral });
 			})
 			.catch(console.error);
 	},

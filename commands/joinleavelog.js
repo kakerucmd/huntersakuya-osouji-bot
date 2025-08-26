@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder, PermissionsBitField, ChannelType, InteractionContextType } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, PermissionsBitField, ChannelType, InteractionContextType, MessageFlags } = require('discord.js');
 const Keyv = require('keyv');
 const joinleavelog = new Keyv('sqlite://db.sqlite', { table: 'joinleavelog' });
 
@@ -20,7 +20,7 @@ module.exports = {
             case 'setup':
 
             if (data){
-                return await interaction.reply({ content: '既に入退室ログは有効化されています。', ephemeral: true });
+                return await interaction.reply({ content: '既に入退室ログは有効化されています。', flags: MessageFlags.Ephemeral });
             } else {
                 const channel = options.getChannel('channel')
 
@@ -31,17 +31,17 @@ module.exports = {
                 .setColor("Blurple")
                 .setDescription(`通知するチャンネル:${channel}`)
 
-              await interaction.reply({ embeds: [embed], ephemeral: true });
+              await interaction.reply({ embeds: [embed], flags: MessageFlags.Ephemeral });
             }
 
             break;
             case 'disable':
 
             if (!data) {
-                return await interaction.reply({ content: `入退室ログが有効化されていません。`, ephemeral: true })
+                return await interaction.reply({ content: `入退室ログが有効化されていません。`, flags: MessageFlags.Ephemeral })
             } else {
                 await joinleavelog.delete(interaction.guild.id);
-                return await interaction.reply({ content: `入退室ログを無効にしました。`, ephemeral: true })
+                return await interaction.reply({ content: `入退室ログを無効にしました。`, flags: MessageFlags.Ephemeral })
             }
         }
     }
