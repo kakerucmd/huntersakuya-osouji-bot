@@ -24,7 +24,7 @@ module.exports = {
         }
         
         console.log(`Sending message to channel from ${user.username} (${user.id})...`);
-        await interaction.reply({ content: 'メッセージを送信しました。\n※botのホストサーバーにログが残ります。' });
+        await interaction.reply({ content: 'メッセージを送信しました。\n※botのホストサーバーにログが残ります。', flags: MessageFlags.Ephemeral });
         await interaction.channel.send({ content: message });
     },
 };
