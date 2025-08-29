@@ -19,7 +19,7 @@ module.exports = {
             const twoWeeksAgo = Date.now() - 1209600000;
             const limit = 100;
 
-            const messages = await interact1ion.channel.messages.fetch({ limit: limit });
+            const messages = await interaction.channel.messages.fetch({ limit: limit });
             const filtered = messages.filter(message => message.author.id === user.id && message.createdTimestamp > twoWeeksAgo);
 
             interaction.channel.bulkDelete(filtered)
