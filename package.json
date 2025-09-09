@@ -1,0 +1,13 @@
+{
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "@keyv/sqlite": "^3.6.7",
+    "@napi-rs/canvas": "^0.1.71",
+    "axios": "^1.10.0",
+    "discord.js": "^14.22.1",
+    "keyv": "^4.5.4",
+    "pify": "^6.1.0",
+    "pity": "^0.3.4"
+  }
+}

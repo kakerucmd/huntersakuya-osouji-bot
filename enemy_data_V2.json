@@ -1,0 +1,3300 @@
+[
+	{
+		"name": "霊夢（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"月",
+			"木",
+			"金"
+		],
+		"resistances": [
+			"水",
+			"星"
+		],
+		"skill": "みんな陰防アップ！(Lv.1)"
+	},
+	{
+		"name": "魔理沙（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"日",
+			"水"
+		],
+		"resistances": [
+			"木",
+			"金"
+		],
+		"skill": "みんな燃焼付与！(Lv.1)"
+	},
+	{
+		"name": "ルーミア（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"月",
+			"土",
+			"星"
+		],
+		"resistances": [
+			"日",
+			"金"
+		],
+		"skill": "みんな結界回復！(Lv.1)"
+	},
+	{
+		"name": "大妖精（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"木",
+			"金",
+			"星"
+		],
+		"resistances": [
+			"日",
+			"水"
+		],
+		"skill": "みんな体力回復！(Lv.1)"
+	},
+	{
+		"name": "チルノ（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"日",
+			"水",
+			"土"
+		],
+		"resistances": [
+			"火",
+			"金"
+		],
+		"skill": "みんな凍結付与！(Lv.1)"
+	},
+	{
+		"name": "美鈴（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"日",
+			"木",
+			"金"
+		],
+		"resistances": [
+			"月",
+			"水"
+		],
+		"skill": "みんなCRI命中アップ！(Lv.1)"
+	},
+	{
+		"name": "小悪魔（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"日",
+			"火",
+			"水"
+		],
+		"resistances": [
+			"月",
+			"星"
+		],
+		"skill": "みんな帯電付与！(Lv.1)"
+	},
+	{
+		"name": "パチェ（L1）",
+		"Barrier": 3,
+		"weaknesses": [
+			"日",
+			"土",
+			"星"
+		],
+		"resistances": [
+			"火",
+			"木"
+		],
+		"skill": "みんなレーザー弾ガード！(Lv.1)"
+	},
+	{
+		"name": "咲夜（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"火",
+			"水",
+			"星"
+		],
+		"resistances": [
+			"日",
+			"土"
+		],
+		"skill": "みんな通常弾ガード！(Lv.1)"
+	},
+	{
+		"name": "レミリア（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"日",
+			"火",
+			"金"
+		],
+		"resistances": [
+			"土",
+			"星"
+		],
+		"skill": "みんな陰攻アップ！(Lv.1)"
+	},
+	{
+		"name": "フラン（L1）",
+		"Barrier": 3,
+		"weaknesses": [
+			"日",
+			"水",
+			"木"
+		],
+		"resistances": [
+			"金",
+			"星"
+		],
+		"skill": "みんな毒霧付与！(Lv.1)"
+	},
+	{
+		"name": "レティ（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"月",
+			"水",
+			"土"
+		],
+		"resistances": [
+			"金",
+			"星"
+		],
+		"skill": "みんな水属性ガード！(Lv.1)"
+	},
+	{
+		"name": "橙（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"日",
+			"火",
+			"水"
+		],
+		"resistances": [
+			"月",
+			"木"
+		],
+		"skill": "みんな暗闇付与！(Lv.1)"
+	},
+	{
+		"name": "アリス（L1）",
+		"Barrier": 3,
+		"weaknesses": [
+			"火",
+			"金",
+			"星"
+		],
+		"resistances": [
+			"日",
+			"水"
+		],
+		"skill": "みんな暗闇付与！(Lv.1)"
+	},
+	{
+		"name": "リリホワ（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"月",
+			"木",
+			"金"
+		],
+		"resistances": [
+			"水",
+			"星"
+		],
+		"skill": "みんな肉弾ガード！(Lv.1)"
+	},
+	{
+		"name": "ルナサ（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"月",
+			"金",
+			"星"
+		],
+		"resistances": [
+			"日",
+			"土"
+		],
+		"skill": "みんな毒霧付与！(Lv.1)"
+	},
+	{
+		"name": "メルラン（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"月",
+			"火",
+			"水"
+		],
+		"resistances": [
+			"土",
+			"星"
+		],
+		"skill": "みんな体力回復！(Lv.1)"
+	},
+	{
+		"name": "リリカ（L1）",
+		"Barrier": 3,
+		"weaknesses": [
+			"日",
+			"木",
+			"土"
+		],
+		"resistances": [
+			"月",
+			"火"
+		],
+		"skill": "みんな帯電付与！(Lv.1)"
+	},
+	{
+		"name": "妖夢（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"日",
+			"火",
+			"水"
+		],
+		"resistances": [
+			"火",
+			"木"
+		],
+		"skill": "みんな毒霧付与！(Lv.1)"
+	},
+	{
+		"name": "幽々子（L1）",
+		"Barrier": 3,
+		"weaknesses": [
+			"水",
+			"土",
+			"星"
+		],
+		"resistances": [
+			"火",
+			"金"
+		],
+		"skill": "みんな凍結付与！(Lv.1)"
+	},
+	{
+		"name": "八雲藍（L1）",
+		"Barrier": 3,
+		"weaknesses": [
+			"火",
+			"水",
+			"星"
+		],
+		"resistances": [
+			"日",
+			"土"
+		],
+		"skill": "みんな斬撃ガード！(Lv.1)"
+	},
+	{
+		"name": "八雲紫（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"月",
+			"木",
+			"土"
+		],
+		"resistances": [
+			"火",
+			"星"
+		],
+		"skill": "みんな結界回復！(Lv.1)"
+	},
+	{
+		"name": "萃香（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"月",
+			"火",
+			"星"
+		],
+		"resistances": [
+			"日",
+			"土"
+		],
+		"skill": "みんな陽防ダウン！(Lv.1)"
+	},
+	{
+		"name": "リグル（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"火",
+			"金",
+			"星"
+		],
+		"resistances": [
+			"月",
+			"水"
+		],
+		"skill": "みんな凍結付与！(Lv.1)"
+	},
+	{
+		"name": "ミスティア（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"水",
+			"木",
+			"土"
+		],
+		"resistances": [
+			"日",
+			"金"
+		],
+		"skill": "みんなCRI命中アップ！(Lv.1)"
+	},
+	{
+		"name": "慧音（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"月",
+			"水",
+			"木"
+		],
+		"resistances": [
+			"火",
+			"金"
+		],
+		"skill": "みんな凍結付与！(Lv.1)"
+	},
+	{
+		"name": "てゐ（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"日",
+			"金",
+			"土"
+		],
+		"resistances": [
+			"月",
+			"火"
+		],
+		"skill": "みんな結界回復！(Lv.1)"
+	},
+	{
+		"name": "優曇華（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"木",
+			"金",
+			"星"
+		],
+		"resistances": [
+			"火",
+			"水"
+		],
+		"skill": "みんな結界異常回復！(Lv.1)"
+	},
+	{
+		"name": "永琳（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"火",
+			"水",
+			"星"
+		],
+		"resistances": [
+			"日",
+			"木"
+		],
+		"skill": "みんな質量弾ガード！(Lv.1)"
+	},
+	{
+		"name": "輝夜（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"火",
+			"土",
+			"星"
+		],
+		"resistances": [
+			"木",
+			"金"
+		],
+		"skill": "みんな陰攻ダウン！(Lv.1)"
+	},
+	{
+		"name": "妹紅（L1）",
+		"Barrier": 3,
+		"weaknesses": [
+			"月",
+			"水",
+			"土"
+		],
+		"resistances": [
+			"木",
+			"星"
+		],
+		"skill": "みんな流体弾ガード！(Lv.1)"
+	},
+	{
+		"name": "文（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"金",
+			"土",
+			"星"
+		],
+		"resistances": [
+			"日",
+			"木"
+		],
+		"skill": "みんな凍結付与！(Lv.1)"
+	},
+	{
+		"name": "メディ（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"月",
+			"金",
+			"土"
+		],
+		"resistances": [
+			"木",
+			"星"
+		],
+		"skill": "みんな燃焼付与！(Lv.1)"
+	},
+	{
+		"name": "幽香（L1）",
+		"Barrier": 3,
+		"weaknesses": [
+			"日",
+			"火",
+			"金"
+		],
+		"resistances": [
+			"月",
+			"水"
+		],
+		"skill": "みんな毒霧付与！(Lv.1)"
+	},
+	{
+		"name": "小町（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"日",
+			"木",
+			"土"
+		],
+		"resistances": [
+			"月",
+			"金"
+		],
+		"skill": "みんなCRI回避ダウン！(Lv.1)"
+	},
+	{
+		"name": "映姫（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"月",
+			"木",
+			"土"
+		],
+		"resistances": [
+			"水",
+			"金"
+		],
+		"skill": "みんな通常弾ガード！(Lv.1)"
+	},
+	{
+		"name": "静葉（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"月",
+			"火",
+			"星"
+		],
+		"resistances": [
+			"日",
+			"土"
+		],
+		"skill": "みんな火属性ガード！(Lv.1)"
+	},
+	{
+		"name": "穣子（L1）",
+		"Barrier": 3,
+		"weaknesses": [
+			"日",
+			"火",
+			"水"
+		],
+		"resistances": [
+			"木",
+			"土"
+		],
+		"skill": "みんな質量弾ガード！(Lv.1)"
+	},
+	{
+		"name": "雛（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"月",
+			"水",
+			"星"
+		],
+		"resistances": [
+			"木",
+			"土"
+		],
+		"skill": "みんな金属性ガード！(Lv.1)"
+	},
+	{
+		"name": "にとり（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"木",
+			"土",
+			"星"
+		],
+		"resistances": [
+			"日",
+			"金"
+		],
+		"skill": "みんなミサイル弾ガード！(Lv.1)"
+	},
+	{
+		"name": "椛（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"月",
+			"木",
+			"金"
+		],
+		"resistances": [
+			"水",
+			"星"
+		],
+		"skill": "みんな結界異常回復！(Lv.1)"
+	},
+	{
+		"name": "早苗（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"日",
+			"火",
+			"金"
+		],
+		"resistances": [
+			"水",
+			"木"
+		],
+		"skill": "みんな陽攻アップ！(Lv.1)"
+	},
+	{
+		"name": "神奈子（L1）",
+		"Barrier": 3,
+		"weaknesses": [
+			"月",
+			"火",
+			"水"
+		],
+		"resistances": [
+			"土",
+			"星"
+		],
+		"skill": "みんな毒霧付与！(Lv.1)"
+	},
+	{
+		"name": "諏訪子（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"水",
+			"木",
+			"星"
+		],
+		"resistances": [
+			"火",
+			"金"
+		],
+		"skill": "みんなCRI攻撃アップ！(Lv.1)"
+	},
+	{
+		"name": "衣玖（L1）",
+		"Barrier": 3,
+		"weaknesses": [
+			"日",
+			"月",
+			"星"
+		],
+		"resistances": [
+			"木",
+			"金"
+		],
+		"skill": "みんな斬撃ガード！(Lv.1)"
+	},
+	{
+		"name": "天子（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"火",
+			"木",
+			"土"
+		],
+		"resistances": [
+			"日",
+			"金"
+		],
+		"skill": "みんな帯電付与！(Lv.1)"
+	},
+	{
+		"name": "キスメ（L1）",
+		"Barrier": 3,
+		"weaknesses": [
+			"月",
+			"火",
+			"土"
+		],
+		"resistances": [
+			"日",
+			"金"
+		],
+		"skill": "みんな御札弾ガード！(Lv.1)"
+	},
+	{
+		"name": "ヤマメ（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"木",
+			"金",
+			"星"
+		],
+		"resistances": [
+			"水",
+			"土"
+		],
+		"skill": "みんなエネルギー弾ガード！(Lv.1)"
+	},
+	{
+		"name": "パルスィ（L1）",
+		"Barrier": 3,
+		"weaknesses": [
+			"日",
+			"月",
+			"水"
+		],
+		"resistances": [
+			"火",
+			"木"
+		],
+		"skill": "みんな暗闇付与！(Lv.1)"
+	},
+	{
+		"name": "勇儀（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"日",
+			"火",
+			"金"
+		],
+		"resistances": [
+			"月",
+			"土"
+		],
+		"skill": "みんなレーザー弾ガード！(Lv.1)"
+	},
+	{
+		"name": "さとり（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"日",
+			"火",
+			"金"
+		],
+		"resistances": [
+			"月",
+			"土"
+		],
+		"skill": "みんな陽攻ダウン！(Lv.1)"
+	},
+	{
+		"name": "お燐（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"月",
+			"木",
+			"金"
+		],
+		"resistances": [
+			"水",
+			"星"
+		],
+		"skill": "みんな燃焼付与！(Lv.1)"
+	},
+	{
+		"name": "お空（L1）",
+		"Barrier": 3,
+		"weaknesses": [
+			"水",
+			"金",
+			"星"
+		],
+		"resistances": [
+			"日",
+			"木"
+		],
+		"skill": "みんな毒霧付与！(Lv.1)"
+	},
+	{
+		"name": "こいし（L1）",
+		"Barrier": 3,
+		"weaknesses": [
+			"日",
+			"水",
+			"木"
+		],
+		"resistances": [
+			"月",
+			"火"
+		],
+		"skill": "みんな肉弾ガード！(Lv.1)"
+	},
+	{
+		"name": "ナズーリン（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"日",
+			"水",
+			"木"
+		],
+		"resistances": [
+			"月",
+			"星"
+		],
+		"skill": "みんな結界回復！(Lv.1)"
+	},
+	{
+		"name": "小傘（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"月",
+			"木",
+			"土"
+		],
+		"resistances": [
+			"金",
+			"星"
+		],
+		"skill": "みんな御札弾ガード！(Lv.1)"
+	},
+	{
+		"name": "一輪（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"火",
+			"金",
+			"土"
+		],
+		"resistances": [
+			"月",
+			"金"
+		],
+		"skill": "みんな燃焼付与！(Lv.1)"
+	},
+	{
+		"name": "村紗（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"月",
+			"火",
+			"土"
+		],
+		"resistances": [
+			"金",
+			"星"
+		],
+		"skill": "みんな帯電付与！(Lv.1)"
+	},
+	{
+		"name": "寅丸（L1）",
+		"Barrier": 3,
+		"weaknesses": [
+			"月",
+			"火",
+			"木"
+		],
+		"resistances": [
+			"日",
+			"土"
+		],
+		"skill": "みんな暗闇付与！(Lv.1)"
+	},
+	{
+		"name": "聖（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"月",
+			"火",
+			"水"
+		],
+		"resistances": [
+			"木",
+			"星"
+		],
+		"skill": "みんなエネルギー弾ガード！(Lv.1)"
+	},
+	{
+		"name": "ぬえ（L1）",
+		"Barrier": 3,
+		"weaknesses": [
+			"日",
+			"月",
+			"星"
+		],
+		"resistances": [
+			"火",
+			"水"
+		],
+		"skill": "みんな毒霧付与！(Lv.1)"
+	},
+	{
+		"name": "はたて（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"日",
+			"火",
+			"星"
+		],
+		"resistances": [
+			"水",
+			"木"
+		],
+		"skill": "みんな帯電付与！(Lv.1)"
+	},
+	{
+		"name": "響子（L1）",
+		"Barrier": 3,
+		"weaknesses": [
+			"日",
+			"月",
+			"星"
+		],
+		"resistances": [
+			"火",
+			"土"
+		],
+		"skill": "みんな流体弾ガード！(Lv.1)"
+	},
+	{
+		"name": "芳香（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"日",
+			"水",
+			"土"
+		],
+		"resistances": [
+			"月",
+			"金"
+		],
+		"skill": "みんなCRI攻撃ダウン！(Lv.1)"
+	},
+	{
+		"name": "青娥（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"月",
+			"土",
+			"星"
+		],
+		"resistances": [
+			"日",
+			"金"
+		],
+		"skill": "みんな尖弾ガード！(Lv.1)"
+	},
+	{
+		"name": "屠自古（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"水",
+			"金",
+			"星"
+		],
+		"resistances": [
+			"日",
+			"火"
+		],
+		"skill": "みんな燃焼付与！(Lv.1)"
+	},
+	{
+		"name": "布都（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"火",
+			"木",
+			"土"
+		],
+		"resistances": [
+			"月",
+			"星"
+		],
+		"skill": "みんな陰攻アップ！(Lv.1)"
+	},
+	{
+		"name": "神子（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"月",
+			"水",
+			"土"
+		],
+		"resistances": [
+			"金",
+			"星"
+		],
+		"skill": "みんな木属性ガード！(Lv.1)"
+	},
+	{
+		"name": "マミゾウ（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"月",
+			"木",
+			"星"
+		],
+		"resistances": [
+			"火",
+			"土"
+		],
+		"skill": "みんな陰攻ダウン！(Lv.1)"
+	},
+	{
+		"name": "こころ（L1）",
+		"Barrier": 3,
+		"weaknesses": [
+			"日",
+			"水",
+			"木"
+		],
+		"resistances": [
+			"月",
+			"火"
+		],
+		"skill": "みんなミサイル弾ガード！(Lv.1)"
+	},
+	{
+		"name": "わかさぎ姫（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"月",
+			"土",
+			"星"
+		],
+		"resistances": [
+			"日",
+			"木"
+		],
+		"skill": "みんな凍結付与！(Lv.1)"
+	},
+	{
+		"name": "赤蛮奇（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"木",
+			"金",
+			"土"
+		],
+		"resistances": [
+			"水",
+			"星"
+		],
+		"skill": "みんな肉弾ガード！(Lv.1)"
+	},
+	{
+		"name": "影狼（L1）",
+		"Barrier": 3,
+		"weaknesses": [
+			"日",
+			"火",
+			"水"
+		],
+		"resistances": [
+			"金",
+			"土"
+		],
+		"skill": "みんな暗闇付与！(Lv.1)"
+	},
+	{
+		"name": "弁々（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"月",
+			"金",
+			"星"
+		],
+		"resistances": [
+			"日",
+			"土"
+		],
+		"skill": "みんな陰攻アップ！(Lv.1)"
+	},
+	{
+		"name": "八橋（L1）",
+		"Barrier": 3,
+		"weaknesses": [
+			"日",
+			"火",
+			"金"
+		],
+		"resistances": [
+			"月",
+			"水"
+		],
+		"skill": "みんなエネルギー弾ガード！(Lv.1)"
+	},
+	{
+		"name": "正邪（L1）",
+		"Barrier": 3,
+		"weaknesses": [
+			"月",
+			"火",
+			"木"
+		],
+		"resistances": [
+			"水",
+			"土"
+		],
+		"skill": "みんな毒霧付与！(Lv.1)"
+	},
+	{
+		"name": "針妙丸（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"水",
+			"金",
+			"土"
+		],
+		"resistances": [
+			"月",
+			"木"
+		],
+		"skill": "みんな質量弾ガード！(Lv.1)"
+	},
+	{
+		"name": "雷鼓（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"火",
+			"木",
+			"金"
+		],
+		"resistances": [
+			"日",
+			"土"
+		],
+		"skill": "みんな光弾ガード！(Lv.1)"
+	},
+	{
+		"name": "菫子（L1）",
+		"Barrier": 3,
+		"weaknesses": [
+			"日",
+			"火",
+			"水"
+		],
+		"resistances": [
+			"月",
+			"木"
+		],
+		"skill": "みんな通常弾ガード！(Lv.1)"
+	},
+	{
+		"name": "清蘭（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"火",
+			"金",
+			"星"
+		],
+		"resistances": [
+			"日",
+			"水"
+		],
+		"skill": "みんな毒霧付与！(Lv.1)"
+	},
+	{
+		"name": "鈴瑚（L1）",
+		"Barrier": 3,
+		"weaknesses": [
+			"木",
+			"金",
+			"星"
+		],
+		"resistances": [
+			"水",
+			"土"
+		],
+		"skill": "みんな帯電付与！(Lv.1)"
+	},
+	{
+		"name": "ドレミー（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"日",
+			"木",
+			"土"
+		],
+		"resistances": [
+			"月",
+			"火"
+		],
+		"skill": "みんな陰防ダウン！(Lv.1)"
+	},
+	{
+		"name": "サグメ（L1）",
+		"Barrier": 3,
+		"weaknesses": [
+			"月",
+			"木",
+			"星"
+		],
+		"resistances": [
+			"火",
+			"金"
+		],
+		"skill": "みんな光弾ガード(Lv.1)"
+	},
+	{
+		"name": "クラピ（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"日",
+			"火",
+			"水"
+		],
+		"resistances": [
+			"月",
+			"木"
+		],
+		"skill": "みんな斬撃ガード！(Lv.1)"
+	},
+	{
+		"name": "純狐（L1）",
+		"Barrier": 3,
+		"weaknesses": [
+			"月",
+			"水",
+			"金"
+		],
+		"resistances": [
+			"火",
+			"木"
+		],
+		"skill": "みんな燃焼付与！(Lv.1)"
+	},
+	{
+		"name": "ヘカ（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"日",
+			"月",
+			"木"
+		],
+		"resistances": [
+			"金",
+			"木"
+		],
+		"skill": "みんな暗闇付与！(Lv.1)"
+	},
+	{
+		"name": "女苑（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"日",
+			"水",
+			"金"
+		],
+		"resistances": [
+			"月",
+			"木"
+		],
+		"skill": "みんな陰防アップ！(Lv.1)"
+	},
+	{
+		"name": "紫苑（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"火",
+			"金",
+			"星"
+		],
+		"resistances": [
+			"日",
+			"水"
+		],
+		"skill": "みんな流体弾ガード！(Lv.1)"
+	},
+	{
+		"name": "ラルバ（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"日",
+			"土",
+			"星"
+		],
+		"resistances": [
+			"月",
+			"水"
+		],
+		"skill": "みんな結界異常回復！(Lv.1)"
+	},
+	{
+		"name": "ネムノ（L1）",
+		"Barrier": 3,
+		"weaknesses": [
+			"日",
+			"水",
+			"土"
+		],
+		"resistances": [
+			"月",
+			"木"
+		],
+		"skill": "みんな凍結付与！(Lv.1)"
+	},
+	{
+		"name": "あうん（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"月",
+			"木",
+			"金"
+		],
+		"resistances": [
+			"火",
+			"土"
+		],
+		"skill": "みんな燃焼付与！(Lv.1)"
+	},
+	{
+		"name": "成美（L1）",
+		"Barrier": 3,
+		"weaknesses": [
+			"月",
+			"水",
+			"土"
+		],
+		"resistances": [
+			"金",
+			"星"
+		],
+		"skill": "みんな尖弾ガード！(Lv.1)"
+	},
+	{
+		"name": "里乃（L1）",
+		"Barrier": 3,
+		"weaknesses": [
+			"日",
+			"金",
+			"星"
+		],
+		"resistances": [
+			"火",
+			"水"
+		],
+		"skill": "みんなレーザー弾ガード！(Lv.1)"
+	},
+	{
+		"name": "舞（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"火",
+			"水",
+			"木"
+		],
+		"resistances": [
+			"金",
+			"星"
+		],
+		"skill": "みんな陰防アップ！(Lv.1)"
+	},
+	{
+		"name": "隠岐奈（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"日",
+			"木",
+			"土"
+		],
+		"resistances": [
+			"金",
+			"土"
+		],
+		"skill": "みんなCRI防御アップ！(Lv.1)"
+	},
+	{
+		"name": "瓔花（L1）",
+		"Barrier": 3,
+		"weaknesses": [
+			"火",
+			"木",
+			"土"
+		],
+		"resistances": [
+			"月",
+			"金"
+		],
+		"skill": "みんな毒霧付与！(Lv.1)"
+	},
+	{
+		"name": "潤美（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"月",
+			"水",
+			"金"
+		],
+		"resistances": [
+			"木",
+			"星"
+		],
+		"skill": "みんな燃焼付与！(Lv.1)"
+	},
+	{
+		"name": "久侘歌（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"日",
+			"月",
+			"火"
+		],
+		"resistances": [
+			"水",
+			"土"
+		],
+		"skill": "みんな陰防ダウン！(Lv.1)"
+	},
+	{
+		"name": "八千慧（L1）",
+		"Barrier": 3,
+		"weaknesses": [
+			"金",
+			"土",
+			"星"
+		],
+		"resistances": [
+			"火",
+			"木"
+		],
+		"skill": "みんな通常弾ガード！(Lv.1)"
+	},
+	{
+		"name": "磨弓（L1）",
+		"Barrier": 3,
+		"weaknesses": [
+			"日",
+			"水",
+			"星"
+		],
+		"resistances": [
+			"火",
+			"金"
+		],
+		"skill": "みんな暗闇付与！(Lv.1)"
+	},
+	{
+		"name": "袿姫（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"火",
+			"木",
+			"金"
+		],
+		"resistances": [
+			"日",
+			"土"
+		],
+		"skill": "みんな凍結付与！(Lv.1)"
+	},
+	{
+		"name": "早鬼（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"月",
+			"水",
+			"木"
+		],
+		"resistances": [
+			"日",
+			"星"
+		],
+		"skill": "みんなミサイル弾ガード！(Lv.1)"
+	},
+	{
+		"name": "饕餮（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"木",
+			"土"
+		],
+		"resistances": [
+			"金",
+			"星"
+		],
+		"skill": "みんな光弾ガード！(Lv.1)"
+	},
+	{
+		"name": "ミケ（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"日",
+			"金"
+		],
+		"resistances": [
+			"火",
+			"土"
+		],
+		"skill": "みんな御札弾ガード！(Lv.1)"
+	},
+	{
+		"name": "たかね（L1）",
+		"Barrier": 3,
+		"weaknesses": [
+			"月",
+			"火",
+			"木"
+		],
+		"resistances": [
+			"日",
+			"金"
+		],
+		"skill": "みんな肉弾ガード！(Lv.1)"
+	},
+	{
+		"name": "山如（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"日",
+			"水"
+		],
+		"resistances": [
+			"月",
+			"木"
+		],
+		"skill": "みんなレーザー弾ガード！(Lv.1)"
+	},
+	{
+		"name": "魅須丸（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"木",
+			"土",
+			"星"
+		],
+		"resistances": [
+			"火",
+			"金"
+		],
+		"skill": "みんな凍結付与！(Lv.1)"
+	},
+	{
+		"name": "典（L1）",
+		"Barrier": 3,
+		"weaknesses": [
+			"木",
+			"星"
+		],
+		"resistances": [
+			"金",
+			"土"
+		],
+		"skill": "みんな流体弾ガード！(Lv.1)"
+	},
+	{
+		"name": "龍（L1）",
+		"Barrier": 3,
+		"weaknesses": [
+			"日",
+			"火",
+			"水"
+		],
+		"resistances": [
+			"木",
+			"星"
+		],
+		"skill": "みんな暗闇付与！(Lv.1)"
+	},
+	{
+		"name": "千亦（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"月",
+			"金",
+			"星"
+		],
+		"resistances": [
+			"日",
+			"土"
+		],
+		"skill": "みんなミサイル弾ガード！(Lv.1)"
+	},
+	{
+		"name": "百々世（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"月",
+			"星"
+		],
+		"resistances": [
+			"日",
+			"火"
+		],
+		"skill": "みんなCRI攻撃アップ！(Lv.1)"
+	},
+	{
+		"name": "美天（L1）",
+		"Barrier": 3,
+		"weaknesses": [
+			"木",
+			"星"
+		],
+		"resistances": [
+			"水",
+			"土"
+		],
+		"skill": "みんな燃焼付与！(Lv.1)"
+	},
+	{
+		"name": "慧ノ子（L1）",
+		"Barrier": 3,
+		"weaknesses": [
+			"月",
+			"金"
+		],
+		"resistances": [
+			"日",
+			"星"
+		],
+		"skill": "みんな斬撃ガード！(Lv.1)"
+	},
+	{
+		"name": "ちやり（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"木",
+			"土"
+		],
+		"resistances": [
+			"火",
+			"金"
+		],
+		"skill": "みんな陰攻ダウン！(Lv.1)"
+	},
+	{
+		"name": "日狭美（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"日",
+			"火"
+		],
+		"resistances": [
+			"木",
+			"星"
+		],
+		"skill": "みんな肉弾ガード！(Lv.1)"
+	},
+	{
+		"name": "残無（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"水",
+			"木"
+		],
+		"resistances": [
+			"日",
+			"土"
+		],
+		"skill": "みんな光弾ガード！(Lv.1)"
+	},
+	{
+		"name": "サニー（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"月",
+			"水",
+			"土"
+		],
+		"resistances": [
+			"木",
+			"星"
+		],
+		"skill": "みんな光弾ガード！(Lv.1)"
+	},
+	{
+		"name": "ルナチャ（L1）",
+		"Barrier": 3,
+		"weaknesses": [
+			"水",
+			"土",
+			"星"
+		],
+		"resistances": [
+			"日",
+			"金"
+		],
+		"skill": "みんな尖弾ガード！(Lv.1)"
+	},
+	{
+		"name": "スター（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"日",
+			"木",
+			"金"
+		],
+		"resistances": [
+			"月",
+			"水"
+		],
+		"skill": "みんな陽防アップ！(Lv.1)"
+	},
+	{
+		"name": "阿求（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"火",
+			"金",
+			"星"
+		],
+		"resistances": [
+			"日",
+			"水"
+		],
+		"skill": "みんな土属性ガード！(Lv.1)"
+	},
+	{
+		"name": "豊姫（L1）",
+		"Barrier": 3,
+		"weaknesses": [
+			"火",
+			"木",
+			"星"
+		],
+		"resistances": [
+			"日",
+			"土"
+		],
+		"skill": "みんな燃焼付与！(Lv.1)"
+	},
+	{
+		"name": "依姫（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"金",
+			"土",
+			"星"
+		],
+		"resistances": [
+			"火",
+			"水"
+		],
+		"skill": "みんな陰防ダウン！(Lv.1)"
+	},
+	{
+		"name": "レイセン（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"金",
+			"土",
+			"星"
+		],
+		"resistances": [
+			"日",
+			"火"
+		],
+		"skill": "みんなCRI命中ダウン！(Lv.1)"
+	},
+	{
+		"name": "華扇（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"月",
+			"火",
+			"水"
+		],
+		"resistances": [
+			"土",
+			"星"
+		],
+		"skill": "みんな月属性ガード！(Lv.1)"
+	},
+	{
+		"name": "腕（L1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"土",
+			"星"
+		],
+		"resistances": [
+			"月",
+			"火"
+		],
+		"skill": "みんなCRI命中アップ！(Lv.1)"
+	},
+	{
+		"name": "小鈴（L1）",
+		"Barrier": 3,
+		"weaknesses": [
+			"日",
+			"木",
+			"金"
+		],
+		"resistances": [
+			"月",
+			"水"
+		],
+		"skill": "みんなCRI命中アップ！(Lv.1)"
+	},
+	{
+		"name": "フラン（Lr）",
+		"Barrier": 5,
+		"weaknesses": [
+			"日",
+			"水"
+		],
+		"resistances": [
+			"月",
+			"金"
+		],
+		"skill": "みんな陰攻アップ！(Lv.1)"
+	},
+	{
+		"name": "文（Lr）",
+		"Barrier": 5,
+		"weaknesses": [
+			"火",
+			"金"
+		],
+		"resistances": [
+			"日",
+			"木"
+		],
+		"skill": "みんな陰防ダウン！(Lv.1)"
+	},
+	{
+		"name": "こころ（Lr）",
+		"Barrier": 3,
+		"weaknesses": [
+			"木",
+			"金"
+		],
+		"resistances": [
+			"月",
+			"火"
+		],
+		"skill": "みんな暗闇付与！(Lv.1)"
+	},
+	{
+		"name": "霊夢（A6）",
+		"Barrier": 5,
+		"weaknesses": [
+			"日",
+			"水",
+			"金"
+		],
+		"resistances": [
+			"木",
+			"星"
+		],
+		"skill": "みんな陽防ダウン！(Lv.1)"
+	},
+	{
+		"name": "魔理沙（A6）",
+		"Barrier": 5,
+		"weaknesses": [
+			"月",
+			"木",
+			"土"
+		],
+		"resistances": [
+			"火",
+			"水"
+		],
+		"skill": "みんな毒霧付与！(Lv.1)"
+	},
+	{
+		"name": "ルーミア（A6）",
+		"Barrier": 5,
+		"weaknesses": [
+			"日",
+			"水"
+		],
+		"resistances": [
+			"月",
+			"金"
+		],
+		"skill": "みんな陽防ダウン！(Lv.1)"
+	},
+	{
+		"name": "大妖精（A6）",
+		"Barrier": 3,
+		"weaknesses": [
+			"水",
+			"土"
+		],
+		"resistances": [
+			"木",
+			"金",
+			"星"
+		],
+		"skill": "みんな通常弾ガード！(Lv.1)"
+	},
+	{
+		"name": "チルノ（A6）",
+		"Barrier": 5,
+		"weaknesses": [
+			"月",
+			"火",
+			"金"
+		],
+		"resistances": [
+			"日",
+			"木"
+		],
+		"skill": "みんな陽攻アップ！(Lv.1)"
+	},
+	{
+		"name": "美鈴（A6）",
+		"Barrier": 5,
+		"weaknesses": [
+			"日",
+			"金"
+		],
+		"resistances": [
+			"月",
+			"水"
+		],
+		"skill": "みんな燃焼付与！(Lv.1)"
+	},
+	{
+		"name": "小悪魔（A6）",
+		"Barrier": 5,
+		"weaknesses": [
+			"日",
+			"木"
+		],
+		"resistances": [
+			"月",
+			"火"
+		],
+		"skill": "みんな質量弾ガード！(Lv.1)"
+	},
+	{
+		"name": "パチェ（A6）",
+		"Barrier": 5,
+		"weaknesses": [
+			"日",
+			"水",
+			"金"
+		],
+		"resistances": [
+			"月",
+			"星"
+		],
+		"skill": "みんな燃焼付与！(Lv.1)"
+	},
+	{
+		"name": "咲夜（A6）",
+		"Barrier": 3,
+		"weaknesses": [
+			"日",
+			"火",
+			"水"
+		],
+		"resistances": [
+			"土",
+			"星"
+		],
+		"skill": "みんな燃焼付与！(Lv.1)"
+	},
+	{
+		"name": "レミリア（A6）",
+		"Barrier": 5,
+		"weaknesses": [
+			"木",
+			"土"
+		],
+		"resistances": [
+			"水",
+			"金"
+		],
+		"skill": "みんな月属性ガード！(Lv.1)"
+	},
+	{
+		"name": "フラン（A6）",
+		"Barrier": 5,
+		"weaknesses": [
+			"月",
+			"火"
+		],
+		"resistances": [
+			"日",
+			"星"
+		],
+		"skill": "みんな土属性ガード！(Lv.1)"
+	},
+	{
+		"name": "アリス（A6）",
+		"Barrier": 5,
+		"weaknesses": [
+			"火",
+			"星"
+		],
+		"resistances": [
+			"水",
+			"木"
+		],
+		"skill": "みんな陽防ダウン！(Lv.1)"
+	},
+	{
+		"name": "ルナサ（A6）",
+		"Barrier": 5,
+		"weaknesses": [
+			"金",
+			"星"
+		],
+		"resistances": [
+			"日",
+			"水"
+		],
+		"skill": "みんな毒霧付与！(Lv.1)"
+	},
+	{
+		"name": "メルラン（A6）",
+		"Barrier": 5,
+		"weaknesses": [
+			"土",
+			"星"
+		],
+		"resistances": [
+			"月",
+			"火"
+		],
+		"skill": "みんなミサイル弾ガード！(Lv.1)"
+	},
+	{
+		"name": "リリカ（A6）",
+		"Barrier": 3,
+		"weaknesses": [
+			"日",
+			"木"
+		],
+		"resistances": [
+			"月",
+			"火"
+		],
+		"skill": "みんな帯電付与！(Lv.1)"
+	},
+	{
+		"name": "妖夢（A6）",
+		"Barrier": 3,
+		"weaknesses": [
+			"日",
+			"火"
+		],
+		"resistances": [
+			"月",
+			"土"
+		],
+		"skill": "みんな斬撃ガード！(Lv.1)"
+	},
+	{
+		"name": "幽々子（A6）",
+		"Barrier": 5,
+		"weaknesses": [
+			"土",
+			"星"
+		],
+		"resistances": [
+			"日",
+			"金"
+		],
+		"skill": "みんな光弾ガード！(Lv.1)"
+	},
+	{
+		"name": "紫（A6）",
+		"Barrier": 5,
+		"weaknesses": [
+			"木",
+			"金"
+		],
+		"resistances": [
+			"月",
+			"火"
+		],
+		"skill": "みんな陽攻アップ！(Lv.1)"
+	},
+	{
+		"name": "幽香（A6）",
+		"Barrier": 3,
+		"weaknesses": [
+			"金",
+			"星"
+		],
+		"resistances": [
+			"月",
+			"火"
+		],
+		"skill": "みんな斬撃ガード！(Lv.1)"
+	},
+	{
+		"name": "天子（A6）",
+		"Barrier": 5,
+		"weaknesses": [
+			"月",
+			"木"
+		],
+		"resistances": [
+			"水",
+			"金"
+		],
+		"skill": "みんな凍結付与！(Lv.1)"
+	},
+	{
+		"name": "サニー（A6）",
+		"Barrier": 5,
+		"weaknesses": [
+			"日",
+			"金"
+		],
+		"resistances": [
+			"月",
+			"水"
+		],
+		"skill": "みんなCRI回避ダウン！(Lv.1)"
+	},
+	{
+		"name": "チルノ（A7）",
+		"Barrier": 3,
+		"weaknesses": [
+			"火",
+			"土"
+		],
+		"resistances": [
+			"木",
+			"金"
+		],
+		"skill": "みんな凍結付与！(Lv.1)"
+	},
+	{
+		"name": "橙（A7）",
+		"Barrier": 5,
+		"weaknesses": [
+			"日",
+			"水"
+		],
+		"resistances": [
+			"月",
+			"木"
+		],
+		"skill": "みんなCRI回避ダウン！(Lv.1)"
+	},
+	{
+		"name": "アリス（A7）",
+		"Barrier": 5,
+		"weaknesses": [
+			"水",
+			"土",
+			"星"
+		],
+		"resistances": [
+			"火",
+			"金"
+		],
+		"skill": "みんな燃焼付与！(Lv.1)"
+	},
+	{
+		"name": "妖夢（A7）",
+		"Barrier": 3,
+		"weaknesses": [
+			"火",
+			"木",
+			"土"
+		],
+		"resistances": [
+			"火",
+			"金"
+		],
+		"skill": "みんな御札弾ガード！(Lv.1)"
+	},
+	{
+		"name": "幽々子（A7）",
+		"Barrier": 3,
+		"weaknesses": [
+			"月",
+			"土"
+		],
+		"resistances": [
+			"日",
+			"火"
+		],
+		"skill": "みんな帯電付与！(Lv.1)"
+	},
+	{
+		"name": "八雲藍（A7）",
+		"Barrier": 3,
+		"weaknesses": [
+			"日",
+			"火",
+			"水"
+		],
+		"resistances": [
+			"月",
+			"星"
+		],
+		"skill": "みんなエネルギー弾ガード！(Lv.1)"
+	},
+	{
+		"name": "八雲紫（A7）",
+		"Barrier": 5,
+		"weaknesses": [
+			"火",
+			"木",
+			"土"
+		],
+		"resistances": [
+			"日",
+			"星"
+		],
+		"skill": "みんな肉弾ガード！(Lv.1)"
+	},
+	{
+		"name": "霊夢（A7A）",
+		"Barrier": 5,
+		"weaknesses": [
+			"月",
+			"金"
+		],
+		"resistances": [
+			"水",
+			"星"
+		],
+		"skill": "みんな御札弾ガード！(Lv.1)"
+	},
+	{
+		"name": "魔理沙（A7A）",
+		"Barrier": 5,
+		"weaknesses": [
+			"木",
+			"土"
+		],
+		"resistances": [
+			"月",
+			"星"
+		],
+		"skill": "みんな凍結付与！(Lv.1)"
+	},
+	{
+		"name": "咲夜（A7A）",
+		"Barrier": 3,
+		"weaknesses": [
+			"日",
+			"金"
+		],
+		"resistances": [
+			"水",
+			"土"
+		],
+		"skill": "みんな斬撃ガード！(Lv.1)"
+	},
+	{
+		"name": "霊夢（A7B）",
+		"Barrier": 3,
+		"weaknesses": [
+			"月",
+			"金"
+		],
+		"resistances": [
+			"水",
+			"土"
+		],
+		"skill": "みんな尖弾ガード！(Lv.1)"
+	},
+	{
+		"name": "魔理沙（A7B）",
+		"Barrier": 3,
+		"weaknesses": [
+			"日",
+			"星"
+		],
+		"resistances": [
+			"木",
+			"金"
+		],
+		"skill": "みんな土属性ガード！(Lv.1)"
+	},
+	{
+		"name": "咲夜（A7B）",
+		"Barrier": 5,
+		"weaknesses": [
+			"火",
+			"星"
+		],
+		"resistances": [
+			"日",
+			"土"
+		],
+		"skill": "みんなエネルギー弾ガード！(Lv.1)"
+	},
+	{
+		"name": "てゐ（A8）",
+		"Barrier": 5,
+		"weaknesses": [
+			"日",
+			"金"
+		],
+		"resistances": [
+			"月",
+			"水"
+		],
+		"skill": "みんな暗闇付与！(Lv.1)"
+	},
+	{
+		"name": "優曇華（A8）",
+		"Barrier": 5,
+		"weaknesses": [
+			"日",
+			"星"
+		],
+		"resistances": [
+			"月",
+			"木"
+		],
+		"skill": "みんな陽攻ダウン！(Lv.1)"
+	},
+	{
+		"name": "永琳（A8）",
+		"Barrier": 5,
+		"weaknesses": [
+			"火",
+			"木",
+			"星"
+		],
+		"resistances": [
+			"月",
+			"土"
+		],
+		"skill": "みんな凍結付与！(Lv.1)"
+	},
+	{
+		"name": "妹紅（A8）",
+		"Barrier": 5,
+		"weaknesses": [
+			"月",
+			"水"
+		],
+		"resistances": [
+			"木",
+			"星"
+		],
+		"skill": "みんな燃焼付与！(Lv.1)"
+	},
+	{
+		"name": "文（A9）",
+		"Barrier": 5,
+		"weaknesses": [
+			"火",
+			"木",
+			"土"
+		],
+		"resistances": [
+			"水",
+			"星"
+		],
+		"skill": "みんなCRI回避ダウン！(Lv.1)"
+	},
+	{
+		"name": "にとり（A10）",
+		"Barrier": 3,
+		"weaknesses": [
+			"日",
+			"水",
+			"星"
+		],
+		"resistances": [
+			"金",
+			"土"
+		],
+		"skill": "みんなミサイル弾ガード！(Lv.1)"
+	},
+	{
+		"name": "早苗（A10）",
+		"Barrier": 5,
+		"weaknesses": [
+			"月",
+			"火",
+			"金"
+		],
+		"resistances": [
+			"日",
+			"土"
+		],
+		"skill": "みんな光弾ガード！(Lv.1)"
+	},
+	{
+		"name": "神奈子（A10）",
+		"Barrier": 3,
+		"weaknesses": [
+			"日",
+			"木",
+			"金"
+		],
+		"resistances": [
+			"月",
+			"星"
+		],
+		"skill": "みんな毒霧付与！(Lv.1)"
+	},
+	{
+		"name": "諏訪子（A10）",
+		"Barrier": 5,
+		"weaknesses": [
+			"月",
+			"火",
+			"土"
+		],
+		"resistances": [
+			"日",
+			"水"
+		],
+		"skill": "みんな尖弾ガード！(Lv.1)"
+	},
+	{
+		"name": "パチェ（A10.5）",
+		"Barrier": 5,
+		"weaknesses": [
+			"月",
+			"星"
+		],
+		"resistances": [
+			"金",
+			"土"
+		],
+		"skill": "みんな帯電付与！(Lv.1)"
+	},
+	{
+		"name": "さとり（A11）",
+		"Barrier": 3,
+		"weaknesses": [
+			"金",
+			"星"
+		],
+		"resistances": [
+			"火",
+			"土"
+		],
+		"skill": "みんな斬撃ガード！(Lv.1)"
+	},
+	{
+		"name": "こいし（A11）",
+		"Barrier": 3,
+		"weaknesses": [
+			"火",
+			"木",
+			"星"
+		],
+		"resistances": [
+			"月",
+			"金"
+		],
+		"skill": "みんな流体弾ガード！(Lv.1)"
+	},
+	{
+		"name": "聖（A12）",
+		"Barrier": 3,
+		"weaknesses": [
+			"日",
+			"木",
+			"星"
+		],
+		"resistances": [
+			"月",
+			"水"
+		],
+		"skill": "みんな光弾ガード！(Lv.1)"
+	},
+	{
+		"name": "美鈴（A12.3）",
+		"Barrier": 5,
+		"weaknesses": [
+			"日",
+			"金"
+		],
+		"resistances": [
+			"月",
+			"水"
+		],
+		"skill": "みんなCRI回避ダウン！(Lv.1)"
+	},
+	{
+		"name": "神子（A13）",
+		"Barrier": 5,
+		"weaknesses": [
+			"水",
+			"土"
+		],
+		"resistances": [
+			"日",
+			"火"
+		],
+		"skill": "みんな陽攻ダウン！(Lv.1)"
+	},
+	{
+		"name": "青娥（A13）",
+		"Barrier": 3,
+		"weaknesses": [
+			"日",
+			"土"
+		],
+		"resistances": [
+			"月",
+			"金"
+		],
+		"skill": "みんな質量弾ガード！(Lv.1)"
+	},
+	{
+		"name": "芳香（A13）",
+		"Barrier": 3,
+		"weaknesses": [
+			"日",
+			"木"
+		],
+		"resistances": [
+			"土",
+			"星"
+		],
+		"skill": "みんな陰防ダウン！(Lv.1)"
+	},
+	{
+		"name": "正邪（A14）",
+		"Barrier": 5,
+		"weaknesses": [
+			"水",
+			"土"
+		],
+		"resistances": [
+			"日",
+			"火"
+		],
+		"skill": "みんな陽攻ダウン！(Lv.1)"
+	},
+	{
+		"name": "針妙丸（A14）",
+		"Barrier": 5,
+		"weaknesses": [
+			"日",
+			"火"
+		],
+		"resistances": [
+			"木",
+			"星"
+		],
+		"skill": "みんな暗闇付与！(Lv.1)"
+	},
+	{
+		"name": "純狐（B2）",
+		"Barrier": 5,
+		"weaknesses": [
+			"月",
+			"水",
+			"金"
+		],
+		"resistances": [
+			"火",
+			"木"
+		],
+		"skill": "みんな凍結付与！(Lv.1)"
+	},
+	{
+		"name": "霊夢（B3）",
+		"Barrier": 3,
+		"weaknesses": [
+			"日",
+			"水",
+			"金"
+		],
+		"resistances": [
+			"木",
+			"星"
+		],
+		"skill": "みんなレーザー弾ガード！(Lv.1)"
+	},
+	{
+		"name": "魔理沙（B3）",
+		"Barrier": 5,
+		"weaknesses": [
+			"火",
+			"木",
+			"星"
+		],
+		"resistances": [
+			"月",
+			"金"
+		],
+		"skill": "みんな結界回復！(Lv.1)"
+	},
+	{
+		"name": "咲夜（B3）",
+		"Barrier": 3,
+		"weaknesses": [
+			"日",
+			"金",
+			"星"
+		],
+		"resistances": [
+			"水",
+			"土"
+		],
+		"skill": "みんな毒霧付与！(Lv.1)"
+	},
+	{
+		"name": "妖夢（B3）",
+		"Barrier": 3,
+		"weaknesses": [
+			"月",
+			"金",
+			"星"
+		],
+		"resistances": [
+			"火",
+			"水"
+		],
+		"skill": "みんな斬撃ガード！(Lv.1)"
+	},
+	{
+		"name": "優曇華（B3）",
+		"Barrier": 5,
+		"weaknesses": [
+			"日",
+			"水",
+			"土"
+		],
+		"resistances": [
+			"木",
+			"金"
+		],
+		"skill": "みんな結界異常回復！(Lv.1)"
+	},
+	{
+		"name": "輝夜（B3）",
+		"Barrier": 5,
+		"weaknesses": [
+			"火",
+			"木",
+			"金"
+		],
+		"resistances": [
+			"土",
+			"星"
+		],
+		"skill": "みんな御札弾ガード！(Lv.1)"
+	},
+	{
+		"name": "小町（B3）",
+		"Barrier": 3,
+		"weaknesses": [
+			"火",
+			"水"
+		],
+		"resistances": [
+			"金",
+			"土"
+		],
+		"skill": "みんな燃焼付与！(Lv.1)"
+	},
+	{
+		"name": "映姫（B3）",
+		"Barrier": 3,
+		"weaknesses": [
+			"月",
+			"火"
+		],
+		"resistances": [
+			"日",
+			"木"
+		],
+		"skill": "みんな毒霧付与！(Lv.1)"
+	},
+	{
+		"name": "早苗（B3）",
+		"Barrier": 5,
+		"weaknesses": [
+			"月",
+			"水",
+			"土"
+		],
+		"resistances": [
+			"日",
+			"金"
+		],
+		"skill": "みんな質量弾ガード！(Lv.1)"
+	},
+	{
+		"name": "清蘭（B3）",
+		"Barrier": 3,
+		"weaknesses": [
+			"水",
+			"金"
+		],
+		"resistances": [
+			"木",
+			"土"
+		],
+		"skill": "みんな帯電付与！(Lv.1)"
+	},
+	{
+		"name": "鈴瑚（B3）",
+		"Barrier": 5,
+		"weaknesses": [
+			"土",
+			"星"
+		],
+		"resistances": [
+			"日",
+			"火"
+		],
+		"skill": "みんな流体弾ガード！(Lv.1)"
+	},
+	{
+		"name": "サグメ（B3）",
+		"Barrier": 3,
+		"weaknesses": [
+			"日",
+			"火",
+			"星"
+		],
+		"resistances": [
+			"月",
+			"土"
+		],
+		"skill": "みんな暗闇付与！(Lv.1)"
+	},
+	{
+		"name": "ヘカ（B3）",
+		"Barrier": 3,
+		"weaknesses": [
+			"日",
+			"月"
+		],
+		"resistances": [
+			"土",
+			"星"
+		],
+		"skill": "みんな帯電付与！(Lv.1)"
+	},
+	{
+		"name": "久侘歌（B3）",
+		"Barrier": 5,
+		"weaknesses": [
+			"日",
+			"月"
+		],
+		"resistances": [
+			"金",
+			"星"
+		],
+		"skill": "みんな陰攻ダウン！(Lv.1)"
+	},
+	{
+		"name": "豊姫（B3）",
+		"Barrier": 5,
+		"weaknesses": [
+			"日",
+			"金",
+			"星"
+		],
+		"resistances": [
+			"水",
+			"土"
+		],
+		"skill": "みんな凍結付与！(Lv.1)"
+	},
+	{
+		"name": "依姫（B3）",
+		"Barrier": 3,
+		"weaknesses": [
+			"月",
+			"水",
+			"土"
+		],
+		"resistances": [
+			"日",
+			"火"
+		],
+		"skill": "みんな暗闇付与！(Lv.1)"
+	},
+	{
+		"name": "レイセン（B3）",
+		"Barrier": 5,
+		"weaknesses": [
+			"月",
+			"金"
+		],
+		"resistances": [
+			"土"
+		],
+		"skill": "みんなCRI攻撃アップ！(Lv.1)"
+	},
+	{
+		"name": "こころ（B3）",
+		"Barrier": 3,
+		"weaknesses": [
+			"金",
+			"星"
+		],
+		"resistances": [
+			"日",
+			"水"
+		],
+		"skill": "みんな毒霧付与！(Lv.1)"
+	},
+	{
+		"name": "弁々（B3）",
+		"Barrier": 5,
+		"weaknesses": [
+			"月",
+			"水"
+		],
+		"resistances": [
+			"火",
+			"木",
+			"星"
+		],
+		"skill": "みんな陽防ダウン！(Lv.1)"
+	},
+	{
+		"name": "八橋（B3）",
+		"Barrier": 3,
+		"weaknesses": [
+			"火",
+			"水"
+		],
+		"resistances": [
+			"金"
+		],
+		"skill": "みんな質量弾ガード！(Lv.1)"
+	},
+	{
+		"name": "アリス（B5）",
+		"Barrier": 5,
+		"weaknesses": [
+			"土",
+			"星"
+		],
+		"resistances": [
+			"日",
+			"木"
+		],
+		"skill": "みんなCRI攻撃アップ！(Lv.1)"
+	},
+	{
+		"name": "ルナサ（B5）",
+		"Barrier": 5,
+		"weaknesses": [
+			"水",
+			"星"
+		],
+		"resistances": [
+			"日",
+			"土"
+		],
+		"skill": "みんな陽攻アップ！(Lv.1)"
+	},
+	{
+		"name": "メルラン（B5）",
+		"Barrier": 5,
+		"weaknesses": [
+			"火",
+			"木"
+		],
+		"resistances": [
+			"月",
+			"金"
+		],
+		"skill": "みんな質量弾ガード！(Lv.1)"
+	},
+	{
+		"name": "リリカ（B5）",
+		"Barrier": 3,
+		"weaknesses": [
+			"月",
+			"水"
+		],
+		"resistances": [
+			"火",
+			"木"
+		],
+		"skill": "みんな御札弾ガード！(Lv.1)"
+	},
+	{
+		"name": "幽々子（B5）",
+		"Barrier": 5,
+		"weaknesses": [
+			"月",
+			"水"
+		],
+		"resistances": [
+			"火",
+			"木"
+		],
+		"skill": "みんな帯電付与！(Lv.1)"
+	},
+	{
+		"name": "優曇華（B5）",
+		"Barrier": 5,
+		"weaknesses": [
+			"月",
+			"木",
+			"土"
+		],
+		"resistances": [
+			"火",
+			"金"
+		],
+		"skill": "みんな陽防アップ！(Lv.1)"
+	},
+	{
+		"name": "妹紅（B5）",
+		"Barrier": 5,
+		"weaknesses": [
+			"月",
+			"木"
+		],
+		"resistances": [
+			"日",
+			"火"
+		],
+		"skill": "みんなレーザー弾ガード！(Lv.1)"
+	},
+	{
+		"name": "メディ（B5）",
+		"Barrier": 5,
+		"weaknesses": [
+			"日",
+			"水"
+		],
+		"resistances": [
+			"火",
+			"星"
+		],
+		"skill": "みんな陽攻ダウン！(Lv.1)"
+	},
+	{
+		"name": "美鈴（E1）",
+		"Barrier": 3,
+		"weaknesses": [
+			"火",
+			"木",
+			"土"
+		],
+		"resistances": [
+			"日",
+			"水"
+		],
+		"skill": "みんな毒霧付与！(Lv.1)"
+	},
+	{
+		"name": "小悪魔（E1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"水",
+			"星"
+		],
+		"resistances": [
+			"月",
+			"木"
+		],
+		"skill": "みんな尖弾ガード！(Lv.1)"
+	},
+	{
+		"name": "パチェ（E1）",
+		"Barrier": 3,
+		"weaknesses": [
+			"日",
+			"金"
+		],
+		"resistances": [
+			"土",
+			"星"
+		],
+		"skill": "みんな凍結付与！(Lv.1)"
+	},
+	{
+		"name": "咲夜（E1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"月",
+			"火",
+			"星"
+		],
+		"resistances": [
+			"木",
+			"星"
+		],
+		"skill": "みんなCRI命中ダウン！(Lv.1)"
+	},
+	{
+		"name": "フラン（E1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"月",
+			"水",
+			"土"
+		],
+		"resistances": [
+			"火",
+			"木"
+		],
+		"skill": "みんな燃焼付与！(Lv.1)"
+	},
+	{
+		"name":"チルノ（E7）",
+		"Barrier": 5,
+		"weaknesses": [
+			"月",
+			"火"
+		],
+		"resistances": [
+			"水",
+			"土"
+		],
+		"skill": "みんな陽防アップ！(Lv.1)"
+	},
+	{
+		"name": "レミリア（E9）",
+		"Barrier": 3,
+		"weaknesses": [
+			"木",
+			"土",
+			"星"
+		],
+		"resistances": [
+			"月",
+			"水"
+		],
+		"skill": "みんな質量弾ガード！(Lv.1)"
+	},
+	{
+		"name": "リグル（H5）",
+		"Barrier": 5,
+		"weaknesses": [
+			"水",
+			"木"
+		],
+		"resistances": [
+			"日",
+			"土"
+		],
+		"skill": "みんな燃焼付与！(Lv.1)"
+	},
+	{
+		"name": "ミスティア（H5）",
+		"Barrier": 3,
+		"weaknesses": [
+			"火",
+			"金"
+		],
+		"resistances": [
+			"土",
+			"星"
+		],
+		"skill": "みんな帯電付与！(Lv.1)"
+	},
+	{
+		"name": "慧音（H5）",
+		"Barrier": 5,
+		"weaknesses": [
+			"水",
+			"土"
+		],
+		"resistances": [
+			"火",
+			"木",
+			"金"
+		],
+		"skill": "みんな御札弾ガード！(Lv.1)"
+	},
+	{
+		"name": "幽香（H5）",
+		"Barrier": 5,
+		"weaknesses": [
+			"火",
+			"木"
+		],
+		"resistances": [
+			"月",
+			"土"
+		],
+		"skill": "みんな毒霧付与！(Lv.1)"
+	},
+	{
+		"name": "ドレミ―（H5）",
+		"Barrier": 5,
+		"weaknesses": [
+			"日",
+			"木"
+		],
+		"resistances": [
+			"月",
+			"火"
+		],
+		"skill": "みんな暗闇付与！(Lv.1)"
+	},
+	{
+		"name": "幽々子（R2）",
+		"Barrier": 3,
+		"weaknesses": [
+			"月",
+			"金",
+			"土"
+		],
+		"resistances": [
+			"火",
+			"水"
+		],
+		"skill": "みんな凍結付与！(Lv.1)"
+	},
+	{
+		"name": "妖夢（R8）",
+		"Barrier": 5,
+		"weaknesses": [
+			"日",
+			"土",
+			"星"
+		],
+		"resistances": [
+			"火",
+			"木"
+		],
+		"skill": "みんな通常弾ガード！(Lv.1)"
+	},
+	{
+		"name": "さとり（S2）",
+		"Barrier": 5,
+		"weaknesses": [
+			"月",
+			"水",
+			"土"
+		],
+		"resistances": [
+			"火",
+			"木"
+		],
+		"skill": "みんな毒霧付与！(Lv.1)"
+	},
+	{
+		"name": "お燐（S5）",
+		"Barrier": 5,
+		"weaknesses": [
+			"金",
+			"星"
+		],
+		"resistances": [
+			"月",
+			"水"
+		],
+		"skill": "みんなCRI防御アップ！(Lv.1)"
+	},
+	{
+		"name": "お空（S5）",
+		"Barrier": 5,
+		"weaknesses": [
+			"日",
+			"土"
+		],
+		"resistances": [
+			"木",
+			"星"
+		],
+		"skill": "みんな暗闇付与！(Lv.1)"
+	},
+	{
+		"name": "天子（T5）",
+		"Barrier": 3,
+		"weaknesses": [
+			"月",
+			"土"
+		],
+		"resistances": [
+			"日",
+			"火"
+		],
+		"skill": "みんな質量弾ガード！(Lv.1)"
+	},
+	{
+		"name": "聖（T5）",
+		"Barrier": 3,
+		"weaknesses": [
+			"火",
+			"星"
+		],
+		"resistances": [
+			"水",
+			"土"
+		],
+		"skill": "みんな毒霧付与！(Lv.1)"
+	},
+	{
+		"name": "萃香（W1）",
+		"Barrier": 3,
+		"weaknesses": [
+			"木",
+			"星"
+		],
+		"resistances": [
+			"日",
+			"土"
+		],
+		"skill": "みんな毒霧付与！(Lv.1)"
+	},
+	{
+		"name": "神奈子（W2）",
+		"Barrier": 5,
+		"weaknesses": [
+			"月",
+			"火"
+		],
+		"resistances": [
+			"木",
+			"星"
+		],
+		"skill": "みんな陽防アップ！(Lv.1)"
+	},
+	{
+		"name": "諏訪子（W2）",
+		"Barrier": 5,
+		"weaknesses": [
+			"月",
+			"星"
+		],
+		"resistances": [
+			"日",
+			"水"
+		],
+		"skill": "みんな質量弾ガード！(Lv.1)"
+	},
+	{
+		"name": "パルスィ（W3）",
+		"Barrier": 3,
+		"weaknesses": [
+			"水",
+			"土"
+		],
+		"resistances": [
+			"木",
+			"金"
+		],
+		"skill": "みんなミサイル弾ガード！(Lv.1)"
+	},
+	{
+		"name": "早苗（W5）",
+		"Barrier": 5,
+		"weaknesses": [
+			"金",
+			"土"
+		],
+		"resistances": [
+			"月",
+			"水"
+		],
+		"skill": "みんな陽攻アップ！(Lv.1)"
+	},
+	{
+		"name": "勇儀（W5）",
+		"Barrier": 3,
+		"weaknesses": [
+			"月",
+			"土"
+		],
+		"resistances": [
+			"水",
+			"星"
+		],
+		"skill": "みんな肉弾ガード！(Lv.1)"
+	},
+	{
+		"name": "華扇（W5）",
+		"Barrier": 5,
+		"weaknesses": [
+			"金",
+			"星"
+		],
+		"resistances": [
+			"水",
+			"木"
+		],
+		"skill": "みんなCRI攻撃アップ！(Lv.1)"
+	},
+	{
+		"name": "てゐ（Y5）",
+		"Barrier": 3,
+		"weaknesses": [
+			"火",
+			"金"
+		],
+		"resistances": [
+			"水",
+			"星"
+		],
+		"skill": "みんなエネルギー弾ガード！(Lv.1)"
+	},
+	{
+		"name": "魔理沙（Z1）",
+		"Barrier": 5,
+		"weaknesses": [
+			"火",
+			"木",
+			"土"
+		],
+		"resistances": [
+			"月",
+			"星"
+		],
+		"skill": "みんな体力回復！(Lv.1)"
+	},
+	{
+		"name": "レミリア（Z3）",
+		"Barrier": 3,
+		"weaknesses": [
+			"水",
+			"木"
+		],
+		"resistances": [
+			"土",
+			"星"
+		],
+		"skill": "みんな燃焼付与！(Lv.1)"
+	},
+	{
+		"name": "アリス（Z3）",
+		"Barrier": 3,
+		"weaknesses": [
+			"木",
+			"金"
+		],
+		"resistances": [
+			"日",
+			"火"
+		],
+		"skill": "みんな尖弾ガード！(Lv.1)"
+	},
+	{
+		"name": "さとり（Z3）",
+		"Barrier": 5,
+		"weaknesses": [
+			"水",
+			"土"
+		],
+		"resistances": [
+			"金",
+			"星"
+		],
+		"skill": "みんなCRI攻撃アップ！(Lv.1)"
+	}
+]
