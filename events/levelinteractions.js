@@ -83,7 +83,6 @@ module.exports = {
                     }
 
                     if (selected === 'edit_message') {
-                        const currentMessage = await messages.get(interaction.guild.id);
                         const modal = new ModalBuilder()
                             .setCustomId('levelMessageEditModal')
                             .setTitle('レベルアップ時の通知メッセージを変更');
@@ -91,7 +90,7 @@ module.exports = {
                         const messageInput = new TextInputBuilder()
                             .setCustomId('message')
                             .setLabel('新しい通知メッセージを入力してください（空欄にするとデフォルトに戻ります）')
-                            .setPlaceholder(currentMessage || '例: {user}さんのレベルが{level}になりました！')
+                            .setPlaceholder('例: {user}さんのレベルが{level}になりました！')
                             .setStyle(TextInputStyle.Paragraph)
                             .setRequired(false);
 
