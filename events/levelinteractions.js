@@ -27,8 +27,24 @@ module.exports = {
                         return;
                     }
 
-                    await channels.set(interaction.guild.id, selected);
+                    if (selected === 'custom_id_input') {
+                        const modal = new ModalBuilder()
+                            .setCustomId('levelChannelIdModal')
+                            .setTitle('チャンネルIDを指定');
 
+                        const channelIdInput = new TextInputBuilder()
+                            .setCustomId('channel_id')
+                            .setLabel('通知を送るチャンネルのIDを入力してください')
+                            .setPlaceholder('開発者モードを有効にすると、コンテキストメニューからコピーできます')
+                            .setStyle(TextInputStyle.Short)
+                            .setRequired(true);
+
+                        modal.addComponents(new ActionRowBuilder().addComponents(channelIdInput));
+                        await interaction.showModal(modal);
+                        return;
+                    }
+
+                    await channels.set(interaction.guild.id, selected);
                     const modal = new ModalBuilder()
                         .setCustomId('levelSetupModal')
                         .setTitle('通知メッセージ');
@@ -144,6 +160,27 @@ module.exports = {
                         .setColor('Green')
                         .setTitle('✅ 通知するメッセージが変更されました')
                         .setDescription(`${newMessage.trim() ? newMessage : 'デフォルトメッセージが使用されます。'}`);
+
+                    await interaction.reply({ embeds: [embed], flags: MessageFlags.Ephemeral });
+                    return;
+                }
+
+                if (interaction.customId === 'levelChannelIdModal') {
+                    const channelId = interaction.fields.getTextInputValue('channel_id').trim();
+                    const channel = interaction.guild.channels.cache.get(channelId);
+
+                    if (!channel || channel.type !== ChannelType.GuildText) {
+                        await interaction.reply({ content: '無効なチャンネルIDです。', flags: MessageFlags.Ephemeral });
+                        return;
+                    }
+
+                    await channels.set(interaction.guild.id, channelId);
+                    await settings.set(interaction.guild.id, true);
+
+                    const embed = new EmbedBuilder()
+                        .setColor('Green')
+                        .setTitle('✅ レベル機能のセットアップが完了しました！')
+                        .setDescription(`通知チャンネル: <#${channelId}>`);
 
                     await interaction.reply({ embeds: [embed], flags: MessageFlags.Ephemeral });
                     return;
