@@ -74,20 +74,23 @@ module.exports = {
                             await interaction.update({ content: '通知を無効化しました。', components: [] });
                         } else {
                             const channelsList = interaction.guild.channels.cache.filter(channel => channel.type === ChannelType.GuildText);
-                            const options = channelsList.map(channel => ({
-                                label: channel.name,
-                                value: channel.id,
-                            }));
 
-                            options.push({
-                                label: '通知しない',
-                                value: 'none',
-                            });
+                            const channelOptions = [...channelsList.values()]
+                                .slice(0, 23)
+                                .map(ch => ({
+                                    label: ch.name.slice(0, 90),
+                                    value: ch.id,
+                                }));
+
+                            channelOptions.push(
+                                { label: '📩 その他のチャンネルを指定（ID入力）', value: 'custom_id_input' },
+                                { label: '通知しない', value: 'none' }
+                            );
 
                             const selectMenu = new StringSelectMenuBuilder()
                                 .setCustomId('levelNotificationSelect')
                                 .setPlaceholder('通知を送るチャンネルを選んでください')
-                                .addOptions(options);
+                                .addOptions(channelOptions);
 
                             const row = new ActionRowBuilder().addComponents(selectMenu);
 
