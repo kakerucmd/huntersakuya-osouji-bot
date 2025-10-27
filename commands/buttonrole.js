@@ -20,11 +20,14 @@ module.exports = {
         .addRoleOption(option => option.setName('role8').setDescription('8つ目のロールを選択(任意)').setRequired(false))
         .addRoleOption(option => option.setName('role9').setDescription('9つ目のロールを選択(任意)').setRequired(false))
         .addRoleOption(option => option.setName('role10').setDescription('10つ目のロールを選択(任意)').setRequired(false)),
+
     async execute(interaction) {
         try {
             await interaction.deferReply({ flags: MessageFlags.Ephemeral });
 
-            const roles = ['role1', 'role2', 'role3', 'role4', 'role5', 'role6', 'role7', 'role8', 'role9', 'role10'].map(roleName => interaction.options.getRole(roleName)).filter(role => role);
+            const roles = ['role1','role2','role3','role4','role5','role6','role7','role8','role9','role10']
+                .map(r => interaction.options.getRole(r))
+                .filter(r => r);
 
             if (roles.length === 0) {
                 return interaction.editReply({ content: '指定されたロールがこのサーバーに存在しません。' });
@@ -35,15 +38,14 @@ module.exports = {
                 return interaction.editReply({ content: '同じロールを複数回選択することはできません。' });
             }
 
-            for (let i = 0; i < uniqueRoles.length; i++) {
-                const role = uniqueRoles[i];
+            for (const role of uniqueRoles) {
                 if (role.id === interaction.guild.roles.everyone.id || role.managed) {
                     return interaction.editReply({ content: '連携ロール、@everyone、@hereは選択できません。' });
                 }
             }
 
             const title = interaction.options.getString('title') || 'ロールパネル';
-            const buttonLabel = interaction.options.getString('button-name') || 'ロールを取得/解除';
+            const buttonLabelInput = interaction.options.getString('button-name') || 'ロールを取得/解除';
 
             let description = `下のボタンを押してロールを付与\n※もう一度押したら解除されます\n`;
             const rows = [new ActionRowBuilder()];
@@ -57,16 +59,34 @@ module.exports = {
                     description += `${i+1}. ロール: <@&${role.id}>\n`;
                 }
 
+                let label = uniqueRoles.length === 1 ? buttonLabelInput : `${i+1}`;
+
+                let emoji;
+                const emojiMatch = label.match(/^(\p{Emoji_Presentation}|\p{Extended_Pictographic}|<a?:\w+:\d+>)\s*/u);
+                if (emojiMatch) {
+                    emoji = emojiMatch[1];
+                    label = label.replace(emoji, '').trim();
+                }
+
                 const button = new ButtonBuilder()
                     .setCustomId(`get_role_${role.id}`)
-                    .setLabel(uniqueRoles.length === 1 ? buttonLabel :`${i+1}`)
                     .setStyle(ButtonStyle.Primary);
+
+                if (label) button.setLabel(label);
+
+                if (emoji) {
+                    if (/^<a?:\w+:\d+>$/.test(emoji)) {
+                        const match = emoji.match(/^<a?:(\w+):(\d+)>$/);
+                        button.setEmoji({ name: match[1], id: match[2], animated: emoji.startsWith('<a:') });
+                    } else {
+                        button.setEmoji(emoji);
+                    }
+                }
 
                 if (rows[rows.length - 1].components.length < 5) {
                     rows[rows.length - 1].addComponents(button);
                 } else {
-                    const newRow = new ActionRowBuilder().addComponents(button);
-                    rows.push(newRow);
+                    rows.push(new ActionRowBuilder().addComponents(button));
                 }
 
                 await verify.set(`${interaction.guild.id}_${role.id}`, { role: role.id });
