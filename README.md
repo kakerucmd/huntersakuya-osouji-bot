@@ -3,7 +3,7 @@
 ```json
 {
   "bot_name": "お掃除上方修正しろbot#6554",
-  "version": "Ver4.8",
+  "version": "Ver4.8.1",
   "language": "Javascript",
   "description": "ネタで作り始めた多機能bot",
   "Lisence": "MIT",
