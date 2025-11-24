@@ -4,7 +4,6 @@ const Keyv = require('keyv');
 const levels = new Keyv('sqlite://db.sqlite', { table: 'levels' });
 const levelsettings = new Keyv('sqlite://db.sqlite', { table: 'levelsettings' });
 
-const EXP_PER_LEVEL = 10;
 const MAX_LEVEL = 99;
 
 module.exports = {
@@ -22,52 +21,65 @@ module.exports = {
         await interaction.deferReply();
 
         const members = await interaction.guild.members.fetch();
+
         const levelData = await Promise.all(members.map(async member => {
             if (member.user.bot) return null;
             const key = `${member.id}-${interaction.guild.id}`; 
             const level = (await levels.get(key)) || { count: 0, level: 1 };
-            const totalExp = ((level.level - 1) * (level.level) / 2) * EXP_PER_LEVEL + level.count;
+
+            let totalExp = 0;
+            for (let l = 1; l < level.level; l++) {
+                totalExp += Math.floor(5 * Math.pow(l, 1.5)); // レベルごとの必要XPを加算
+            }
+            totalExp += level.count; // 現在レベルの進捗を加算
+
             return { user: member.user, level, totalExp };
         }));
-        const filteredLevelData = levelData.filter(data => data !== null);
-        filteredLevelData.sort((a, b) => b.level.level - a.level.level || b.level.count - a.level.count);
 
+        const filteredLevelData = levelData.filter(data => data !== null);
+
+        filteredLevelData.sort((a, b) => b.totalExp - a.totalExp);
+
+        // ランキング作成
+        let ranking = [];
+        let prevExp = null;
         let rank = 1;
-        let prevLevel = null;
-        const ranking = filteredLevelData.map((data, index) => {
-            if (prevLevel && (prevLevel.level !== data.level.level || prevLevel.count !== data.level.count)) {
+        filteredLevelData.forEach((data, index) => {
+            if (prevExp !== null && prevExp !== data.totalExp) {
                 rank = index + 1;
             }
-            prevLevel = data.level;
+            prevExp = data.totalExp;
+
             const xpDisplay = data.level.level === MAX_LEVEL ? 'MAX' : data.totalExp;
             if (data.user.id === interaction.user.id) {
-                return `****#${rank} I <@${data.user.id}>: レベル:${data.level.level} XP:${xpDisplay}****`; 
+                ranking.push(`****#${rank} I <@${data.user.id}>: レベル:${data.level.level} XP:${xpDisplay}****`);
             } else {
-                return `#${rank} I <@${data.user.id}>: レベル:${data.level.level} XP:${xpDisplay}`; 
+                ranking.push(`#${rank} I <@${data.user.id}>: レベル:${data.level.level} XP:${xpDisplay}`);
             }
         });
 
+        // 実行者がTOP10にいない場合は表示
         const commandUserData = levelData.find(data => data && data.user.id === interaction.user.id);
-        const commandUserLevel = commandUserData ? commandUserData.level : { count: 0, level: 1 };
         const commandUserTotalExp = commandUserData ? commandUserData.totalExp : 0;
-
+        const commandUserLevel = commandUserData ? commandUserData.level : { count: 0, level: 1 };
         const commandUserRank = ranking.findIndex(data => data.includes(interaction.user.id)) + 1;
-        if (commandUserRank > 10 || commandUserRank === -1) {
-            ranking.splice(9, 0, `****#${filteredLevelData.length + 1} I <@${interaction.user.id}>: レベル:${commandUserLevel.level} XP:${commandUserTotalExp}****`);
+        if (commandUserRank > 10 || commandUserRank === 0) {
+            ranking.splice(9, 0, `****#${filteredLevelData.length} I <@${interaction.user.id}>: レベル:${commandUserLevel.level} XP:${commandUserTotalExp}****`);
         }
 
         const embed = new EmbedBuilder()
             .setColor("Blurple")
             .setAuthor({
                 name: `${interaction.guild.name}`,
-                iconURL: `${interaction.guild.iconURL() || 'https://cdn.discordapp.com/embed/avatars/0.png'}`
+                iconURL: interaction.guild.iconURL() || 'https://cdn.discordapp.com/embed/avatars/0.png'
             })  
             .setDescription(ranking.slice(0, 10).join('\n'))
             .setTimestamp()
             .setFooter({
-                iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 1024 }) || 'https://cdn.discordapp.com/embed/avatars/0.png'}`,
+                iconURL: interaction.user.displayAvatarURL({ dynamic: true, size: 1024 }) || 'https://cdn.discordapp.com/embed/avatars/0.png',
                 text: `${interaction.user.username}さんがコマンドを実行しました`
             });
+
         await interaction.editReply({ embeds: [embed] });
     },
 };

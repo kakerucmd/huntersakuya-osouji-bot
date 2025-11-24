@@ -5,7 +5,6 @@ const levels = new Keyv('sqlite://db.sqlite', { table: 'levels' });
 const settings = new Keyv('sqlite://db.sqlite', { table: 'levelsettings' });
 
 const MAX_LEVEL = 99;
-const EXP_PER_LEVEL = 10;
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -21,29 +20,33 @@ module.exports = {
         if (!isEnabled) { 
             return interaction.reply({ content: `このサーバーではレベル機能が有効化されていません。`, flags: MessageFlags.Ephemeral });
         } 
+
         const user = interaction.options.getUser('user') || interaction.user;
         const key = `${user.id}-${interaction.guild.id}`; 
         const level = (await levels.get(key)) || { count: 0, level: 1 };
 
-        const percentage = Math.round((level.count / (EXP_PER_LEVEL * level.level)) * 100);
-        const progressText = `**${level.count}/${EXP_PER_LEVEL * level.level}XP（${percentage}%）**`;
+        // -------------------------------
+        // 現在のレベルで次のレベルに必要なXP
+        const EXP_TO_NEXT = Math.floor(5 * Math.pow(level.level, 1.5));
+
+        const percentage = Math.round((level.count / EXP_TO_NEXT) * 100);
+        const progressText = `**${level.count}/${EXP_TO_NEXT}XP（${percentage}%）**`;
 
         const embed = new EmbedBuilder()
             .setColor("Blurple")
-            .setThumbnail(`${user.displayAvatarURL() || 'https://cdn.discordapp.com/embed/avatars/0.png'}`)
+            .setThumbnail(user.displayAvatarURL() || 'https://cdn.discordapp.com/embed/avatars/0.png')
             .setAuthor({
                 name: `${interaction.guild.name}`,
-                iconURL: `${interaction.guild.iconURL() || 'https://cdn.discordapp.com/embed/avatars/0.png'}`
+                iconURL: interaction.guild.iconURL() || 'https://cdn.discordapp.com/embed/avatars/0.png'
             })    
-            .setTimestamp()
+            .setTimestamp();
 
         if (level.level === MAX_LEVEL) {
-            embed.setDescription(`<@${user.id}>さんのレベルは${level.level}(最大レベル)です。\n**1110XP（MAX）**\n🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩`);
+            embed.setDescription(`<@${user.id}>さんのレベルは${level.level}(最大レベル)です。\n**XPはMAX**\n🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩`);
         } else {
-            const progress = Math.round((level.count / (EXP_PER_LEVEL * level.level)) * 10);
+            const progress = Math.round((level.count / EXP_TO_NEXT) * 10);
             const progressBar = '🟩'.repeat(progress) + '⬜'.repeat(10 - progress);
-
-            embed.setDescription(`<@${user.id}>さんのレベルは${level.level}です。\n${progressText}\n${progressBar}`)
+            embed.setDescription(`<@${user.id}>さんのレベルは${level.level}です。\n${progressText}\n${progressBar}`);
         }
 
         await interaction.reply({ embeds: [embed] });

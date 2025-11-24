@@ -7,8 +7,6 @@ const levels = new Keyv('sqlite://db.sqlite', { table: 'levels' });
 const settings = new Keyv('sqlite://db.sqlite', { table: 'levelsettings' });
 
 const MAX_LEVEL = 99;
-const EXP_PER_LEVEL = 10;
-const MAX_XP_DISPLAY = 1110;
 
 // 丸角四角形
 function drawRoundedRect(ctx, x, y, width, height, radius, fillColor) {
@@ -136,12 +134,12 @@ module.exports = {
         // XP計算
         let progressText, progress;
         if (level.level === MAX_LEVEL) {
-            progressText = `XP: ${MAX_XP_DISPLAY} (MAX)`; // MAX固定
+            progressText = `XP: MAX`;
             progress = 400;
         } else {
-            const requiredXP = EXP_PER_LEVEL * level.level;
-            progressText = `XP: ${level.count}/${requiredXP} (${Math.round((level.count / requiredXP) * 100)}%)`;
-            progress = Math.round((level.count / requiredXP) * 400);
+            const EXP_TO_NEXT = Math.floor(5 * Math.pow(level.level, 1.5)); // メッセージイベントと同じ
+            progressText = `XP: ${level.count}/${EXP_TO_NEXT} (${Math.round((level.count / EXP_TO_NEXT) * 100)}%)`;
+            progress = Math.round((level.count / EXP_TO_NEXT) * 400);
         }
 
         // XPテキスト
