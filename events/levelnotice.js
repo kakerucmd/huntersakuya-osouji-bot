@@ -74,6 +74,7 @@ module.exports = {
                 if (channel) {
                     const msg = customMessage 
                         ? customMessage.replace('{user.name}', message.author.username)
+                                       .replace('{user.displayname}', message.member ? message.member.displayName : message.author.username)
                                        .replace('{user}', `<@${message.author.id}>`)
                                        .replace('{level}', level.level)
                         : level.level === MAX_LEVEL
