@@ -29,9 +29,9 @@ module.exports = {
 
             let totalExp = 0;
             for (let l = 1; l < level.level; l++) {
-                totalExp += Math.floor(5 * Math.pow(l, 1.5)); // レベルごとの必要XPを加算
+                totalExp += Math.floor(5 * Math.pow(l, 1.5));
             }
-            totalExp += level.count; // 現在レベルの進捗を加算
+            totalExp += level.count;
 
             return { user: member.user, level, totalExp };
         }));
@@ -54,28 +54,32 @@ module.exports = {
             const xpDisplay = data.level.level === MAX_LEVEL ? 'MAX' : data.totalExp;
             const rankDisplay = rank <= 3 ? rankEmojis[rank - 1] : `#${rank}`;
             if (data.user.id === interaction.user.id) {
-                ranking.push(`**${rankDisplay} I <@${data.user.id}> : Lv.${data.level.level} TotalXP:${xpDisplay}**`);
+                ranking.push(`**${rankDisplay} I <@${data.user.id}> : Lv.${data.level.level} (TotalXP:${xpDisplay})**`);
             } else {
-                ranking.push(`${rankDisplay} I <@${data.user.id}> : Lv.${data.level.level} TotalXP:${xpDisplay}`);
+                ranking.push(`${rankDisplay} I <@${data.user.id}> : Lv.${data.level.level} (TotalXP:${xpDisplay})`);
             }
         });
 
-        // 実行者がTOP10にいない場合は表示
+        // 実行者の情報
         const commandUserData = levelData.find(data => data && data.user.id === interaction.user.id);
         const commandUserTotalExp = commandUserData ? commandUserData.totalExp : 0;
         const commandUserLevel = commandUserData ? commandUserData.level : { count: 0, level: 1 };
         const commandUserRank = ranking.findIndex(data => data.includes(interaction.user.id)) + 1;
+
+        // Description（TOP10＋必要なら空行＋自分の順位）
+        let description = ranking.slice(0, 10).join('\n');
         if (commandUserRank > 10 || commandUserRank === 0) {
-            ranking.splice(9, 0, `**#${filteredLevelData.length} I <@${interaction.user.id}>: Lv.${commandUserLevel.level} TotalXP:${commandUserTotalExp}**`);
+            description += `\n…\n**#${commandUserRank} I <@${interaction.user.id}>: Lv.${commandUserLevel.level} (TotalXP:${commandUserTotalExp})**`;
         }
 
         const embed = new EmbedBuilder()
             .setColor("Blurple")
+            .setTitle('💬 SCORE RANKING (TEXT)')
             .setAuthor({
                 name: `${interaction.guild.name}`,
                 iconURL: interaction.guild.iconURL() || 'https://cdn.discordapp.com/embed/avatars/0.png'
             })  
-            .setDescription(ranking.slice(0, 10).join('\n'))
+            .setDescription(description)
             .setTimestamp()
             .setFooter({
                 iconURL: interaction.user.displayAvatarURL({ dynamic: true, size: 1024 }) || 'https://cdn.discordapp.com/embed/avatars/0.png',
