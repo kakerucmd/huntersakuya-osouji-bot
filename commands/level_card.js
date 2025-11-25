@@ -97,7 +97,7 @@ module.exports = {
         ctx.filter = 'none';
 
         // アイコン
-        const avatar = await loadImage(user.displayAvatarURL({ format: 'png' }));
+        const avatar = await loadImage(user.displayAvatarURL({ format: 'png', size: 1024, dynamic: true }));
         const avatarX = 25, avatarY = 25, avatarSize = 200, avatarRadius = 100;
         ctx.save();
         ctx.beginPath();
