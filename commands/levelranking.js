@@ -41,7 +41,8 @@ module.exports = {
         filteredLevelData.sort((a, b) => b.totalExp - a.totalExp);
 
         // ランキング作成
-        let ranking = [];
+        const ranking = [];
+        const rankEmojis = ['🥇', '🥈', '🥉'];
         let prevExp = null;
         let rank = 1;
         filteredLevelData.forEach((data, index) => {
@@ -51,10 +52,11 @@ module.exports = {
             prevExp = data.totalExp;
 
             const xpDisplay = data.level.level === MAX_LEVEL ? 'MAX' : data.totalExp;
+            const rankDisplay = rank <= 3 ? rankEmojis[rank - 1] : `#${rank}`;
             if (data.user.id === interaction.user.id) {
-                ranking.push(`****#${rank} I <@${data.user.id}>: レベル:${data.level.level} XP:${xpDisplay}****`);
+                ranking.push(`**${rankDisplay} I <@${data.user.id}> : Lv.${data.level.level} TotalXP:${xpDisplay}**`);
             } else {
-                ranking.push(`#${rank} I <@${data.user.id}>: レベル:${data.level.level} XP:${xpDisplay}`);
+                ranking.push(`${rankDisplay} I <@${data.user.id}> : Lv.${data.level.level} TotalXP:${xpDisplay}`);
             }
         });
 
@@ -64,7 +66,7 @@ module.exports = {
         const commandUserLevel = commandUserData ? commandUserData.level : { count: 0, level: 1 };
         const commandUserRank = ranking.findIndex(data => data.includes(interaction.user.id)) + 1;
         if (commandUserRank > 10 || commandUserRank === 0) {
-            ranking.splice(9, 0, `****#${filteredLevelData.length} I <@${interaction.user.id}>: レベル:${commandUserLevel.level} XP:${commandUserTotalExp}****`);
+            ranking.splice(9, 0, `**#${filteredLevelData.length} I <@${interaction.user.id}>: Lv.${commandUserLevel.level} TotalXP:${commandUserTotalExp}**`);
         }
 
         const embed = new EmbedBuilder()
