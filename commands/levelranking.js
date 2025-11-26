@@ -11,12 +11,23 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('level_ranking')
         .setDescription('実行したサーバーのレベルランキングを表示します')
-        .setContexts(InteractionContextType.Guild),
+        .setContexts(InteractionContextType.Guild)
+        .addIntegerOption(option =>
+            option.setName('top')
+                .setDescription('表示する上位人数を選択します')
+                .setRequired(false)
+                .addChoices(
+                    { name: 'TOP 10', value: 10 },
+                    { name: 'TOP 20', value: 20 }
+                )
+        ),
     async execute(interaction) {
         const isEnabled = await levelsettings.get(interaction.guild.id);
         if (!isEnabled) { 
             return interaction.reply({ content: 'このサーバーではレベル機能が有効になっていません。', flags: MessageFlags.Ephemeral });
         } 
+
+        const topN = interaction.options.getInteger('top') || 10;
 
         await interaction.deferReply();
 
@@ -53,23 +64,29 @@ module.exports = {
 
             const xpDisplay = data.level.level === MAX_LEVEL ? 'MAX' : data.totalExp;
             const rankDisplay = rank <= 3 ? rankEmojis[rank - 1] : `#${rank}`;
-            if (data.user.id === interaction.user.id) {
-                ranking.push(`**${rankDisplay} I <@${data.user.id}> : Lv.${data.level.level} (TotalXP:${xpDisplay})**`);
-            } else {
-                ranking.push(`${rankDisplay} I <@${data.user.id}> : Lv.${data.level.level} (TotalXP:${xpDisplay})`);
-            }
+            const isUser = data.user.id === interaction.user.id;
+
+            ranking.push(
+                isUser
+                    ? `**${rankDisplay} I <@${data.user.id}> : Lv.${data.level.level} (XP:${xpDisplay})**`
+                    : `${rankDisplay} I <@${data.user.id}> : Lv.${data.level.level} (XP:${xpDisplay})`
+            );
         });
 
-        // 実行者の情報
-        const commandUserData = levelData.find(data => data && data.user.id === interaction.user.id);
+        const commandUserRank = filteredLevelData.findIndex(data => data.user.id === interaction.user.id) + 1;
+
+        const commandUserData = filteredLevelData.find(data => data.user.id === interaction.user.id);
         const commandUserTotalExp = commandUserData ? commandUserData.totalExp : 0;
         const commandUserLevel = commandUserData ? commandUserData.level : { count: 0, level: 1 };
-        const commandUserRank = ranking.findIndex(data => data.includes(interaction.user.id)) + 1;
 
-        // Description（TOP10＋必要なら空行＋自分の順位）
-        let description = ranking.slice(0, 10).join('\n');
-        if (commandUserRank > 10 || commandUserRank === 0) {
-            description += `\n…\n**#${commandUserRank} I <@${interaction.user.id}>: Lv.${commandUserLevel.level} (TotalXP:${commandUserTotalExp})**`;
+        let description = '';
+        if (ranking.length === 0) {
+            description = 'ランキングデータが見つかりません。';
+        } else {
+            description = ranking.slice(0, topN).join('\n');
+            if (commandUserRank > topN) {
+                description += `\n…\n**#${commandUserRank} I <@${interaction.user.id}> : Lv.${commandUserLevel.level} (XP:${commandUserTotalExp})**`;
+            }
         }
 
         const embed = new EmbedBuilder()
