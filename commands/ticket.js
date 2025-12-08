@@ -41,8 +41,8 @@ module.exports = {
 
                     const embed = new EmbedBuilder()
                     .setColor("Blurple")
-                    .setTitle('✨ チケットを作成する')
-                    .setDescription(description + '🎫')
+                    .setTitle('✨ チケットを作成')
+                    .setDescription(description)
                     .setFooter({ text: `${interaction.guild.name}`, iconURL: `${interaction.guild.iconURL() || 'https://cdn.discordapp.com/embed/avatars/0.png'}` });
 
                 await interaction.reply({ content: 'チケットパネルを送信しました。', flags: MessageFlags.Ephemeral });

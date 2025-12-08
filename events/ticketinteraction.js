@@ -15,7 +15,7 @@ module.exports = {
                 .setCustomId('whyTicket')
                 .setRequired(true)
                 .setPlaceholder('チケットを作成する理由')
-                .setLabel('なぜチケットを作成しますか？')
+                .setLabel('詳細')
                 .setStyle(TextInputStyle.Paragraph);
 
                 const info = new TextInputBuilder()
