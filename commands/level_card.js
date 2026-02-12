@@ -137,7 +137,7 @@ module.exports = {
         const displayName = member?.displayName ?? user.username;
 
         // ユーザー名
-        ctx.font = 'bold 40px Arial';
+        ctx.font = 'bold 40px "IPAexGothic"';
         ctx.lineWidth = 3.5;
         ctx.strokeStyle = '#000';
         ctx.strokeText(displayName, 250, 60);
@@ -149,7 +149,7 @@ module.exports = {
             ? `Lv ${level.level} (MAX)`
             : `Lv ${level.level} (Total:${totalXP}XP)`;
 
-        ctx.font = 'bold 30px Arial';
+        ctx.font = 'bold 30px "IPAexGothic"';
         ctx.lineWidth = 3;
         ctx.strokeStyle = '#000';
         ctx.strokeText(lvText, 250, 110);
