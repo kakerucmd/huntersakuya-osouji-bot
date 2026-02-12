@@ -44,31 +44,31 @@ module.exports = {
 
         const totalXP = calculateTotalXP(level.level, level.count);
 
+        const member = await interaction.guild.members.fetch(user.id).catch(() => null);
+
+
         const embed = new EmbedBuilder()
+        
             .setColor("Blurple")
             .setThumbnail(user.displayAvatarURL() || 'https://cdn.discordapp.com/embed/avatars/0.png')
-            .setAuthor({
-                name: interaction.guild.name,
-                iconURL: interaction.guild.iconURL() || 'https://cdn.discordapp.com/embed/avatars/0.png'
-            })    
+            .setTitle(member?.displayName ?? user.username)
             .setTimestamp();
 
         if (level.level === MAX_LEVEL) {
             embed.setDescription(
-                `<@${user.id}>さんのレベルは${level.level}(最大レベル)です。\n` +
-                `**Total:${totalXP}XP(MAX)**\n` +
+                `**Lv ${level.level} (MAX)\n (Total ${totalXP}XP)**\n` +
                 `🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩`
             );
         } else {
             const percentage = Math.round((level.count / EXP_TO_NEXT) * 100);
             const progressText =
-                `**${level.count}/${EXP_TO_NEXT}XP(${percentage}%) Total:${totalXP}XP**`
+                `XP ${level.count}/${EXP_TO_NEXT}(${percentage}%)`
 
             const progress = Math.round((level.count / EXP_TO_NEXT) * 10);
             const progressBar = '🟩'.repeat(progress) + '⬜'.repeat(10 - progress);
 
             embed.setDescription(
-                `<@${user.id}>さんのレベルは${level.level}です。\n${progressText}\n` +
+                `**Lv ${level.level} (Total ${totalXP}XP)\n${progressText}**\n` +
                 `${progressBar}`
             );
         }

@@ -29,8 +29,8 @@ function drawRoundedRect(ctx, x, y, width, height, radius, fillColor) {
 
 // プログレスバー
 function drawProgressBar(ctx, x, y, width, height, radius, fillWidth, fillColor) {
-    // プログレスバー背景
     drawRoundedRect(ctx, x, y, width, height, radius, '#EDEDED');
+
     if (fillWidth > 0) {
         const isFull = fillWidth >= width;
         const leftRadius = radius;
@@ -39,6 +39,7 @@ function drawProgressBar(ctx, x, y, width, height, radius, fillWidth, fillColor)
         ctx.beginPath();
         ctx.moveTo(x + leftRadius, y);
         ctx.lineTo(x + fillWidth - rightRadius, y);
+
         if (rightRadius > 0) {
             ctx.quadraticCurveTo(x + fillWidth, y, x + fillWidth, y + rightRadius);
             ctx.lineTo(x + fillWidth, y + height - rightRadius);
@@ -47,6 +48,7 @@ function drawProgressBar(ctx, x, y, width, height, radius, fillWidth, fillColor)
             ctx.lineTo(x + fillWidth, y);
             ctx.lineTo(x + fillWidth, y + height);
         }
+
         ctx.lineTo(x + leftRadius, y + height);
         ctx.quadraticCurveTo(x, y + height, x, y + height - leftRadius);
         ctx.lineTo(x, y + leftRadius);
@@ -73,10 +75,17 @@ module.exports = {
         .addUserOption(option =>
             option.setName('user')
                 .setDescription('レベルを確認したいユーザー(未指定なら実行者)')
-                .setRequired(false)),
+                .setRequired(false)
+        ),
+
     async execute(interaction) {
         const isEnabled = await settings.get(interaction.guild.id);
-        if (!isEnabled) return interaction.reply({ content: 'このサーバーではレベル機能が有効化されていません。', flags: MessageFlags.Ephemeral });
+        if (!isEnabled) {
+            return interaction.reply({
+                content: 'このサーバーではレベル機能が有効化されていません。',
+                flags: MessageFlags.Ephemeral
+            });
+        }
 
         await interaction.deferReply();
 
@@ -85,18 +94,16 @@ module.exports = {
         const level = (await levels.get(key)) || { count: 0, level: 1 };
         const totalXP = calculateTotalXP(level.level, level.count);
 
-
         const scale = 2;
         const canvas = createCanvas(700 * scale, 250 * scale);
         const ctx = canvas.getContext('2d');
-
         ctx.scale(scale, scale);
 
-        // 背景描画
+        // 背景
         const background = await loadImage(path.resolve(__dirname, '../images/canvas.png'));
         ctx.drawImage(background, 0, 0, 700, 250);
 
-        // UIのブラー・半透明オーバーレイ
+        // UIブラー
         const uiX = 15, uiY = 15, uiWidth = 670, uiHeight = 220, uiRadius = 20;
         ctx.save();
         ctx.beginPath();
@@ -109,77 +116,73 @@ module.exports = {
         ctx.restore();
         ctx.filter = 'none';
 
-        // アイコン
-        const avatar = await loadImage(user.displayAvatarURL({ format: 'png', size: 1024, dynamic: true }));
+        // アバター
+        const avatar = await loadImage(user.displayAvatarURL({ extension: 'png', size: 1024 }));
         const avatarX = 25, avatarY = 25, avatarSize = 200, avatarRadius = 100;
+
         ctx.save();
         ctx.beginPath();
         ctx.arc(avatarX + avatarRadius, avatarY + avatarRadius, avatarRadius, 0, Math.PI * 2);
-        ctx.closePath();
         ctx.clip();
         ctx.drawImage(avatar, avatarX, avatarY, avatarSize, avatarSize);
         ctx.restore();
 
-        // アイコン枠線
         ctx.beginPath();
         ctx.arc(avatarX + avatarRadius, avatarY + avatarRadius, avatarRadius, 0, Math.PI * 2);
         ctx.lineWidth = 3.5;
         ctx.strokeStyle = '#EDEDED';
         ctx.stroke();
-        ctx.closePath();
+
+        const member = interaction.guild.members.cache.get(user.id);
+        const displayName = member?.displayName ?? user.username;
 
         // ユーザー名
         ctx.font = 'bold 40px Arial';
         ctx.lineWidth = 3.5;
-        ctx.strokeStyle = '#000000';
-        ctx.strokeText(user.username, 250, 60);
+        ctx.strokeStyle = '#000';
+        ctx.strokeText(displayName, 250, 60);
         ctx.fillStyle = '#EDEDED';
-        ctx.fillText(user.username, 250, 60);
+        ctx.fillText(displayName, 250, 60);
 
-        // レベル
+        // ===== Lv表示 =====
+        const lvText = level.level === MAX_LEVEL
+            ? `Lv ${level.level} (MAX)`
+            : `Lv ${level.level} (Total:${totalXP}XP)`;
+
         ctx.font = 'bold 30px Arial';
         ctx.lineWidth = 3;
-        ctx.strokeStyle = '#000000';
-        ctx.strokeText(`Lv ${level.level}`, 250, 110);
+        ctx.strokeStyle = '#000';
+        ctx.strokeText(lvText, 250, 110);
         ctx.fillStyle = '#EDEDED';
-        ctx.fillText(`Lv ${level.level}`, 250, 110);
+        ctx.fillText(lvText, 250, 110);
 
-        // XP計算
+        // ===== XP表示 =====
         let progressText, progress;
+
         if (level.level === MAX_LEVEL) {
-            progressText = `Total: ${totalXP}XP (MAX)`;
+            progressText = `(Total:${totalXP}XP)`;
             progress = 400;
         } else {
             const EXP_TO_NEXT = Math.floor(5 * Math.pow(level.level, 1.5));
             const percent = Math.round((level.count / EXP_TO_NEXT) * 100);
-            progressText = `XP: ${level.count}/${EXP_TO_NEXT} (${percent}%)  Total: ${totalXP}XP`;
+
+            progressText = `XP:${level.count}/${EXP_TO_NEXT} (${percent}%)`;
             progress = Math.round((level.count / EXP_TO_NEXT) * 400);
         }
 
-        // XPテキスト
         ctx.lineWidth = 3;
-        ctx.strokeStyle = '#000000';
+        ctx.strokeStyle = '#000';
         ctx.strokeText(progressText, 250, 160);
         ctx.fillStyle = '#EDEDED';
         ctx.fillText(progressText, 250, 160);
 
-        // プログレスバー描画
-        drawProgressBar(ctx, 250, 175, 400, 40, 20, progress, '#78b159');
+        // プログレスバー
+        drawProgressBar(ctx, 250, 175, 400, 40, 20, progress, '#8fd469');
 
-        // プログレスバーの枠線
         ctx.lineWidth = 1.5;
-        ctx.strokeStyle = '#000000';
+        ctx.strokeStyle = '#000';
         ctx.beginPath();
-        ctx.moveTo(250 + 20, 175);
-        ctx.lineTo(250 + 400 - 20, 175);
-        ctx.quadraticCurveTo(250 + 400, 175, 250 + 400, 175 + 20);
-        ctx.lineTo(250 + 400, 175 + 40 - 20);
-        ctx.quadraticCurveTo(250 + 400, 175 + 40, 250 + 400 - 20, 175 + 40);
-        ctx.lineTo(250 + 20, 175 + 40);
-        ctx.quadraticCurveTo(250, 175 + 40, 250, 175 + 40 - 20);
-        ctx.lineTo(250, 175 + 20);
-        ctx.quadraticCurveTo(250, 175, 250 + 20, 175);
-        ctx.closePath();
+        ctx.roundRect(250, 175, 400, 40, 20);
         ctx.stroke();
 
         // 外枠
@@ -189,6 +192,7 @@ module.exports = {
 
         const buffer = canvas.toBuffer('image/png');
         const attachment = new AttachmentBuilder(buffer, { name: 'level.png' });
+
         await interaction.editReply({ files: [attachment] });
     },
 };
