@@ -57,6 +57,14 @@ function drawProgressBar(ctx, x, y, width, height, radius, fillWidth, fillColor)
     }
 }
 
+function calculateTotalXP(level, currentXP) {
+    let total = 0;
+    for (let i = 1; i < level; i++) {
+        total += Math.floor(5 * Math.pow(i, 1.5));
+    }
+    return total + currentXP;
+}
+
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('level_card')
@@ -75,13 +83,18 @@ module.exports = {
         const user = interaction.options.getUser('user') || interaction.user;
         const key = `${user.id}-${interaction.guild.id}`;
         const level = (await levels.get(key)) || { count: 0, level: 1 };
+        const totalXP = calculateTotalXP(level.level, level.count);
 
-        const canvas = createCanvas(700, 250);
+
+        const scale = 2;
+        const canvas = createCanvas(700 * scale, 250 * scale);
         const ctx = canvas.getContext('2d');
+
+        ctx.scale(scale, scale);
 
         // 背景描画
         const background = await loadImage(path.resolve(__dirname, '../images/canvas.png'));
-        ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
+        ctx.drawImage(background, 0, 0, 700, 250);
 
         // UIのブラー・半透明オーバーレイ
         const uiX = 15, uiY = 15, uiWidth = 670, uiHeight = 220, uiRadius = 20;
@@ -90,7 +103,7 @@ module.exports = {
         ctx.roundRect(uiX, uiY, uiWidth, uiHeight, uiRadius);
         ctx.clip();
         ctx.filter = 'blur(4px) brightness(1.05)';
-        ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
+        ctx.drawImage(background, 0, 0, 700, 250);
         ctx.fillStyle = 'rgba(255,255,255,0.1)';
         ctx.fillRect(uiX, uiY, uiWidth, uiHeight);
         ctx.restore();
@@ -134,11 +147,12 @@ module.exports = {
         // XP計算
         let progressText, progress;
         if (level.level === MAX_LEVEL) {
-            progressText = `XP: MAX`;
+            progressText = `Total: ${totalXP}XP (MAX)`;
             progress = 400;
         } else {
-            const EXP_TO_NEXT = Math.floor(5 * Math.pow(level.level, 1.5)); // メッセージイベントと同じ
-            progressText = `XP: ${level.count}/${EXP_TO_NEXT} (${Math.round((level.count / EXP_TO_NEXT) * 100)}%)`;
+            const EXP_TO_NEXT = Math.floor(5 * Math.pow(level.level, 1.5));
+            const percent = Math.round((level.count / EXP_TO_NEXT) * 100);
+            progressText = `XP: ${level.count}/${EXP_TO_NEXT} (${percent}%)  Total: ${totalXP}XP`;
             progress = Math.round((level.count / EXP_TO_NEXT) * 400);
         }
 
@@ -169,9 +183,9 @@ module.exports = {
         ctx.stroke();
 
         // 外枠
-        ctx.lineWidth = 3.5;
+        ctx.lineWidth = 7;
         ctx.strokeStyle = '#EDEDED';
-        ctx.strokeRect(0, 0, canvas.width, canvas.height);
+        ctx.strokeRect(0, 0, 700, 250);
 
         const buffer = canvas.toBuffer('image/png');
         const attachment = new AttachmentBuilder(buffer, { name: 'level.png' });

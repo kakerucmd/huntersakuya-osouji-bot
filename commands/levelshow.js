@@ -6,6 +6,16 @@ const settings = new Keyv('sqlite://db.sqlite', { table: 'levelsettings' });
 
 const MAX_LEVEL = 99;
 
+function calculateTotalXP(level, currentXP) {
+    let total = 0;
+
+    for (let i = 1; i < level; i++) {
+        total += Math.floor(5 * Math.pow(i, 1.5));
+    }
+
+    return total + currentXP;
+}
+
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('level_show')
@@ -14,39 +24,53 @@ module.exports = {
         .addUserOption(option =>
             option.setName('user')
                 .setDescription('レベルを確認したいユーザー(指定しなかったら自身のレベルを表示します)')
-                .setRequired(false)),
+                .setRequired(false)
+        ),
+
     async execute(interaction) {
         const isEnabled = await settings.get(interaction.guild.id);
         if (!isEnabled) { 
-            return interaction.reply({ content: `このサーバーではレベル機能が有効化されていません。`, flags: MessageFlags.Ephemeral });
-        } 
+            return interaction.reply({
+                content: 'このサーバーではレベル機能が有効化されていません。',
+                flags: MessageFlags.Ephemeral
+            });
+        }
 
         const user = interaction.options.getUser('user') || interaction.user;
         const key = `${user.id}-${interaction.guild.id}`; 
         const level = (await levels.get(key)) || { count: 0, level: 1 };
 
-        // -------------------------------
-        // 現在のレベルで次のレベルに必要なXP
         const EXP_TO_NEXT = Math.floor(5 * Math.pow(level.level, 1.5));
 
-        const percentage = Math.round((level.count / EXP_TO_NEXT) * 100);
-        const progressText = `**${level.count}/${EXP_TO_NEXT}XP（${percentage}%）**`;
+        const totalXP = calculateTotalXP(level.level, level.count);
 
         const embed = new EmbedBuilder()
             .setColor("Blurple")
             .setThumbnail(user.displayAvatarURL() || 'https://cdn.discordapp.com/embed/avatars/0.png')
             .setAuthor({
-                name: `${interaction.guild.name}`,
+                name: interaction.guild.name,
                 iconURL: interaction.guild.iconURL() || 'https://cdn.discordapp.com/embed/avatars/0.png'
             })    
             .setTimestamp();
 
         if (level.level === MAX_LEVEL) {
-            embed.setDescription(`<@${user.id}>さんのレベルは${level.level}(最大レベル)です。\n**XPはMAX**\n🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩`);
+            embed.setDescription(
+                `<@${user.id}>さんのレベルは${level.level}(最大レベル)です。\n` +
+                `**Total:${totalXP}XP(MAX)**\n` +
+                `🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩`
+            );
         } else {
+            const percentage = Math.round((level.count / EXP_TO_NEXT) * 100);
+            const progressText =
+                `**${level.count}/${EXP_TO_NEXT}XP(${percentage}%) Total:${totalXP}XP**`
+
             const progress = Math.round((level.count / EXP_TO_NEXT) * 10);
             const progressBar = '🟩'.repeat(progress) + '⬜'.repeat(10 - progress);
-            embed.setDescription(`<@${user.id}>さんのレベルは${level.level}です。\n${progressText}\n${progressBar}`);
+
+            embed.setDescription(
+                `<@${user.id}>さんのレベルは${level.level}です。\n${progressText}\n` +
+                `${progressBar}`
+            );
         }
 
         await interaction.reply({ embeds: [embed] });
