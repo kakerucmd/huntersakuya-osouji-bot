@@ -4,6 +4,7 @@ const Keyv = require('keyv');
 const settings = new Keyv('sqlite://db.sqlite', { table: 'levelsettings' });
 const messages = new Keyv('sqlite://db.sqlite', { table: 'levelmessages' });
 const channels = new Keyv('sqlite://db.sqlite', { table: 'channels' });
+const groups = new Keyv('sqlite://db.sqlite', { table: 'levelgroups' });
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -13,6 +14,20 @@ module.exports = {
         .setContexts(InteractionContextType.Guild)
         .addSubcommand(command => command.setName('setup').setDescription('レベル機能をセットアップします'))
         .addSubcommand(command => command.setName('config').setDescription('レベル機能の追加設定を行います'))
+        .addSubcommand(command =>
+            command
+                .setName('link_accounts')
+                .setDescription('ランキング上でメインアカウントとサブアカウントの経験値をまとめます')
+                .addStringOption(option =>
+                    option.setName('name').setDescription('ユーザ名').setRequired(true)
+                )
+                .addUserOption(option =>
+                    option.setName('user1').setDescription('1人目').setRequired(true)
+                )
+                .addUserOption(option =>
+                    option.setName('user2').setDescription('2人目').setRequired(true)
+                )
+        )
         .addSubcommand(command => command.setName('disable').setDescription('レベル機能の設定を削除し、無効にします。レベルは削除されません。')),
 
     async execute(interaction) {
@@ -81,22 +96,32 @@ module.exports = {
                 }
                 break;
 
-            case 'disable':
-                if (!data) {
-                    await interaction.reply({
-                        content: 'レベル機能が有効化されていません。',
-                        flags: MessageFlags.Ephemeral,
-                    });
-                } else {
-                    await settings.delete(interaction.guild.id);
-                    await messages.delete(interaction.guild.id);
-                    await channels.delete(interaction.guild.id);
-                    await interaction.reply({
-                        content: 'レベル機能の設定を削除し、無効にしました。',
-                        flags: MessageFlags.Ephemeral,
-                    });
-                }
-                break;
+case 'disable':
+    if (!data) {
+        await interaction.reply({
+            content: 'レベル機能が有効化されていません。',
+            flags: MessageFlags.Ephemeral,
+        });
+        return;
+    }
+
+    await settings.delete(interaction.guild.id);
+    await messages.delete(interaction.guild.id);
+    await channels.delete(interaction.guild.id);
+
+    // グループの削除
+    const entries = groups.iterator();
+    for await (const [key, value] of entries) {
+        if (value.guildId === interaction.guild.id) {
+            await groups.delete(key);
+        }
+    }
+
+    await interaction.reply({
+        content: 'レベル機能の設定を削除し、無効にしました。サブアカウントとのリンクも解除済みです。',
+        flags: MessageFlags.Ephemeral,
+    });
+    break;
 
             case 'config':
                 if (!data) {
@@ -115,6 +140,55 @@ module.exports = {
                     });
                 }
                 break;
+
+            case 'link_accounts': {
+                const name = options.getString('name');
+                const user1 = options.getUser('user1');
+                const user2 = options.getUser('user2');
+
+                if (user1.bot || user2.bot) {
+                    return interaction.reply({
+                        content: 'Botは指定できません。',
+                        flags: MessageFlags.Ephemeral,
+                    });
+                }
+
+                if (user1.id === user2.id) {
+                    return interaction.reply({
+                        content: '同じユーザーは指定できません。',
+                        flags: MessageFlags.Ephemeral,
+                    });
+                }
+
+                const entries = groups.iterator();
+
+                for await (const [, data] of entries) {
+                    if (data.guildId !== interaction.guild.id) continue;
+
+                    if (
+                        data.users.includes(user1.id) ||
+                        data.users.includes(user2.id)
+                    ) {
+                        return interaction.reply({
+                            content: 'どちらかのユーザーは既にリンクされています。',
+                            flags: MessageFlags.Ephemeral,
+                        });
+                    }
+                }
+
+                const groupId = `${Date.now()}_${Math.random()}`;
+
+                await groups.set(groupId, {
+                    guildId: interaction.guild.id,
+                    name: name,
+                    users: [user1.id, user2.id],
+                });
+
+                return interaction.reply({
+                    content: `「${name}」として<@${user1.id}>と<@${user2.id}>をリンクしました。`,
+                    flags: MessageFlags.Ephemeral,
+                });
+            }
         }
     }
 };
